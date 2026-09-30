@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>UXR — Headless AI Concept Test Research Questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── IBM Carbon Design Tokens ── */
+:root {
+  --cds-background:          #ffffff;
+  --cds-background-hover:    #e8e8e8;
+  --cds-layer-01:            #f4f4f4;
+  --cds-layer-02:            #e0e0e0;
+  --cds-field-01:            #f4f4f4;
+  --cds-border-subtle-01:    #e0e0e0;
+  --cds-border-strong-01:    #8d8d8d;
+  --cds-text-primary:        #161616;
+  --cds-text-secondary:      #525252;
+  --cds-text-placeholder:    #a8a8a8;
+  --cds-text-helper:         #6f6f6f;
+  --cds-text-on-color:       #ffffff;
+  --cds-interactive:         #0f62fe;
+  --cds-interactive-hover:   #0353e9;
+  --cds-link-primary:        #0f62fe;
+  --cds-background-brand:    #0f62fe;
+  --cds-background-inverse:  #161616;
+  --cds-text-inverse:        #ffffff;
+  --cds-support-error:       #da1e28;
+  --cds-support-success:     #24a148;
+  --cds-support-warning:     #f1c21b;
+  --cds-support-info:        #0043ce;
+  --cds-tag-blue-bg:         #d0e2ff;
+  --cds-tag-blue-text:       #0043ce;
+  --cds-tag-green-bg:        #a7f0ba;
+  --cds-tag-green-text:      #0e6027;
+  --cds-tag-purple-bg:       #e8daff;
+  --cds-tag-purple-text:     #6929c4;
+  --cds-tag-warm-gray-bg:    #e5e0df;
+  --cds-tag-warm-gray-text:  #564f4e;
+  --cds-tag-red-bg:          #ffd7d9;
+  --cds-tag-red-text:        #750e13;
+  --font-sans: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+[id] { scroll-margin-top: 3.5rem; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: .875rem;
+  line-height: 1.5;
+  background: var(--cds-background);
+  color: var(--cds-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.bx--header {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--cds-background-inverse);
+  height: 3rem; display: flex; align-items: center;
+  border-bottom: 1px solid #393939;
+}
+.bx--header__name {
+  display: flex; align-items: center; height: 100%;
+  padding: 0 1rem;
+  font-size: .875rem; font-weight: 600;
+  color: var(--cds-text-inverse);
+  text-decoration: none; gap: .5rem;
+  border-right: 1px solid #393939;
+  white-space: nowrap;
+}
+.bx--header__name span { font-weight: 300; color: #c6c6c6; }
+.bx--header__nav { display: flex; align-items: center; height: 100%; margin-left: auto; }
+.bx--header__nav a {
+  display: flex; align-items: center; height: 100%;
+  padding: 0 1rem;
+  font-size: .875rem; color: #c6c6c6;
+  text-decoration: none; border-bottom: 2px solid transparent;
+  transition: color .1s, border-color .1s;
+}
+.bx--header__nav a:hover { color: #fff; background: #353535; }
+.bx--header__nav a.active { color: #fff; border-bottom-color: var(--cds-interactive); }
+
+/* ── PAGE HERO ── */
+.bx--page-hero {
+  background: var(--cds-background-inverse);
+  padding: 3rem 1rem 2.5rem;
+  color: var(--cds-text-inverse);
+}
+.bx--page-hero__inner { max-width: 1056px; margin: 0 auto; }
+.bx--page-hero__eyebrow {
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #78a9ff; margin-bottom: .5rem;
+}
+.bx--page-hero__title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 300; line-height: 1.2;
+  margin-bottom: .75rem;
+}
+.bx--page-hero__sub {
+  font-size: .875rem; color: #c6c6c6;
+  max-width: 640px; line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.bx--page-hero__meta {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  font-size: .75rem; color: #8d8d8d;
+}
+.bx--page-hero__meta span { display: flex; align-items: center; gap: .375rem; }
+
+/* ── LAYOUT ── */
+.bx--content { max-width: 1056px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+/* ── LEGEND ── */
+.bx--legend {
+  display: flex; flex-wrap: wrap; gap: .75rem;
+  padding: .875rem 1rem;
+  background: var(--cds-layer-01);
+  border: 1px solid var(--cds-border-subtle-01);
+  margin-bottom: 2.5rem;
+}
+.bx--legend__item {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .75rem; color: var(--cds-text-secondary);
+}
+.bx--legend__dot {
+  width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+}
+
+/* ── COVERAGE NOTE ── */
+.bx--inline-note {
+  border-left: 3px solid var(--cds-interactive);
+  background: #edf5ff;
+  padding: .875rem 1rem;
+  font-size: .8125rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+.bx--inline-note strong { color: #0043ce; }
+
+/* ── SECTION ── */
+.bx--section { margin-bottom: 3rem; }
+.bx--section__header {
+  display: flex; align-items: baseline; gap: .75rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--cds-border-subtle-01);
+  margin-bottom: .5rem;
+}
+.bx--section__eyebrow {
+  font-size: .6875rem; font-weight: 700;
+  letter-spacing: .08em; color: var(--cds-interactive);
+  text-transform: uppercase; min-width: 1.5rem;
+}
+.bx--section__title { font-size: 1.25rem; font-weight: 400; }
+.bx--section__subtitle {
+  font-size: .8125rem; color: var(--cds-text-secondary);
+  margin-bottom: 1.5rem; padding-left: 2.25rem;
+}
+
+/* ── RQ LABEL ── */
+.bx--rq-label {
+  font-size: .6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--cds-text-secondary);
+  padding-left: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+/* ── RQ CARD ── */
+.bx--rq { margin-bottom: 1rem; padding-left: 2.25rem; }
+.bx--rq__row { display: flex; gap: .75rem; align-items: flex-start; }
+.bx--rq__id {
+  font-size: .6875rem; font-weight: 700;
+  color: var(--cds-text-on-color);
+  background: var(--cds-interactive);
+  border-radius: 3px; padding: 2px 8px;
+  margin-top: 3px; white-space: nowrap;
+  flex-shrink: 0; letter-spacing: .02em;
+  font-family: var(--font-mono);
+}
+.bx--rq__id--new   { background: #6929c4; }
+.bx--rq__id--ext   { background: #0e6027; }
+.bx--rq__body { flex: 1; }
+.bx--rq__q {
+  font-size: .875rem; color: var(--cds-text-primary);
+  font-weight: 400; margin-bottom: .5rem; line-height: 1.55;
+}
+.bx--probe-list { display: flex; flex-direction: column; gap: .25rem; margin-bottom: .625rem; }
+.bx--probe-item {
+  display: flex; gap: .5rem;
+  font-size: .8125rem; color: var(--cds-text-secondary);
+  line-height: 1.5;
+}
+.bx--probe-item::before {
+  content: '—'; color: var(--cds-interactive);
+  flex-shrink: 0; font-weight: 600;
+}
+.bx--tag-row { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .5rem; }
+.bx--tag {
+  font-size: .6875rem; font-weight: 600;
+  padding: 2px 10px; border-radius: 100px;
+  letter-spacing: .01em; white-space: nowrap;
+}
+.bx--tag--blue   { background: var(--cds-tag-blue-bg);      color: var(--cds-tag-blue-text); }
+.bx--tag--green  { background: var(--cds-tag-green-bg);     color: var(--cds-tag-green-text); }
+.bx--tag--purple { background: var(--cds-tag-purple-bg);    color: var(--cds-tag-purple-text); }
+.bx--tag--gray   { background: var(--cds-tag-warm-gray-bg); color: var(--cds-tag-warm-gray-text); }
+
+/* ── DIVIDER ── */
+.bx--divider { border: none; border-top: 1px solid var(--cds-border-subtle-01); margin: 2.5rem 0; }
+
+/* ── GAP TABLE ── */
+.bx--data-table { width: 100%; border-collapse: collapse; font-size: .8125rem; }
+.bx--data-table th {
+  background: var(--cds-layer-01);
+  border-bottom: 2px solid var(--cds-border-strong-01);
+  border-top: 1px solid var(--cds-border-subtle-01);
+  padding: .625rem .875rem;
+  text-align: left; font-weight: 600;
+  font-size: .6875rem; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--cds-text-secondary);
+}
+.bx--data-table td {
+  border-bottom: 1px solid var(--cds-border-subtle-01);
+  padding: .875rem .875rem;
+  vertical-align: top;
+  color: var(--cds-text-primary);
+  line-height: 1.55;
+}
+.bx--data-table tr:hover td { background: #f4f4f4; }
+.bx--data-table td:first-child { font-weight: 600; color: #161616; }
+
+/* ── FOOTER ── */
+.bx--footer {
+  background: var(--cds-background-inverse);
+  padding: 2rem 1rem;
+  color: #c6c6c6; font-size: .8125rem;
+}
+.bx--footer__inner {
+  max-width: 1056px; margin: 0 auto;
+  display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: flex-start; gap: 1.5rem;
+}
+.bx--footer__brand { font-weight: 600; color: #fff; margin-bottom: .25rem; font-size: .875rem; }
+.bx--footer__breadcrumb { font-size: .75rem; color: #8d8d8d; letter-spacing: .02em; }
+.bx--footer__breadcrumb span { color: #525252; margin: 0 .375rem; }
+.bx--footer__link { color: #78a9ff; text-decoration: none; font-size: .8125rem; }
+.bx--footer__link:hover { text-decoration: underline; }
+.bx--footer__credit { font-size: .75rem; color: #6f6f6f; margin-top: .5rem; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="bx--header">
+  <a class="bx--header__name" href="#">
+    IBM Network Intelligence <span>·</span> <span>UX Research</span>
+  </a>
+  <nav class="bx--header__nav">
+    <a href="uxr_plan.html">Research plan</a>
+    <a href="#" class="active">Research questions</a>
+    <a href="../index.html">Headless</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<div class="bx--page-hero">
+  <div class="bx--page-hero__inner">
+    <div class="bx--page-hero__eyebrow">Headless AI · IBM Design Research</div>
+    <h1 class="bx--page-hero__title">Concept test — Research questions</h1>
+    <p class="bx--page-hero__sub">Covers four validation areas: guardrails &amp; policy comprehension · change impact communication · system health legibility · human-in-the-loop sufficiency. Questions are mapped to existing UXR plan coverage and net-new gaps.</p>
+    <div class="bx--page-hero__meta">
+      <span>11 research questions</span>
+      <span>·</span>
+      <span>3 probes per question</span>
+      <span>·</span>
+      <span>6 additional gap areas</span>
+      <span>·</span>
+      <span>Moderated concept test</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTENT ── -->
+<main class="bx--content">
+
+  <!-- Legend -->
+  <div class="bx--legend">
+    <div class="bx--legend__item"><div class="bx--legend__dot" style="background:#0f62fe"></div> Primary research question</div>
+    <div class="bx--legend__item"><div class="bx--legend__dot" style="background:#0e6027"></div> Extends existing UXR plan task</div>
+    <div class="bx--legend__item"><div class="bx--legend__dot" style="background:#6929c4"></div> Net new — not in current plan</div>
+  </div>
+
+  <!-- Coverage note -->
+  <div class="bx--inline-note">
+    <strong>Note on existing coverage:</strong> The UXR plan at <code>uxr_plan.html</code> already partially addresses guardrails (Task 4 / RO-5) and escalation (Task 3 / RO-3). Questions marked <strong>EXTENDS</strong> sharpen or deepen existing tasks. Questions marked <strong>NET NEW</strong> address gaps not yet covered in the current plan.
+  </div>
+
+  <!-- ── SECTION 01 ── -->
+  <div id="guardrails" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">01</span>
+      <h2 class="bx--section__title">Guardrails &amp; policy — agent behaviour comprehension</h2>
+    </div>
+    <p class="bx--section__subtitle">Does the Policy Studio help users understand what the agent can do, what it is blocked from doing, and how much control the user actually holds?</p>
+
+    <div class="bx--rq-label">Primary research questions</div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id">RQ-1A</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">What understanding do IT operators and compliance officers develop about the agent's autonomous scope when reviewing the Policy Studio permission matrix — and does that understanding accurately reflect what the agent will and will not do?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">Without being told, can you describe what this agent is allowed to do on its own right now — and what requires your sign-off?</li>
+            <li class="bx--probe-item">Where on this screen does it tell you the consequences of each permission level — not just the label?</li>
+            <li class="bx--probe-item">If you had to hand this configuration to a colleague, what would you warn them about?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--blue">Policy Studio</span>
+            <span class="bx--tag bx--tag--green">Extends Task 4</span>
+            <span class="bx--tag bx--tag--gray">RO-5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-1B</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">How accurately do users predict the agent's behaviour in an escalation scenario after reading the permission matrix — and what gaps exist between their mental model and the intended policy logic?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">Given this permission matrix, what do you think the agent would do if it detected a BGP policy violation at 2 am with no human online?</li>
+            <li class="bx--probe-item">The "Modify BGP policy" row says "Approval" — does that mean the action is blocked or queued? Walk me through your reasoning.</li>
+            <li class="bx--probe-item">Is there anything on this screen that surprised you about how much autonomy the agent has?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Policy Studio</span>
+            <span class="bx--tag bx--tag--gray">Mental model accuracy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-1C</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">What do users understand "Approval" versus "Ask" to mean in terms of the agent's runtime behaviour — and do they perceive a meaningful distinction between the two?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">What's the difference between a permission set to "Ask" and one set to "Approval"? Can you describe what each looks like in practice?</li>
+            <li class="bx--probe-item">Which of those two modes feels like the agent is more in control? More like you are?</li>
+            <li class="bx--probe-item">If you set everything to "Approval", what do you expect would happen to the agent's usefulness?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Permission model</span>
+            <span class="bx--tag bx--tag--gray">Vocabulary legibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 02 ── -->
+  <div id="change-impact" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">02</span>
+      <h2 class="bx--section__title">Change impact communication</h2>
+    </div>
+    <p class="bx--section__subtitle">When a user adjusts a guardrail setting, does the system communicate what will change — and is that feedback specific enough to support a confident decision?</p>
+
+    <div class="bx--rq-label">Primary research questions</div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--ext">RQ-2A</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When IT operators and compliance officers adjust a permission level in the Policy Studio, what signals do they use to understand the downstream impact — and is the posture radar sufficient to support a confident save decision?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">You just changed "Restart pods" from Auto to Ask. What changed on the screen? What does that change mean to you in practice?</li>
+            <li class="bx--probe-item">Looking at the posture radar now versus before — what specifically changed, and is that what you expected?</li>
+            <li class="bx--probe-item">Would you feel confident saving this policy right now? What information is missing before you'd click Save?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--green">Extends Task 4</span>
+            <span class="bx--tag bx--tag--blue">Posture radar</span>
+            <span class="bx--tag bx--tag--gray">RO-5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-2B</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">Do users notice and correctly interpret the composite score movement when they modify a permission — and do they treat it as a meaningful gate or as a decorative indicator?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">The composite score changed from 85 to 71 after your last edit. What does that drop tell you?</li>
+            <li class="bx--probe-item">Is there a score below which you would stop and not save the policy?</li>
+            <li class="bx--probe-item">What would you need to understand about how the score is calculated before you trusted it as a decision signal?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Composite score</span>
+            <span class="bx--tag bx--tag--gray">Trust in metric</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-2C</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">What kind of impact preview — if any — do users expect to see before committing a policy change, and how does the absence of a "what happens next" summary affect their confidence?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">Before you save this policy, what would you want the system to show you — for example, a list of upcoming agent actions this change would affect?</li>
+            <li class="bx--probe-item">Is there a type of change where you'd want a mandatory review step before saving — for example, anything touching network permissions?</li>
+            <li class="bx--probe-item">How does this compare to making a similar change in a tool you use today — what does that tool show you before you confirm?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Change preview</span>
+            <span class="bx--tag bx--tag--gray">Expectation gap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 03 ── -->
+  <div id="system-health" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">03</span>
+      <h2 class="bx--section__title">System health communication</h2>
+    </div>
+    <p class="bx--section__subtitle">Does the Canvas dashboard give users a clear, accurate sense of whether the system is healthy — and do they know what to do when it is not?</p>
+
+    <div class="bx--rq-label">Primary research questions</div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--ext">RQ-3A</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">What story do operators construct about overall system health from the Canvas dashboard, and which specific elements drive their assessment — before any explanation is given?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">In one sentence, tell me: is the system healthy right now? What made you say that?</li>
+            <li class="bx--probe-item">Which number or visual element was the first thing you looked at to form that judgment?</li>
+            <li class="bx--probe-item">Is "95% confidence" a health indicator, a risk indicator, or something else to you?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--green">Extends Task 1</span>
+            <span class="bx--tag bx--tag--blue">Canvas dashboard</span>
+            <span class="bx--tag bx--tag--gray">RO-2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-3B</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When the system shows a degraded signal — a failing badge, a declined confidence score, or a "Fix failed" case — do operators understand what action they are expected to take, and do they know where to go next?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">You see "Fix failed" on a case. What does that mean — the agent gave up? A human needs to act? Something else?</li>
+            <li class="bx--probe-item">If fleet health dropped from 94% to 74% overnight, how would you find out what caused it? Can you show me the path on this screen?</li>
+            <li class="bx--probe-item">Is there anything on this dashboard that tells you what to do when something goes wrong — not just that it went wrong?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Degraded state</span>
+            <span class="bx--tag bx--tag--gray">Actionability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-3C</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">Do users understand the relationship between the ambient health indicators (fleet health, confidence score) and the individual agent activity cards — and do they perceive the dashboard as one coherent system view?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">These two cards in the right rail are about specific incidents. How do they relate to the 94% fleet health at the top?</li>
+            <li class="bx--probe-item">If both of these incidents were resolved, what do you think would happen to the health score?</li>
+            <li class="bx--probe-item">Is there a health or status view you'd want that you don't see here? What would it show?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Ambient monitoring</span>
+            <span class="bx--tag bx--tag--gray">Coherence of view</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 04 ── -->
+  <div id="hitl" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">04</span>
+      <h2 class="bx--section__title">Human-in-the-loop sufficiency</h2>
+    </div>
+    <p class="bx--section__subtitle">When the system pulls the user in for a decision — approve, escalate, deny — is the information shown sufficient to act confidently, without needing to leave the screen?</p>
+
+    <div class="bx--rq-label">Primary research questions</div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--ext">RQ-4A</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When operators and compliance officers are presented with an escalation in the Case Detail view, can they make a confident approve or deny decision using only the information on screen — and what information gaps, if any, cause hesitation?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">Based only on what you see here, would you approve or deny this action? Tell me what made that decision easy or hard.</li>
+            <li class="bx--probe-item">The agent has given you a reasoning trace and a confidence score. Is that enough — or do you need to verify something outside this screen before you'd click Approve?</li>
+            <li class="bx--probe-item">What's the single piece of information you wish was on this screen that isn't?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--green">Extends Task 3</span>
+            <span class="bx--tag bx--tag--blue">Case detail</span>
+            <span class="bx--tag bx--tag--gray">RO-3 / RO-4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-4B</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">How do users interpret and use the confidence trajectory chart when deciding whether to approve an escalated action — and does the visual representation support or complicate that judgement?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">This chart shows the agent's confidence over time. What story does it tell you? Is that useful context for your decision?</li>
+            <li class="bx--probe-item">The confidence dropped from 89% to 71% just before the agent escalated. What does that pattern tell you about why the escalation happened?</li>
+            <li class="bx--probe-item">If you had to explain this chart to a non-technical colleague in 30 seconds, what would you say?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Confidence chart</span>
+            <span class="bx--tag bx--tag--gray">Visual legibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-4C</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">Do users understand the reversibility of an approve or deny action — and does the absence of an undo mechanism create anxiety that delays or changes their decision?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">If you click Approve and it turns out to be the wrong call — what happens? Can you undo it?</li>
+            <li class="bx--probe-item">Does anything on this screen tell you whether this action is reversible or permanent?</li>
+            <li class="bx--probe-item">Would knowing the action was reversible change how quickly you'd approve? How about knowing it was irreversible?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Reversibility</span>
+            <span class="bx--tag bx--tag--gray">Decision anxiety</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-4D</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When the system escalates to a user, do they understand the time pressure — if any — on their decision, and does the absence of a deadline or urgency signal affect how they prioritise the action?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">How long do you think you have before this escalation expires or becomes irrelevant?</li>
+            <li class="bx--probe-item">If you closed this panel and came back in 4 hours, would the situation be the same? How do you know?</li>
+            <li class="bx--probe-item">Should this card look different if the issue is worsening while you review it? What would you want to see?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Time urgency</span>
+            <span class="bx--tag bx--tag--gray">Escalation context</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 05 ── -->
+  <div id="gaps" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">05</span>
+      <h2 class="bx--section__title">Additional aspects to consider testing</h2>
+    </div>
+    <p class="bx--section__subtitle">Gaps identified when mapping the four validation areas against the current prototype — not covered by the questions above or the existing UXR plan tasks.</p>
+
+    <table class="bx--data-table">
+      <thead>
+        <tr>
+          <th style="width:22%">Aspect</th>
+          <th style="width:46%">Why it matters</th>
+          <th style="width:32%">Suggested focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Notification load &amp; attention routing</td>
+          <td>When multiple incidents are active simultaneously, do users know which to act on first? The canvas has three draggable cards with no clear priority hierarchy visible at a glance.</td>
+          <td>Show two P1 and one P2 card simultaneously. Ask which they'd handle first and why.</td>
+        </tr>
+        <tr>
+          <td>Delegation intent — when users would turn off oversight</td>
+          <td>The trust meter shows 5 autonomy levels, but the study doesn't ask users where they'd set their own threshold today — a critical adoption signal.</td>
+          <td>After exploring the dashboard, ask: "At which autonomy level would you feel comfortable operating this in production? What would you need to move one level higher?"</td>
+        </tr>
+        <tr>
+          <td>Agent identity &amp; accountability</td>
+          <td>The prototype shows agent identity (name, version, policy, audit trail), but no task asks users whether they can identify which agent acted or who authorised a change — both critical for compliance.</td>
+          <td>Ask users to find the agent responsible for a specific case outcome and identify who authorised its policy.</td>
+        </tr>
+        <tr>
+          <td>Onboarding / first-run comprehension</td>
+          <td>All five tasks assume the user already understands what headless AI is. First-session impressions matter for adoption — do users grasp the paradigm shift before exploring details?</td>
+          <td>Add a pre-task card sort or mental model elicitation before showing any screen: "Describe what you expect this tool to do in one sentence."</td>
+        </tr>
+        <tr>
+          <td>Cross-screen terminology consistency</td>
+          <td>The system uses "guardrail," "policy," "permission," and "scope" sometimes interchangeably. Users may construct conflicting mental models depending on which screen they see first.</td>
+          <td>After all tasks, show a card with five terms and ask users to rank them by how well they describe what they saw — note mismatches.</td>
+        </tr>
+        <tr>
+          <td>Failure &amp; error recovery</td>
+          <td>"Fix failed" appears in the case list but no task explores what users do next. If the agent fails, users need a clear recovery path — testing this prevents designing for success only.</td>
+          <td>Create a scenario: the agent took an action that made things worse. Ask users to trace back the decision and describe what they'd change.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 06 ── -->
+  <div id="screen-map" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">06</span>
+      <h2 class="bx--section__title">Question-to-screen map</h2>
+    </div>
+    <p class="bx--section__subtitle">Maps each research question to the prototype screen where it should be asked.</p>
+
+    <table class="bx--data-table">
+      <thead>
+        <tr>
+          <th style="width:18%">RQ</th>
+          <th style="width:46%">Screen</th>
+          <th style="width:36%">Existing task</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RQ-1A, RQ-1B, RQ-1C</td>
+          <td>Policy Studio — Studio tab (Screen 04)</td>
+          <td>Extends Task 4</td>
+        </tr>
+        <tr>
+          <td>RQ-2A, RQ-2B, RQ-2C</td>
+          <td>Policy Studio — after permission edit (Screen 04)</td>
+          <td>Extends Task 4</td>
+        </tr>
+        <tr>
+          <td>RQ-3A</td>
+          <td>Canvas Dashboard (Screen 01)</td>
+          <td>Extends Task 1</td>
+        </tr>
+        <tr>
+          <td>RQ-3B, RQ-3C</td>
+          <td>Canvas Dashboard — degraded state scenario</td>
+          <td>Net new scenario</td>
+        </tr>
+        <tr>
+          <td>RQ-4A, RQ-4B</td>
+          <td>Case Detail — C-2837 (Screen 03)</td>
+          <td>Extends Task 3</td>
+        </tr>
+        <tr>
+          <td>RQ-4C, RQ-4D</td>
+          <td>Case Detail — any escalation case</td>
+          <td>Net new probes on Task 3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="bx--footer">
+  <div class="bx--footer__inner">
+    <div>
+      <div class="bx--footer__brand">Headless AI</div>
+      <div class="bx--footer__breadcrumb">
+        Recognition <span>→</span> Words <span>→</span> Agreement <span>→</span> Evidence
+      </div>
+      <div class="bx--footer__credit">Designed &amp; developed by JK with Bob</div>
+    </div>
+    <div>
+      <a class="bx--footer__link" href="uxr_plan.html">← Back to research plan</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
