@@ -106,7 +106,7 @@ body {
 }
 .bx--page-hero__sub {
   font-size: .875rem; color: #c6c6c6;
-  max-width: 640px; line-height: 1.6;
+  max-width: 680px; line-height: 1.6;
   margin-bottom: 1.5rem;
 }
 .bx--page-hero__meta {
@@ -144,6 +144,16 @@ body {
   line-height: 1.6;
 }
 .bx--inline-note strong { color: #0043ce; }
+
+/* ── SCREEN PILL ── */
+.bx--screen-pill {
+  display: inline-flex; align-items: center; gap: .375rem;
+  font-size: .6875rem; font-weight: 600;
+  background: #161616; color: #78a9ff;
+  border-radius: 3px; padding: 2px 8px;
+  font-family: var(--font-mono);
+  letter-spacing: .02em; white-space: nowrap;
+}
 
 /* ── SECTION ── */
 .bx--section { margin-bottom: 3rem; }
@@ -212,6 +222,7 @@ body {
 .bx--tag--green  { background: var(--cds-tag-green-bg);     color: var(--cds-tag-green-text); }
 .bx--tag--purple { background: var(--cds-tag-purple-bg);    color: var(--cds-tag-purple-text); }
 .bx--tag--gray   { background: var(--cds-tag-warm-gray-bg); color: var(--cds-tag-warm-gray-text); }
+.bx--tag--red    { background: var(--cds-tag-red-bg);       color: var(--cds-tag-red-text); }
 
 /* ── DIVIDER ── */
 .bx--divider { border: none; border-top: 1px solid var(--cds-border-subtle-01); margin: 2.5rem 0; }
@@ -275,13 +286,15 @@ body {
   <div class="bx--page-hero__inner">
     <div class="bx--page-hero__eyebrow">Headless AI · IBM Design Research</div>
     <h1 class="bx--page-hero__title">Concept test — Research questions</h1>
-    <p class="bx--page-hero__sub">Covers four validation areas: guardrails &amp; policy comprehension · change impact communication · system health legibility · human-in-the-loop sufficiency. Questions are mapped to existing UXR plan coverage and net-new gaps.</p>
+    <p class="bx--page-hero__sub">Covers five validation areas grounded in the headless-new.html prototype screens: Slack escalation entry point · Decision Inbox &amp; plan approval · Guardrail Studio · Health Pulse · Remediation tracker. Questions map to screen-specific interactions including the plan popup, modify chat panel, SLO timer, and notification routing.</p>
     <div class="bx--page-hero__meta">
-      <span>11 research questions</span>
+      <span>15 research questions</span>
       <span>·</span>
       <span>3 probes per question</span>
       <span>·</span>
-      <span>6 additional gap areas</span>
+      <span>5 sections</span>
+      <span>·</span>
+      <span>7 gap areas</span>
       <span>·</span>
       <span>Moderated concept test</span>
     </div>
@@ -300,33 +313,33 @@ body {
 
   <!-- Coverage note -->
   <div class="bx--inline-note">
-    <strong>Note on existing coverage:</strong> The UXR plan at <code>uxr_plan.html</code> already partially addresses guardrails (Task 4 / RO-5) and escalation (Task 3 / RO-3). Questions marked <strong>EXTENDS</strong> sharpen or deepen existing tasks. Questions marked <strong>NET NEW</strong> address gaps not yet covered in the current plan.
+    <strong>Screen coverage:</strong> All questions are anchored to the four tabs in <code>headless-new.html</code> — <strong>Decision Inbox</strong>, <strong>Guardrail Studio</strong>, <strong>Health Pulse</strong>, and <strong>Remediation</strong> — plus the <strong>Slack-alerts</strong> entry screen. New interactions added since the last version (plan popup on option click, modify &amp; approve chat panel, SLO countdown timer, Recommended options list) are covered by net-new questions.
   </div>
 
   <!-- ── SECTION 01 ── -->
-  <div id="guardrails" class="bx--section">
+  <div id="slack-entry" class="bx--section">
     <div class="bx--section__header">
       <span class="bx--section__eyebrow">01</span>
-      <h2 class="bx--section__title">Guardrails &amp; policy — agent behaviour comprehension</h2>
+      <h2 class="bx--section__title">Slack escalation entry — first contact &amp; handoff</h2>
     </div>
-    <p class="bx--section__subtitle">Does the Policy Studio help users understand what the agent can do, what it is blocked from doing, and how much control the user actually holds?</p>
+    <p class="bx--section__subtitle">Does the Slack card give users enough context to act directly — or confidently hand off to the IBM NI interface? Does the "Open in IBM NI" button feel like a natural next step?</p>
 
     <div class="bx--rq-label">Primary research questions</div>
 
     <div class="bx--rq">
       <div class="bx--rq__row">
-        <span class="bx--rq__id">RQ-1A</span>
+        <span class="bx--rq__id bx--rq__id--new">RQ-1A</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">What understanding do IT operators and compliance officers develop about the agent's autonomous scope when reviewing the Policy Studio permission matrix — and does that understanding accurately reflect what the agent will and will not do?</p>
+          <p class="bx--rq__q">When operators first encounter the IBM NI escalation card in Slack, do they understand what the system is asking them to do — and can they distinguish between "Approve recommended", "Open in IBM NI", and "Reject" without explanation?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">Without being told, can you describe what this agent is allowed to do on its own right now — and what requires your sign-off?</li>
-            <li class="bx--probe-item">Where on this screen does it tell you the consequences of each permission level — not just the label?</li>
-            <li class="bx--probe-item">If you had to hand this configuration to a colleague, what would you warn them about?</li>
+            <li class="bx--probe-item">Without reading anything aloud, tell me what you think this card is asking you to do.</li>
+            <li class="bx--probe-item">What's the difference between clicking "Approve recommended" here and clicking "Open in IBM NI"? When would you choose each?</li>
+            <li class="bx--probe-item">Is there anything on this card you'd want to check before clicking any button?</li>
           </ul>
           <div class="bx--tag-row">
-            <span class="bx--tag bx--tag--blue">Policy Studio</span>
-            <span class="bx--tag bx--tag--green">Extends Task 4</span>
-            <span class="bx--tag bx--tag--gray">RO-5</span>
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Slack alert card</span>
+            <span class="bx--tag bx--tag--gray">Entry comprehension</span>
           </div>
         </div>
       </div>
@@ -336,16 +349,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-1B</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">How accurately do users predict the agent's behaviour in an escalation scenario after reading the permission matrix — and what gaps exist between their mental model and the intended policy logic?</p>
+          <p class="bx--rq__q">Do users understand the urgency communicated by the SLO breach timer ("SLO breach in 11 min") in the Slack card — and does it create appropriate pressure or anxiety that changes their decision-making behaviour?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">Given this permission matrix, what do you think the agent would do if it detected a BGP policy violation at 2 am with no human online?</li>
-            <li class="bx--probe-item">The "Modify BGP policy" row says "Approval" — does that mean the action is blocked or queued? Walk me through your reasoning.</li>
-            <li class="bx--probe-item">Is there anything on this screen that surprised you about how much autonomy the agent has?</li>
+            <li class="bx--probe-item">What does "SLO breach in 11 min" mean to you — is that a deadline for you to act, or for the system to act?</li>
+            <li class="bx--probe-item">If this said "SLO breach in 2 min" instead, would you behave differently? What would you do first?</li>
+            <li class="bx--probe-item">Does this timer make you feel more confident or less confident about approving from Slack directly?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Policy Studio</span>
-            <span class="bx--tag bx--tag--gray">Mental model accuracy</span>
+            <span class="bx--tag bx--tag--blue">SLO timer</span>
+            <span class="bx--tag bx--tag--gray">Urgency signal</span>
           </div>
         </div>
       </div>
@@ -355,16 +368,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-1C</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">What do users understand "Approval" versus "Ask" to mean in terms of the agent's runtime behaviour — and do they perceive a meaningful distinction between the two?</p>
+          <p class="bx--rq__q">When clicking "Open in IBM NI" shows a "Connecting IBM Network Intelligence" loader before navigating, does the transition build confidence in the handoff — or does the delay introduce doubt?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">What's the difference between a permission set to "Ask" and one set to "Approval"? Can you describe what each looks like in practice?</li>
-            <li class="bx--probe-item">Which of those two modes feels like the agent is more in control? More like you are?</li>
-            <li class="bx--probe-item">If you set everything to "Approval", what do you expect would happen to the agent's usefulness?</li>
+            <li class="bx--probe-item">You clicked the button and see a loading indicator. What do you think is happening? Does that feel expected?</li>
+            <li class="bx--probe-item">How long would you wait before you assumed something had gone wrong?</li>
+            <li class="bx--probe-item">Does the message "Connecting IBM Network Intelligence" tell you enough about what's happening, or would you want more detail?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Permission model</span>
-            <span class="bx--tag bx--tag--gray">Vocabulary legibility</span>
+            <span class="bx--tag bx--tag--blue">Connecting loader</span>
+            <span class="bx--tag bx--tag--gray">Transition trust</span>
           </div>
         </div>
       </div>
@@ -374,12 +387,12 @@ body {
   <hr class="bx--divider"/>
 
   <!-- ── SECTION 02 ── -->
-  <div id="change-impact" class="bx--section">
+  <div id="decision-inbox" class="bx--section">
     <div class="bx--section__header">
       <span class="bx--section__eyebrow">02</span>
-      <h2 class="bx--section__title">Change impact communication</h2>
+      <h2 class="bx--section__title">Decision Inbox — escalation review &amp; plan approval</h2>
     </div>
-    <p class="bx--section__subtitle">When a user adjusts a guardrail setting, does the system communicate what will change — and is that feedback specific enough to support a confident decision?</p>
+    <p class="bx--section__subtitle">When the system surfaces a decision with recommended options, can users evaluate the plan, understand the steps, and approve or modify with confidence — without leaving the screen?</p>
 
     <div class="bx--rq-label">Primary research questions</div>
 
@@ -387,16 +400,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--ext">RQ-2A</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">When IT operators and compliance officers adjust a permission level in the Policy Studio, what signals do they use to understand the downstream impact — and is the posture radar sufficient to support a confident save decision?</p>
+          <p class="bx--rq__q">When operators are presented with the recommended options list in the Decision Inbox, can they make a confident approve or deny decision using only the information on screen — and what information gaps, if any, cause hesitation?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">You just changed "Restart pods" from Auto to Ask. What changed on the screen? What does that change mean to you in practice?</li>
-            <li class="bx--probe-item">Looking at the posture radar now versus before — what specifically changed, and is that what you expected?</li>
-            <li class="bx--probe-item">Would you feel confident saving this policy right now? What information is missing before you'd click Save?</li>
+            <li class="bx--probe-item">Based only on what you see here, would you approve option 1 or open one of the others? Tell me what made that decision easy or hard.</li>
+            <li class="bx--probe-item">The agent has given you a reason why it escalated and a recommended option. Is that enough — or do you need to verify something outside this screen before you'd act?</li>
+            <li class="bx--probe-item">What's the single piece of information you wish was on this screen that isn't?</li>
           </ul>
           <div class="bx--tag-row">
-            <span class="bx--tag bx--tag--green">Extends Task 4</span>
-            <span class="bx--tag bx--tag--blue">Posture radar</span>
-            <span class="bx--tag bx--tag--gray">RO-5</span>
+            <span class="bx--tag bx--tag--green">Extends Task 3</span>
+            <span class="bx--tag bx--tag--blue">Decision Inbox</span>
+            <span class="bx--tag bx--tag--gray">RO-3 / RO-4</span>
           </div>
         </div>
       </div>
@@ -406,16 +419,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-2B</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">Do users notice and correctly interpret the composite score movement when they modify a permission — and do they treat it as a meaningful gate or as a decorative indicator?</p>
+          <p class="bx--rq__q">When a user clicks a recommended option and a plan popup appears showing execution steps and key parameters, does the plan content increase their confidence — and do they understand what will actually happen before clicking "Approve plan"?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">The composite score changed from 85 to 71 after your last edit. What does that drop tell you?</li>
-            <li class="bx--probe-item">Is there a score below which you would stop and not save the policy?</li>
-            <li class="bx--probe-item">What would you need to understand about how the score is calculated before you trusted it as a decision signal?</li>
+            <li class="bx--probe-item">You've clicked option 1 and a panel opened showing execution steps. Walk me through what you think will happen if you click "Approve plan".</li>
+            <li class="bx--probe-item">Is the "What will happen" section clear enough to act on — or does it raise more questions than it answers?</li>
+            <li class="bx--probe-item">What would make you close this popup and go back to re-read the case detail before approving?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Composite score</span>
-            <span class="bx--tag bx--tag--gray">Trust in metric</span>
+            <span class="bx--tag bx--tag--blue">Plan popup</span>
+            <span class="bx--tag bx--tag--gray">Approval confidence</span>
           </div>
         </div>
       </div>
@@ -425,16 +438,35 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-2C</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">What kind of impact preview — if any — do users expect to see before committing a policy change, and how does the absence of a "what happens next" summary affect their confidence?</p>
+          <p class="bx--rq__q">When users click "Modify &amp; approve" and the AI chat panel slides in from the right, do they understand that they can negotiate changes before approving — and does the chat interface feel appropriate for modifying an operational action?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">Before you save this policy, what would you want the system to show you — for example, a list of upcoming agent actions this change would affect?</li>
-            <li class="bx--probe-item">Is there a type of change where you'd want a mandatory review step before saving — for example, anything touching network permissions?</li>
-            <li class="bx--probe-item">How does this compare to making a similar change in a tool you use today — what does that tool show you before you confirm?</li>
+            <li class="bx--probe-item">You clicked "Modify &amp; approve" and a chat opened. What do you think this is for — is it to ask questions, to change the action, or something else?</li>
+            <li class="bx--probe-item">Looking at the suggestion chips — "Adjust pool size", "Change rollback window" — do those feel like the right options, or are there things you'd want to modify that aren't shown?</li>
+            <li class="bx--probe-item">Would you trust a chat interface to make a parameter change to a production service? What would increase your trust here?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Change preview</span>
-            <span class="bx--tag bx--tag--gray">Expectation gap</span>
+            <span class="bx--tag bx--tag--blue">Modify chat panel</span>
+            <span class="bx--tag bx--tag--gray">Negotiation UX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-2D</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">Do users understand the time pressure communicated by the SLO countdown timer in the Decision Inbox — and does the timer's presence affect which option they choose or how quickly they act?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">You can see a timer counting down here. What happens when it reaches zero — does the system act automatically, or does the case just expire?</li>
+            <li class="bx--probe-item">If you closed this panel and came back in 15 minutes, would the situation be the same? How do you know?</li>
+            <li class="bx--probe-item">Does the timer make you more likely to choose option 1 (the recommended one) rather than spending time reviewing options 2 or 3?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">SLO timer</span>
+            <span class="bx--tag bx--tag--gray">Decision urgency</span>
           </div>
         </div>
       </div>
@@ -444,12 +476,12 @@ body {
   <hr class="bx--divider"/>
 
   <!-- ── SECTION 03 ── -->
-  <div id="system-health" class="bx--section">
+  <div id="guardrails" class="bx--section">
     <div class="bx--section__header">
       <span class="bx--section__eyebrow">03</span>
-      <h2 class="bx--section__title">System health communication</h2>
+      <h2 class="bx--section__title">Guardrail Studio — policy comprehension &amp; change impact</h2>
     </div>
-    <p class="bx--section__subtitle">Does the Canvas dashboard give users a clear, accurate sense of whether the system is healthy — and do they know what to do when it is not?</p>
+    <p class="bx--section__subtitle">Does the Guardrail Studio help users understand what the agent can do autonomously, what it is blocked from doing, and what changes when they edit a guardrail?</p>
 
     <div class="bx--rq-label">Primary research questions</div>
 
@@ -457,16 +489,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--ext">RQ-3A</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">What story do operators construct about overall system health from the Canvas dashboard, and which specific elements drive their assessment — before any explanation is given?</p>
+          <p class="bx--rq__q">What understanding do IT operators and compliance officers develop about the agent's autonomous scope when reviewing the Guardrail Studio table — and does that understanding accurately reflect what the agent will and will not do?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">In one sentence, tell me: is the system healthy right now? What made you say that?</li>
-            <li class="bx--probe-item">Which number or visual element was the first thing you looked at to form that judgment?</li>
-            <li class="bx--probe-item">Is "95% confidence" a health indicator, a risk indicator, or something else to you?</li>
+            <li class="bx--probe-item">Without being told, can you describe what this agent is allowed to do on its own right now — and what would cause it to escalate to you?</li>
+            <li class="bx--probe-item">In the table, what does "Hard" versus "Soft" mean — and which type blocked the restart in the Decision Inbox scenario you just saw?</li>
+            <li class="bx--probe-item">If you had to hand this guardrail configuration to a colleague, what would you warn them about?</li>
           </ul>
           <div class="bx--tag-row">
-            <span class="bx--tag bx--tag--green">Extends Task 1</span>
-            <span class="bx--tag bx--tag--blue">Canvas dashboard</span>
-            <span class="bx--tag bx--tag--gray">RO-2</span>
+            <span class="bx--tag bx--tag--green">Extends Task 4</span>
+            <span class="bx--tag bx--tag--blue">Guardrail Studio</span>
+            <span class="bx--tag bx--tag--gray">RO-5</span>
           </div>
         </div>
       </div>
@@ -476,16 +508,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-3B</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">When the system shows a degraded signal — a failing badge, a declined confidence score, or a "Fix failed" case — do operators understand what action they are expected to take, and do they know where to go next?</p>
+          <p class="bx--rq__q">When users open the Edit Guardrail drawer and adjust a setting, do they understand what downstream impact the change will have — and is the pre-flight preview (blast radius, rollback confidence) sufficient to support a confident save decision?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">You see "Fix failed" on a case. What does that mean — the agent gave up? A human needs to act? Something else?</li>
-            <li class="bx--probe-item">If fleet health dropped from 94% to 74% overnight, how would you find out what caused it? Can you show me the path on this screen?</li>
-            <li class="bx--probe-item">Is there anything on this dashboard that tells you what to do when something goes wrong — not just that it went wrong?</li>
+            <li class="bx--probe-item">You've opened the edit drawer for guardrail G-01. What does changing the window time affect — just this rule, or something else in the system?</li>
+            <li class="bx--probe-item">The drawer shows a rollback confidence score. What does that number tell you — and would a low score stop you from saving?</li>
+            <li class="bx--probe-item">Would you feel confident clicking Save right now? What information is missing before you'd do that?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Degraded state</span>
-            <span class="bx--tag bx--tag--gray">Actionability</span>
+            <span class="bx--tag bx--tag--blue">Edit guardrail drawer</span>
+            <span class="bx--tag bx--tag--gray">Change impact</span>
           </div>
         </div>
       </div>
@@ -495,16 +527,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-3C</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">Do users understand the relationship between the ambient health indicators (fleet health, confidence score) and the individual agent activity cards — and do they perceive the dashboard as one coherent system view?</p>
+          <p class="bx--rq__q">Do users understand the relationship between the guardrail table and the Decision Inbox — specifically, that the case they just reviewed in the Inbox was caused by a hard guardrail visible in the Studio?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">These two cards in the right rail are about specific incidents. How do they relate to the 94% fleet health at the top?</li>
-            <li class="bx--probe-item">If both of these incidents were resolved, what do you think would happen to the health score?</li>
-            <li class="bx--probe-item">Is there a health or status view you'd want that you don't see here? What would it show?</li>
+            <li class="bx--probe-item">Looking at the guardrail table now, can you find the rule that caused the escalation you approved earlier? Point to it.</li>
+            <li class="bx--probe-item">If you edited or disabled that guardrail now, what do you think would happen the next time the same situation occurred?</li>
+            <li class="bx--probe-item">Does this screen feel connected to the Decision Inbox — or does it feel like a separate tool?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Ambient monitoring</span>
-            <span class="bx--tag bx--tag--gray">Coherence of view</span>
+            <span class="bx--tag bx--tag--blue">Guardrail Studio</span>
+            <span class="bx--tag bx--tag--gray">Cross-screen coherence</span>
           </div>
         </div>
       </div>
@@ -514,12 +546,12 @@ body {
   <hr class="bx--divider"/>
 
   <!-- ── SECTION 04 ── -->
-  <div id="hitl" class="bx--section">
+  <div id="health-pulse" class="bx--section">
     <div class="bx--section__header">
       <span class="bx--section__eyebrow">04</span>
-      <h2 class="bx--section__title">Human-in-the-loop sufficiency</h2>
+      <h2 class="bx--section__title">Health Pulse — system legibility &amp; notification routing</h2>
     </div>
-    <p class="bx--section__subtitle">When the system pulls the user in for a decision — approve, escalate, deny — is the information shown sufficient to act confidently, without needing to leave the screen?</p>
+    <p class="bx--section__subtitle">Does the Health Pulse tab give operators a clear, accurate sense of whether the system is running well — and do they understand when and why they will be notified?</p>
 
     <div class="bx--rq-label">Primary research questions</div>
 
@@ -527,16 +559,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--ext">RQ-4A</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">When operators and compliance officers are presented with an escalation in the Case Detail view, can they make a confident approve or deny decision using only the information on screen — and what information gaps, if any, cause hesitation?</p>
+          <p class="bx--rq__q">What story do operators construct about overall system health from the Health Pulse hero panel — and which specific elements (fleet health %, confidence score, silence banner, log entries) drive their initial assessment?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">Based only on what you see here, would you approve or deny this action? Tell me what made that decision easy or hard.</li>
-            <li class="bx--probe-item">The agent has given you a reasoning trace and a confidence score. Is that enough — or do you need to verify something outside this screen before you'd click Approve?</li>
-            <li class="bx--probe-item">What's the single piece of information you wish was on this screen that isn't?</li>
+            <li class="bx--probe-item">In one sentence: is the system healthy right now? What on this screen made you say that?</li>
+            <li class="bx--probe-item">The banner says "All systems nominal — running silently." Does silence feel like a positive signal, or does it make you want to look somewhere else to confirm?</li>
+            <li class="bx--probe-item">What's the difference between "94% fleet health" and "95% confidence score" — do they tell you different things?</li>
           </ul>
           <div class="bx--tag-row">
-            <span class="bx--tag bx--tag--green">Extends Task 3</span>
-            <span class="bx--tag bx--tag--blue">Case detail</span>
-            <span class="bx--tag bx--tag--gray">RO-3 / RO-4</span>
+            <span class="bx--tag bx--tag--green">Extends Task 1</span>
+            <span class="bx--tag bx--tag--blue">Health Pulse</span>
+            <span class="bx--tag bx--tag--gray">RO-2</span>
           </div>
         </div>
       </div>
@@ -546,16 +578,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-4B</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">How do users interpret and use the confidence trajectory chart when deciding whether to approve an escalated action — and does the visual representation support or complicate that judgement?</p>
+          <p class="bx--rq__q">Do users understand the notification routing rules shown in the channel cards — specifically, when a Slack alert fires versus when something stays silent — and do they feel in control of when they will be interrupted?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">This chart shows the agent's confidence over time. What story does it tell you? Is that useful context for your decision?</li>
-            <li class="bx--probe-item">The confidence dropped from 89% to 71% just before the agent escalated. What does that pattern tell you about why the escalation happened?</li>
-            <li class="bx--probe-item">If you had to explain this chart to a non-technical colleague in 30 seconds, what would you say?</li>
+            <li class="bx--probe-item">Looking at the Slack channel card, what conditions will cause a message to be sent to #ops-alerts? Name as many as you can without reading the rules aloud first.</li>
+            <li class="bx--probe-item">The recent log shows "Silent" for two entries and "Slack" for one. What rule caused the Slack one to be sent but not the others?</li>
+            <li class="bx--probe-item">If you wanted to be notified for a specific type of event that isn't listed, where would you go to add that?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Confidence chart</span>
-            <span class="bx--tag bx--tag--gray">Visual legibility</span>
+            <span class="bx--tag bx--tag--blue">Notification channels</span>
+            <span class="bx--tag bx--tag--gray">Routing logic</span>
           </div>
         </div>
       </div>
@@ -565,35 +597,16 @@ body {
       <div class="bx--rq__row">
         <span class="bx--rq__id bx--rq__id--new">RQ-4C</span>
         <div class="bx--rq__body">
-          <p class="bx--rq__q">Do users understand the reversibility of an approve or deny action — and does the absence of an undo mechanism create anxiety that delays or changes their decision?</p>
+          <p class="bx--rq__q">When the recent notifications log shows a mix of auto-resolved, silent, and escalated entries, do users understand the distinction between them — and does the log reinforce or undermine their trust in the system's autonomous behaviour?</p>
           <ul class="bx--probe-list">
-            <li class="bx--probe-item">If you click Approve and it turns out to be the wrong call — what happens? Can you undo it?</li>
-            <li class="bx--probe-item">Does anything on this screen tell you whether this action is reversible or permanent?</li>
-            <li class="bx--probe-item">Would knowing the action was reversible change how quickly you'd approve? How about knowing it was irreversible?</li>
+            <li class="bx--probe-item">Looking at the activity log, which entries required your attention and which ones didn't? How can you tell?</li>
+            <li class="bx--probe-item">The log shows 33 issues auto-resolved this week with no human involvement. Does that feel reassuring, surprising, or worrying?</li>
+            <li class="bx--probe-item">If this log was empty, what would you conclude — that the system is healthy, or that something is wrong?</li>
           </ul>
           <div class="bx--tag-row">
             <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Reversibility</span>
-            <span class="bx--tag bx--tag--gray">Decision anxiety</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bx--rq">
-      <div class="bx--rq__row">
-        <span class="bx--rq__id bx--rq__id--new">RQ-4D</span>
-        <div class="bx--rq__body">
-          <p class="bx--rq__q">When the system escalates to a user, do they understand the time pressure — if any — on their decision, and does the absence of a deadline or urgency signal affect how they prioritise the action?</p>
-          <ul class="bx--probe-list">
-            <li class="bx--probe-item">How long do you think you have before this escalation expires or becomes irrelevant?</li>
-            <li class="bx--probe-item">If you closed this panel and came back in 4 hours, would the situation be the same? How do you know?</li>
-            <li class="bx--probe-item">Should this card look different if the issue is worsening while you review it? What would you want to see?</li>
-          </ul>
-          <div class="bx--tag-row">
-            <span class="bx--tag bx--tag--purple">Net new</span>
-            <span class="bx--tag bx--tag--blue">Time urgency</span>
-            <span class="bx--tag bx--tag--gray">Escalation context</span>
+            <span class="bx--tag bx--tag--blue">Notification log</span>
+            <span class="bx--tag bx--tag--gray">Silent resolution trust</span>
           </div>
         </div>
       </div>
@@ -603,12 +616,82 @@ body {
   <hr class="bx--divider"/>
 
   <!-- ── SECTION 05 ── -->
-  <div id="gaps" class="bx--section">
+  <div id="remediation" class="bx--section">
     <div class="bx--section__header">
       <span class="bx--section__eyebrow">05</span>
+      <h2 class="bx--section__title">Remediation — workflow legibility &amp; agent handoff</h2>
+    </div>
+    <p class="bx--section__subtitle">Does the Remediation tab communicate where a case is in its resolution lifecycle — and do users understand what the agent has done versus what still requires human action?</p>
+
+    <div class="bx--rq-label">Primary research questions</div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-5A</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When operators view the Remediation stepper (Investigation → Ticket → Change Request → Maint. Window → Deploy), do they understand what has already happened autonomously versus what requires their involvement at each stage?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">Looking at this stepper for INC-8841, which steps did the agent complete on its own — and which ones required a human to act?</li>
+            <li class="bx--probe-item">The current step is "Deploy" and it's marked active. What does that mean you should do right now, if anything?</li>
+            <li class="bx--probe-item">If you wanted to understand what happened during the "Change Request" step, where would you go?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Remediation stepper</span>
+            <span class="bx--tag bx--tag--gray">Workflow legibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-5B</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">Do users understand the relationship between the Remediation case list (INC-8841, INC-8839, INC-8835) and the Decision Inbox — and do they perceive remediation as a continuation of the approval flow or as a separate tool?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">INC-8841 appears in both the Decision Inbox and the Remediation tab. Are these the same case? How do they relate to each other?</li>
+            <li class="bx--probe-item">If you approved an action in the Decision Inbox, where would you expect to track whether it worked?</li>
+            <li class="bx--probe-item">The case list shows three incidents at different stages. Which one needs your attention most urgently — and how do you know?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Remediation tab</span>
+            <span class="bx--tag bx--tag--gray">Cross-tab continuity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx--rq">
+      <div class="bx--rq__row">
+        <span class="bx--rq__id bx--rq__id--new">RQ-5C</span>
+        <div class="bx--rq__body">
+          <p class="bx--rq__q">When a canary deployment is in progress (25% traffic shifted), do users understand the risk and the rollback mechanism — and do they feel sufficiently informed to decide whether to proceed or stop?</p>
+          <ul class="bx--probe-list">
+            <li class="bx--probe-item">The canary bar shows 25% traffic shifted. What does that mean in practice — and what happens if something goes wrong at this point?</li>
+            <li class="bx--probe-item">How would you stop this deployment if you wanted to — and is that option visible on this screen?</li>
+            <li class="bx--probe-item">At what percentage shifted would you start to feel nervous — and is there anything on this screen that would tell you whether to be nervous or not?</li>
+          </ul>
+          <div class="bx--tag-row">
+            <span class="bx--tag bx--tag--purple">Net new</span>
+            <span class="bx--tag bx--tag--blue">Canary deployment</span>
+            <span class="bx--tag bx--tag--gray">Risk legibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bx--divider"/>
+
+  <!-- ── SECTION 06 ── -->
+  <div id="gaps" class="bx--section">
+    <div class="bx--section__header">
+      <span class="bx--section__eyebrow">06</span>
       <h2 class="bx--section__title">Additional aspects to consider testing</h2>
     </div>
-    <p class="bx--section__subtitle">Gaps identified when mapping the four validation areas against the current prototype — not covered by the questions above or the existing UXR plan tasks.</p>
+    <p class="bx--section__subtitle">Gaps identified when mapping the five validation areas against the current prototype — not covered by the questions above or the existing UXR plan tasks.</p>
 
     <table class="bx--data-table">
       <thead>
@@ -620,34 +703,39 @@ body {
       </thead>
       <tbody>
         <tr>
-          <td>Notification load &amp; attention routing</td>
-          <td>When multiple incidents are active simultaneously, do users know which to act on first? The canvas has three draggable cards with no clear priority hierarchy visible at a glance.</td>
-          <td>Show two P1 and one P2 card simultaneously. Ask which they'd handle first and why.</td>
+          <td>Multi-decision triage in the Inbox</td>
+          <td>The Decision Inbox shows 3 pending decisions simultaneously (⚡ Urgent, ⚠ Warning, one more). No task tests whether users understand the priority order or know which to act on first.</td>
+          <td>Show the inbox with all 3 cards. Ask: "Which would you handle first and why?" — note whether the urgency tag, SLO timer, or card position drives the answer.</td>
         </tr>
         <tr>
-          <td>Delegation intent — when users would turn off oversight</td>
-          <td>The trust meter shows 5 autonomy levels, but the study doesn't ask users where they'd set their own threshold today — a critical adoption signal.</td>
-          <td>After exploring the dashboard, ask: "At which autonomy level would you feel comfortable operating this in production? What would you need to move one level higher?"</td>
+          <td>Reversibility awareness for approved actions</td>
+          <td>The plan popup shows auto-revert conditions (e.g., "Pool reverts when connections drop below 300") but no task asks whether users understand that the action will reverse automatically — or whether they think it's permanent.</td>
+          <td>After approving from the plan popup, ask: "When does this change go back to normal — and do you need to do anything to make that happen?"</td>
         </tr>
         <tr>
-          <td>Agent identity &amp; accountability</td>
-          <td>The prototype shows agent identity (name, version, policy, audit trail), but no task asks users whether they can identify which agent acted or who authorised a change — both critical for compliance.</td>
-          <td>Ask users to find the agent responsible for a specific case outcome and identify who authorised its policy.</td>
+          <td>Onboarding &amp; mental model alignment</td>
+          <td>All tasks assume users already understand what "headless AI" means. First-session impressions are critical for adoption — users arriving from Slack may have no context for what the IBM NI interface does.</td>
+          <td>Before showing any screen, ask: "Describe what you expect this tool to do in one sentence." Then compare against their mental model after the session.</td>
         </tr>
         <tr>
-          <td>Onboarding / first-run comprehension</td>
-          <td>All five tasks assume the user already understands what headless AI is. First-session impressions matter for adoption — do users grasp the paradigm shift before exploring details?</td>
-          <td>Add a pre-task card sort or mental model elicitation before showing any screen: "Describe what you expect this tool to do in one sentence."</td>
+          <td>Tab navigation &amp; orientation</td>
+          <td>The interface has four tabs — Decision Inbox, Guardrail Studio, Health Pulse, Remediation. No task tests whether users understand what each tab is for or where to go for a given task without guidance.</td>
+          <td>Ask users to find where they would check whether a previously approved action succeeded. Observe whether they navigate to Decision Inbox, Remediation, or Health Pulse first.</td>
         </tr>
         <tr>
-          <td>Cross-screen terminology consistency</td>
-          <td>The system uses "guardrail," "policy," "permission," and "scope" sometimes interchangeably. Users may construct conflicting mental models depending on which screen they see first.</td>
-          <td>After all tasks, show a card with five terms and ask users to rank them by how well they describe what they saw — note mismatches.</td>
+          <td>Modify chat panel — parameter trust</td>
+          <td>The chat panel lets users adjust operational parameters (pool size, rollback window) via a conversational interface. It's unclear whether operators trust a chat UI for production changes, or expect a structured form.</td>
+          <td>After the modify chat demo, ask: "Would you prefer this interface, a form with fields, or something else for making changes before approving? What would give you more confidence?"</td>
         </tr>
         <tr>
           <td>Failure &amp; error recovery</td>
-          <td>"Fix failed" appears in the case list but no task explores what users do next. If the agent fails, users need a clear recovery path — testing this prevents designing for success only.</td>
-          <td>Create a scenario: the agent took an action that made things worse. Ask users to trace back the decision and describe what they'd change.</td>
+          <td>The Health Pulse log shows "Autonomous action failed" as a possible notification trigger, but no task explores what users do when an agent action fails mid-remediation.</td>
+          <td>Create a scenario: an approved pool bump failed to apply. Ask users to trace the failure, identify what happened, and describe what they'd do next.</td>
+        </tr>
+        <tr>
+          <td>Cross-screen terminology consistency</td>
+          <td>The system uses "guardrail," "policy," "hard limit," "scope," and "permission" across different screens. Users may construct conflicting mental models depending on which tab they see first.</td>
+          <td>After all tasks, show a card with six terms and ask users to match each to the screen where they first encountered it. Note mismatches between intended and perceived meaning.</td>
         </tr>
       </tbody>
     </table>
@@ -655,52 +743,83 @@ body {
 
   <hr class="bx--divider"/>
 
-  <!-- ── SECTION 06 ── -->
+  <!-- ── SECTION 07 ── -->
   <div id="screen-map" class="bx--section">
     <div class="bx--section__header">
-      <span class="bx--section__eyebrow">06</span>
+      <span class="bx--section__eyebrow">07</span>
       <h2 class="bx--section__title">Question-to-screen map</h2>
     </div>
-    <p class="bx--section__subtitle">Maps each research question to the prototype screen where it should be asked.</p>
+    <p class="bx--section__subtitle">Maps each research question to the specific screen or interaction where it should be asked in a moderated session.</p>
 
     <table class="bx--data-table">
       <thead>
         <tr>
-          <th style="width:18%">RQ</th>
-          <th style="width:46%">Screen</th>
-          <th style="width:36%">Existing task</th>
+          <th style="width:14%">RQ</th>
+          <th style="width:38%">Screen / Interaction</th>
+          <th style="width:24%">Tab</th>
+          <th style="width:24%">Existing task</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>RQ-1A, RQ-1B, RQ-1C</td>
-          <td>Policy Studio — Studio tab (Screen 04)</td>
-          <td>Extends Task 4</td>
+          <td>Slack alert card — before clicking any button</td>
+          <td>Slack-alerts.html</td>
+          <td>Net new</td>
         </tr>
         <tr>
-          <td>RQ-2A, RQ-2B, RQ-2C</td>
-          <td>Policy Studio — after permission edit (Screen 04)</td>
-          <td>Extends Task 4</td>
-        </tr>
-        <tr>
-          <td>RQ-3A</td>
-          <td>Canvas Dashboard (Screen 01)</td>
-          <td>Extends Task 1</td>
-        </tr>
-        <tr>
-          <td>RQ-3B, RQ-3C</td>
-          <td>Canvas Dashboard — degraded state scenario</td>
-          <td>Net new scenario</td>
-        </tr>
-        <tr>
-          <td>RQ-4A, RQ-4B</td>
-          <td>Case Detail — C-2837 (Screen 03)</td>
+          <td>RQ-2A</td>
+          <td>Decision Inbox — recommended options list</td>
+          <td>Decision Inbox</td>
           <td>Extends Task 3</td>
         </tr>
         <tr>
-          <td>RQ-4C, RQ-4D</td>
-          <td>Case Detail — any escalation case</td>
-          <td>Net new probes on Task 3</td>
+          <td>RQ-2B</td>
+          <td>Plan popup — after clicking an option row</td>
+          <td>Decision Inbox</td>
+          <td>Net new</td>
+        </tr>
+        <tr>
+          <td>RQ-2C</td>
+          <td>Modify &amp; approve chat panel — right panel open</td>
+          <td>Decision Inbox</td>
+          <td>Net new</td>
+        </tr>
+        <tr>
+          <td>RQ-2D</td>
+          <td>Decision Inbox — SLO countdown timer visible</td>
+          <td>Decision Inbox</td>
+          <td>Net new</td>
+        </tr>
+        <tr>
+          <td>RQ-3A, RQ-3B, RQ-3C</td>
+          <td>Guardrail Studio — table view + edit drawer</td>
+          <td>Guardrail Studio</td>
+          <td>Extends Task 4</td>
+        </tr>
+        <tr>
+          <td>RQ-4A</td>
+          <td>Health Pulse — hero status + silence banner</td>
+          <td>Health Pulse</td>
+          <td>Extends Task 1</td>
+        </tr>
+        <tr>
+          <td>RQ-4B, RQ-4C</td>
+          <td>Health Pulse — notification channels + recent log</td>
+          <td>Health Pulse</td>
+          <td>Net new</td>
+        </tr>
+        <tr>
+          <td>RQ-5A, RQ-5B</td>
+          <td>Remediation — stepper + case list</td>
+          <td>Remediation</td>
+          <td>Net new</td>
+        </tr>
+        <tr>
+          <td>RQ-5C</td>
+          <td>Remediation — canary deployment card (INC-8841)</td>
+          <td>Remediation</td>
+          <td>Net new</td>
         </tr>
       </tbody>
     </table>
