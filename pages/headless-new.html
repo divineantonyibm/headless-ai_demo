@@ -529,6 +529,8 @@
   .dc-act-reject:hover { background: #fef2f2; }
   .dc-act-modify { background: #eff6ff; color: #2563eb; border: 1.5px solid #bfdbfe; }
   .dc-act-modify:hover { background: #dbeafe; }
+  .dc-act-trace { background: #faf5ff; color: #7e22ce; border: 1.5px solid #e9d5ff; }
+  .dc-act-trace:hover { background: #f3e8ff; border-color: #d8b4fe; }
 
   /* ── modify chat drawer ── */
   /* ── modify chat right panel (in-flow, pushes content) ── */
@@ -856,6 +858,24 @@
   <div class="gr-drawer-footer">
     <button class="gr-btn gr-btn-secondary" onclick="closeGrDrawer()">Cancel</button>
     <button class="gr-btn gr-btn-primary" onclick="saveGuardrail()">Save &amp; Apply</button>
+  </div>
+</div>
+
+<!-- Reasoning Trace Modal (Decision Inbox) -->
+<div class="modal-backdrop" id="reasoningTraceModal" onclick="if(event.target===this) closeModal('reasoningTraceModal')">
+  <div class="modal" style="width: 560px; max-width: 95vw;">
+    <div class="modal-title" style="display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#f3e8ff;color:#7e22ce;font-size:14px;">🧠</span>
+      <span>Autonomous Reasoning Trace</span>
+    </div>
+    <div class="modal-sub" id="traceModalSub">payment-service · us-east-1</div>
+    <div class="modal-label">Agent Inference &amp; Decision Chain</div>
+    <div class="modal-trace" id="traceModalContent" style="font-size:12px;max-height:260px;overflow-y:auto;"></div>
+    <div class="modal-body" id="traceModalExplanation" style="margin-bottom:16px;"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-cancel" onclick="closeModal('reasoningTraceModal')">Close</button>
+      <button class="modal-btn-confirm" onclick="closeModal('reasoningTraceModal'); actApprove(selectedDecision);">Proceed to Approve</button>
+    </div>
   </div>
 </div>
 
@@ -1436,6 +1456,7 @@
           <div class="dc-actions">
             <button class="dc-act-btn dc-act-approve" onclick="actApprove(0)">✓ Approve recommended</button>
             <button class="dc-act-btn dc-act-modify" onclick="actModify(0)">✎ Modify &amp; approve</button>
+            <button class="dc-act-btn dc-act-trace" onclick="openDecisionReasoningTrace(0)">🧠 Reasoning trace</button>
             <button class="dc-act-btn dc-act-override" onclick="showToast(&#39;Override freeze window — audit entry created&#39;, &#39;orange&#39;)">⚡ Override guardrail</button>
             <button class="dc-act-btn dc-act-reject" onclick="actReject(0)">✕ Reject</button>
           </div>
@@ -1851,7 +1872,16 @@ const DECISIONS = [
       { key:'Historical matches', val:'11 similar cases — 9 resolved via pool bump' },
       { key:'Rollback confidence', val:'94%' },
       { key:'Guardrail blocking', val:'G-01 · Hard limit' },
-    ]
+    ],
+    reasoningTrace: [
+      '14:02:18 UTC [Anomaly Detection] DB connection metric crossed warning threshold (420/500). Continuous rate: +12 conns/min.',
+      '14:03:05 UTC [Root Cause Analysis] Connection pool saturation localized to payment-service pod cluster in us-east-1.',
+      '14:03:42 UTC [Pattern Matching] Cross-referenced vector DB: 11 past incidents matched (pattern: ORM connection timeout leak, cosine sim 0.94).',
+      '14:04:10 UTC [Policy & Guardrail Check] Automated service restart evaluated → BLOCKED by Hard Guardrail G-01 ("No prod restarts weekdays 14:00–16:00 UTC").',
+      '14:04:35 UTC [Remediation Synthesis] Synthesized safe alternative: Dynamic pool limit bump (+50, 8-min window). Zero restart downtime, blast radius confined to 1 service.',
+      '14:05:00 UTC [Escalation Trigger] Confidence score 91% exceeds execution threshold, but G-01 policy constraint requires explicit human approval before execution.'
+    ],
+    reasoningSummary: 'The AI agent detected connection pool saturation and confirmed high confidence from 11 historical cases. While auto-restart is blocked by active freeze guardrail G-01, the agent synthesized a zero-downtime pool bump alternative and escalated for approval.'
   },
   {
     id: 'DEC-002', urgency: 'warn', title: 'Auto-scale approaching hard ceiling — capacity review',
@@ -1867,7 +1897,15 @@ const DECISIONS = [
       { key:'Traffic trend', val:'+18% in last 30 min' },
       { key:'Projected need', val:'4 replicas in 23 min' },
       { key:'Similar past incidents', val:'6 — all resolved by ceiling raise' },
-    ]
+    ],
+    reasoningTrace: [
+      '13:15:00 UTC [Telemetry Intake] checkout-service traffic volume accelerated (+18% delta over 30 min).',
+      '13:28:10 UTC [Capacity Projection] Predictive autoscaler predicts replica requirement of 4.2 within 23 minutes based on flash-sale ingress.',
+      '13:30:44 UTC [Guardrail Evaluation] Current replica count reached 2.8 (93.3% of G-02 Soft Ceiling limit of 3 replicas).',
+      '13:31:00 UTC [Policy Compliance] G-02 Soft Ceiling mandates human review before scaling past 3 replicas to prevent runaway cloud cost.',
+      '13:32:15 UTC [Decision Recommendation] Recommended proactive temporary raise of ceiling to 5 replicas with 4-hour automatic decay.'
+    ],
+    reasoningSummary: 'Predictive forecasting indicates incoming traffic will exceed the 3-replica cap in 23 minutes. Escalated early under Soft Guardrail G-02 to prevent request throttling before user degradation occurs.'
   },
   {
     id: 'DEC-003', urgency: 'info', title: 'Novel pattern — no historical match for routing anomaly',
@@ -1883,7 +1921,15 @@ const DECISIONS = [
       { key:'Pattern type', val:'Novel — no historical match' },
       { key:'Current impact', val:'P95 latency +140ms (within SLO)' },
       { key:'Guardrail', val:'G-03 · Confidence threshold' },
-    ]
+    ],
+    reasoningTrace: [
+      '12:40:00 UTC [Signal Ingestion] Periodic P95 latency spikes (+140ms) observed across ap-southeast-1 gateway routes.',
+      '12:41:20 UTC [Similarity Query] Vector search executed against knowledge base: maximum similarity score 0.48 (no prior matching signature).',
+      '12:42:00 UTC [Confidence Assessment] Evaluated remediation safety model: Confidence score calculated at 62%.',
+      '12:42:30 UTC [Autonomy Check] Guardrail G-03 mandates minimum 85% confidence for autonomous mitigation.',
+      '12:43:00 UTC [Escalation Route] Flagged as novel anomaly; synthesized read-only non-intrusive trace script awaiting approval.'
+    ],
+    reasoningSummary: 'Because this latency signature has no precedent in historical incident repositories, confidence is capped at 62%. Under Guardrail G-03 (minimum 85%), autonomous remediation is held and escalated.'
   }
 ];
 
@@ -1966,6 +2012,7 @@ function renderDecisionDetail(d) {
           <div class="dc-actions">
             <button class="dc-act-btn dc-act-approve" onclick="actApprove(${DECISIONS.indexOf(d)})">✓ Approve recommended</button>
             <button class="dc-act-btn dc-act-modify" onclick="actModify(${DECISIONS.indexOf(d)})">✎ Modify &amp; approve</button>
+            <button class="dc-act-btn dc-act-trace" onclick="openDecisionReasoningTrace(${DECISIONS.indexOf(d)})">🧠 Reasoning trace</button>
             <button class="dc-act-btn dc-act-override" onclick="showToast('Override freeze window — audit entry created', 'orange')">⚡ Override guardrail</button>
             <button class="dc-act-btn dc-act-reject" onclick="actReject(${DECISIONS.indexOf(d)})">✕ Reject</button>
           </div>
@@ -1999,10 +2046,11 @@ const OPTION_PLANS = {
       { label: 'Restart required', val: 'No', cls: 'green' },
     ],
     steps: [
-      { dot: 'green', title: 'Apply pool limit bump', desc: 'payment-service · us-east-1 pool raised from 500 → 550 connections.' },
-      { dot: 'blue',  title: 'Monitor for 8 minutes', desc: 'Agent watches connection count every 10s. Alerts immediately if errors emerge.' },
-      { dot: 'blue',  title: 'Auto-revert trigger', desc: 'Pool reverts when connections drop below 300 or the 8-minute window expires — whichever comes first.' },
-      { dot: 'grey',  title: 'Audit entry written', desc: 'Decision recorded with approver identity, timestamp, and reason.' },
+      { dot: 'green', stage: 'CI / Validation', title: 'Pre-flight Config & Policy Check', desc: 'Automated CI dry-run validates pool param diff (500 → 550), syntax, and schema bounds without downtime.' },
+      { dot: 'blue',  stage: 'CD / Deploy', title: 'Automated Canary Apply & Hot Reload', desc: 'ArgoCD / GitOps pipeline applies patch to payment-service deployment in us-east-1 via zero-restart config reload.' },
+      { dot: 'blue',  stage: 'Automated Testing & SLO Watch', title: 'Synthetic Smoke Tests & 8-Min Telemetry Watch', desc: 'Post-deploy integration tests run. Agent monitors error rate, latency P95, and connection drop rate every 10s.' },
+      { dot: 'blue',  stage: 'Rollback Gate', title: 'Automated Rollback / Auto-Revert Trigger', desc: 'Reverts automatically via pipeline if connection count < 300, 8-min window elapses, or error rate exceeds 0.5%.' },
+      { dot: 'grey',  stage: 'Audit & Compliance', title: 'Pipeline Audit Log & Artifact Receipt', desc: 'Deploy hash, approver signature, and compliance log committed to Git audit ledger.' },
     ],
     approveLabel: 'Approve plan',
     approveStyle: 'green',
@@ -2021,10 +2069,10 @@ const OPTION_PLANS = {
       { label: 'Rollback confidence', val: '71%', cls: 'orange' },
     ],
     steps: [
-      { dot: 'red',   title: 'Override guardrail G-01', desc: 'Freeze window bypassed. Override logged with your identity and timestamp.' },
-      { dot: 'red',   title: 'Initiate service restart', desc: 'payment-service restarted in us-east-1. Expect 30–60 s of degraded availability.' },
-      { dot: 'blue',  title: 'Health check', desc: 'Agent confirms healthy status before returning traffic. Rollback fires automatically if health fails.' },
-      { dot: 'grey',  title: 'Full audit trail written', desc: 'Override reason, approver, and outcome recorded in compliance log.' },
+      { dot: 'red',   stage: 'CI / Security Scan', title: 'Emergency Freeze Bypass & Reason Gate', desc: 'Bypasses guardrail G-01 with mandatory audit reason code; generates emergency CR ticket.' },
+      { dot: 'red',   stage: 'CD / Deploy Pipeline', title: 'Rolling Restart Triggered via CD Pipeline', desc: 'Dispatches deployment pipeline restart job to payment-service pods across us-east-1 nodes (30–60s degradation).' },
+      { dot: 'blue',  stage: 'Health & Readiness Probe', title: 'Readiness Probes & Automated Rollback Guard', desc: 'CD readiness checks monitor endpoint health. Auto-rollback to previous stable replica set if health check fails.' },
+      { dot: 'grey',  stage: 'Compliance Audit', title: 'Post-Deploy Verification & Incident Ledger', desc: 'Records release tag, approver identity, downtime duration, and audit logs to compliance repository.' },
     ],
     approveLabel: 'Override & restart',
     approveStyle: 'danger',
@@ -2041,9 +2089,9 @@ const OPTION_PLANS = {
       { label: 'Re-escalation', val: 'After 26 min if unresolved', cls: '' },
     ],
     steps: [
-      { dot: 'grey', title: 'Automated actions paused', desc: 'System suspends all pending actions for payment-service.' },
-      { dot: 'blue', title: 'Case enters manual queue', desc: 'Visible to on-call team in the incidents channel.' },
-      { dot: 'grey', title: 'Re-escalation scheduled', desc: 'If unresolved after 26 min, a new escalation is issued.' },
+      { dot: 'grey', stage: 'Pipeline Hold', title: 'Suspend Automated CD Pipeline', desc: 'Halts scheduled automated remediation triggers and locks pipeline execution for payment-service.' },
+      { dot: 'blue', stage: 'Incident Routing', title: 'Create Manual Handover Ticket', desc: 'Auto-generates incident ticket with CI test logs and telemetry snapshot dispatched to SRE on-call channel.' },
+      { dot: 'grey', stage: 'Re-escalation', title: 'Scheduled Pipeline Watchdog', desc: 'If manual pipeline run or fix is not confirmed within 26 minutes, watchdog triggers emergency escalation.' },
     ],
     approveLabel: 'Confirm reject',
     approveStyle: 'danger',
@@ -2061,9 +2109,10 @@ const OPTION_PLANS = {
       { label: 'Rollback confidence', val: '91%', cls: 'green' },
     ],
     steps: [
-      { dot: 'green', title: 'Raise auto-scale ceiling', desc: 'checkout-service max replicas updated from 3 → 5 for 4 hours.' },
-      { dot: 'blue',  title: 'Monitor traffic', desc: 'Agent watches replica count and traffic. Reverts when traffic drops below original threshold.' },
-      { dot: 'grey',  title: 'Audit entry written', desc: 'Change recorded with approver and timestamp.' },
+      { dot: 'green', stage: 'CI / GitOps Lint', title: 'HPA Manifest Diff & Pre-validation', desc: 'Validates Horizontal Pod Autoscaler manifest diff (maxReplicas: 3 → 5) against cluster quota limits.' },
+      { dot: 'blue',  stage: 'CD / Deploy', title: 'Sync HPA Policy via GitOps CD', desc: 'ArgoCD / Kubernetes pipeline synchronises new autoscaler ceiling with 4-hour lease window.' },
+      { dot: 'blue',  stage: 'Health & Metrics Check', title: 'Automated Load Test & SLO Watch', desc: 'Monitors pod startup latency, ingress rate, and node memory headroom in eu-west-1.' },
+      { dot: 'grey',  stage: 'Auto-Revert / Cleanup', title: 'Scheduled Auto-Decay & Audit Entry', desc: 'HPA ceiling automatically decays back to 3 replicas upon traffic normalisation or window expiry.' },
     ],
     approveLabel: 'Approve plan',
     approveStyle: 'green',
@@ -2079,9 +2128,9 @@ const OPTION_PLANS = {
       { label: 'SLO risk', val: 'May drift within 23 min', cls: 'red' },
     ],
     steps: [
-      { dot: 'grey',  title: 'No action taken', desc: 'Current 3-replica ceiling remains in place.' },
-      { dot: 'orange', title: 'Excess requests queued', desc: 'Overflow requests queued — latency increase expected.' },
-      { dot: 'blue',  title: 'Re-escalation if SLO breaches', desc: 'If SLO drifts beyond threshold, system re-escalates automatically.' },
+      { dot: 'grey',  stage: 'Pipeline Standby', title: 'Lock HPA at Current Replica Cap (3)', desc: 'Suppresses autoscaler CD deployment; maintains current cluster pod topology.' },
+      { dot: 'orange', stage: 'Traffic Throttle', title: 'Request Rate Limiting & Queue Telemetry', desc: 'Ingress controller throttles and buffers excess traffic. Synthetic probes measure latency drift.' },
+      { dot: 'blue',  stage: 'SLO Breach Watchdog', title: 'Automated Pipeline Escalation on Breach', desc: 'CI/CD pipeline triggers high-priority alert if P99 latency drifts beyond agreed SLA threshold.' },
     ],
     approveLabel: 'Confirm — accept risk',
     approveStyle: 'danger',
@@ -2119,6 +2168,7 @@ function selectOption(el, decIdx, rank) {
         <div class="plan-step-connector"></div>
       </div>
       <div class="plan-step-body">
+        ${s.stage ? `<div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#2563eb;margin-bottom:2px;">${s.stage}</div>` : ''}
         <div class="plan-step-title">${s.title}</div>
         <div class="plan-step-desc">${s.desc}</div>
       </div>
@@ -2145,6 +2195,24 @@ function confirmPlanAction() {
 function actApprove(i) {
   openModal('approveModal');
 }
+
+function openDecisionReasoningTrace(i) {
+  const d = DECISIONS[i] || DECISIONS[selectedDecision];
+  if (!d) return;
+  document.getElementById('traceModalSub').textContent = `${d.id} · ${d.service} — ${d.title}`;
+  
+  const traceLines = d.reasoningTrace && d.reasoningTrace.length
+    ? d.reasoningTrace.map(line => `→ ${line}`).join('\n\n')
+    : `→ Anomaly detected: ${d.title}\n→ Escalated due to: ${d.why}\n→ Evaluated options: ${d.options.map(o => o.title).join(', ')}`;
+
+  document.getElementById('traceModalContent').textContent = traceLines;
+  document.getElementById('traceModalExplanation').innerHTML = d.reasoningSummary
+    ? `<strong>Agent Rationale:</strong> ${d.reasoningSummary}`
+    : `<strong>Agent Rationale:</strong> Escalated because ${d.why}.`;
+
+  openModal('reasoningTraceModal');
+}
+
 function confirmDeploy() {
   closeModal('deployModal');
   advanceCanary();
@@ -2583,7 +2651,7 @@ function simulateAlert() {
         <div class="plan-kv-grid" id="planPopupKv"></div>
       </div>
       <div>
-        <div class="plan-section-label">Execution steps</div>
+        <div class="plan-section-label">CI/CD Execution Pipeline</div>
         <div class="plan-steps" id="planPopupSteps"></div>
       </div>
     </div>
