@@ -367,6 +367,10 @@
   }
   .dc-header-left { flex: 1; }
   .dc-header-badges { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .dc-priority-badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; }
+  .dc-priority-p1 { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+  .dc-priority-p2 { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+  .dc-priority-p3 { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
   .dc-action-req { display: inline-flex; align-items: center; gap: 5px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; }
   .dc-service-tag { font-size: 11px; color: #6b7280; }
   .dc-title { font-size: 18px; font-weight: 500; color: #111827; line-height: 1.35; margin-bottom: 6px; }
@@ -943,6 +947,8 @@
         <button class="nav-tab" onclick="switchTab(&#39;health&#39;, this)">Health Pulse</button>
         <div class="nav-sep"></div>
         <button class="nav-tab" onclick="switchTab(&#39;remediation&#39;, this)">Remediation</button>
+        <div class="nav-sep"></div>
+        <a class="nav-tab" href="headless-workflow.html" style="text-decoration:none;display:inline-flex;align-items:center;">Workflow Flowchart</a>
       </div>
 
       <div class="nav-icons">
@@ -1361,7 +1367,10 @@
             <div id="diList">
     <div class="di-card urgent selected" onclick="selectDecision(0)">
       <div class="di-card-header">
-        <span class="di-card-tag di-tag-urgent">⚡ Urgent</span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span class="di-card-tag di-tag-urgent">P1 Critical</span>
+          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">⚡ Urgent</span>
+        </div>
         <span class="di-card-time">2h ago</span>
       </div>
       <div class="di-card-title">DB connection pool exhausted — prod freeze blocks restart</div>
@@ -1371,7 +1380,10 @@
   
     <div class="di-card  " onclick="selectDecision(1)">
       <div class="di-card-header">
-        <span class="di-card-tag di-tag-warn">Review</span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span class="di-card-tag di-tag-warn">P2 High</span>
+          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">Review</span>
+        </div>
         <span class="di-card-time">45 min ago</span>
       </div>
       <div class="di-card-title">Auto-scale approaching hard ceiling — capacity review</div>
@@ -1381,7 +1393,10 @@
   
     <div class="di-card  " onclick="selectDecision(2)">
       <div class="di-card-header">
-        <span class="di-card-tag di-tag-info">Info</span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span class="di-card-tag di-tag-info">P3 Medium</span>
+          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">Info</span>
+        </div>
         <span class="di-card-time">1h 20 min ago</span>
       </div>
       <div class="di-card-title">Novel pattern — no historical match for routing anomaly</div>
@@ -1395,6 +1410,7 @@
       <div class="dc-header">
         <div class="dc-header-left">
           <div class="dc-header-badges">
+            <span class="dc-priority-badge dc-priority-p1">🔴 P1 Critical</span>
             <span class="dc-action-req">⚡ Action Required</span>
             <span class="dc-service-tag">payment-service · us-east-1</span>
           </div>
@@ -1860,7 +1876,7 @@ buildHpLog();
 ═══════════════════════════════════════════ */
 const DECISIONS = [
   {
-    id: 'DEC-001', urgency: 'urgent', title: 'DB connection pool exhausted — prod freeze blocks restart',
+    id: 'DEC-001', urgency: 'urgent', priority: 'P1 Critical', priorityClass: 'p1', title: 'DB connection pool exhausted — prod freeze blocks restart',
     service: 'payment-service · us-east-1', sloLabel: 'SLO breach in 11 min', time: '2h ago',
     summary: 'DB connections peaked at 498/500 (99.6%). Auto-restart is blocked by hard guardrail: <em>no restarts weekdays 14:00–16:00 UTC</em>. System recommends temporary pool limit increase as a non-restart alternative.',
     why: 'Hard guardrail G-01 would be crossed — "No prod restarts weekdays 14:00–16:00 UTC"',
@@ -1888,7 +1904,7 @@ const DECISIONS = [
     reasoningSummary: 'The AI agent detected connection pool saturation and confirmed high confidence from 11 historical cases. While auto-restart is blocked by active freeze guardrail G-01, the agent synthesized a zero-downtime pool bump alternative and escalated for approval.'
   },
   {
-    id: 'DEC-002', urgency: 'warn', title: 'Auto-scale approaching hard ceiling — capacity review',
+    id: 'DEC-002', urgency: 'warn', priority: 'P2 High', priorityClass: 'p2', title: 'Auto-scale approaching hard ceiling — capacity review',
     service: 'checkout-service · eu-west-1', sloLabel: '23 min before breach', time: '45 min ago',
     summary: 'checkout-service has scaled to 2.8 of 3 maximum replicas (soft limit G-02). Traffic is projected to require 4 replicas within 23 minutes. Current guardrail caps auto-scale at 3.',
     why: 'Soft guardrail G-02 drift at 93% of threshold — recommended review before breach',
@@ -1912,7 +1928,7 @@ const DECISIONS = [
     reasoningSummary: 'Predictive forecasting indicates incoming traffic will exceed the 3-replica cap in 23 minutes. Escalated early under Soft Guardrail G-02 to prevent request throttling before user degradation occurs.'
   },
   {
-    id: 'DEC-003', urgency: 'info', title: 'Novel pattern — no historical match for routing anomaly',
+    id: 'DEC-003', urgency: 'info', priority: 'P3 Medium', priorityClass: 'p3', title: 'Novel pattern — no historical match for routing anomaly',
     service: 'api-gateway · ap-southeast-1', sloLabel: 'No immediate breach', time: '1h 20 min ago',
     summary: 'Unusual latency spike pattern detected on api-gateway. Confidence score is 62% — below the 85% threshold required for autonomous action. No matching historical case found.',
     why: 'Confidence score (62%) is below autonomous action threshold (G-03 · 85%)',
@@ -1944,7 +1960,10 @@ function buildDiList() {
   list.innerHTML = DECISIONS.map((d, i) => `
     <div class="di-card ${d.urgency === 'urgent' ? 'urgent' : ''} ${i === selectedDecision ? 'selected' : ''}" onclick="selectDecision(${i})">
       <div class="di-card-header">
-        <span class="di-card-tag di-tag-${d.urgency === 'urgent' ? 'urgent' : d.urgency === 'warn' ? 'warn' : 'info'}">${d.urgency === 'urgent' ? '⚡ Urgent' : d.urgency === 'warn' ? 'Review' : 'Info'}</span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span class="di-card-tag di-tag-${d.urgency === 'urgent' ? 'urgent' : d.urgency === 'warn' ? 'warn' : 'info'}">${d.priority || (d.urgency === 'urgent' ? 'P1 Critical' : d.urgency === 'warn' ? 'P2 High' : 'P3 Info')}</span>
+          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">${d.urgency === 'urgent' ? '⚡ Urgent' : d.urgency === 'warn' ? 'Review' : 'Info'}</span>
+        </div>
         <span class="di-card-time">${d.time}</span>
       </div>
       <div class="di-card-title">${d.title}</div>
@@ -1962,11 +1981,15 @@ function selectDecision(i) {
 
 function renderDecisionDetail(d) {
   const isUrgent = d.urgency === 'urgent';
+  const priorityClass = d.priorityClass || (d.urgency === 'urgent' ? 'p1' : d.urgency === 'warn' ? 'p2' : 'p3');
+  const priorityLabel = d.priority || (d.urgency === 'urgent' ? 'P1 Critical' : d.urgency === 'warn' ? 'P2 High' : 'P3 Medium');
+
   document.getElementById('diDetail').innerHTML = `
     <div class="dc-card">
       <div class="dc-header">
         <div class="dc-header-left">
           <div class="dc-header-badges">
+            <span class="dc-priority-badge dc-priority-${priorityClass}">🔴 ${priorityLabel}</span>
             <span class="dc-action-req">⚡ Action Required</span>
             <span class="dc-service-tag">${d.service}</span>
           </div>
