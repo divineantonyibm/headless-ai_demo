@@ -745,7 +745,7 @@
       <div class="hero-title-area">
         <h1>Closed-Loop <strong>Autonomous Ops Workflow</strong></h1>
         <p class="hero-subtitle">
-          Real-time execution architecture mapping <strong>Day 0 (Design &amp; Guardrails)</strong>, <strong>Day 1 (Simulation &amp; Rollout)</strong>, and <strong>Day 2 (Detection &amp; Closed-Loop Escalation)</strong>. Illustrates the headless backend orchestration when an operator approves a recommendation in <strong>Slack</strong>, <strong>ServiceNow</strong>, or <strong>IBM SevOne NPM</strong> — triggering automated Change Requests, pre-flight CI dry-run checks, zero-downtime configuration rollout, and live telemetry verification.
+          Real-time execution architecture mapping <strong>Day 0 (Design &amp; Guardrails)</strong>, <strong>Day 1 (Simulation &amp; Rollout)</strong>, and <strong>Day 2 (Detection &amp; Closed-Loop Escalation)</strong>. Illustrates the headless backend orchestration when an operator approves a recommendation in <strong>Slack / Mattermost / INI</strong> or <strong>ServiceNow</strong> — linking investigations to Change Requests, scheduling maintenance windows with alarm suppression, applying SevOne threshold changes, and streaming live verification.
         </p>
 
         <!-- Use Case Specific Hero Alert Bar -->
@@ -753,19 +753,12 @@
           <div class="usecase-left">
             <span class="usecase-tag">Active Scenario</span>
             <span class="usecase-desc">
-              <strong>DB connection pool exhausted (498/500, 99.6%) on payment-service:</strong> Auto-restart blocked by hard guardrail <em>G-01 (Prod Freeze 14:00–16:00 UTC)</em> &rarr; Agent synthesizes zero-downtime pool bump (+50, 8-min lease) &rarr; SRE approves via Slack &rarr; Backend auto-creates ServiceNow CR and pushes live config.
+              <strong>SevOne Threshold &amp; DB Connection Optimization on payment-service:</strong> High noise &amp; pool saturation &rarr; INI agent synthesizes SevOne threshold policy update (20 &rarr; 61 Mbps / +50 pool buffer) &rarr; SRE audits via <em>"Go to INI"</em> deep-link &amp; approves in ChatOps (Slack / Mattermost) &rarr; Backend auto-generates linked Change Request (CR-2024-0147), queues execution to <strong>Maintenance Window</strong> with alarm suppression, applies SevOne policy update, and verifies closed-loop recovery.
             </span>
           </div>
         </div>
       </div>
 
-      <div class="filter-bar">
-        <span class="filter-label">Filter Phase:</span>
-        <button class="day-pill pill-all active" onclick="filterLifecycle('all')">All Phases</button>
-        <button class="day-pill pill-day0" onclick="filterLifecycle('day0')">Day 0 (Plan / Policy)</button>
-        <button class="day-pill pill-day1" onclick="filterLifecycle('day1')">Day 1 (Test / Apply)</button>
-        <button class="day-pill pill-day2" onclick="filterLifecycle('day2')">Day 2 (Detect / Reason)</button>
-      </div>
     </div>
   </header>
 
@@ -929,9 +922,9 @@
           <g class="flow-node node-group-day0 node-group-day1" id="node-recommend" onclick="selectStep('recommend')">
             <rect class="node-box" x="740" y="220" width="105" height="115" rx="8" fill="#bae6fd" stroke="#38bdf8" stroke-width="2" />
             <text x="749" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#0369a1">Recommend:</text>
-            <text x="749" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">Slack card;</text>
-            <text x="749" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">NL telemetry Q&amp;A</text>
-            <text x="749" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">&amp; 1-click approve</text>
+            <text x="749" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">ChatOps card;</text>
+            <text x="749" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">'Go to INI' link &amp;</text>
+            <text x="749" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">1-click approve</text>
             <!-- Badge Day 0/1 -->
             <rect x="785" y="323" width="60" height="18" rx="4" fill="#2563eb" />
             <text x="789" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 0/1</text>
@@ -942,9 +935,9 @@
             <rect class="node-box" x="890" y="220" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="899" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Test:</text>
             <text x="899" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">dry-run param</text>
-            <text x="899" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">diff (500&rarr;550)</text>
-            <text x="899" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">RAM (+18MB) &amp;</text>
-            <text x="899" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">schema bounds</text>
+            <text x="899" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">diff (20&rarr;61 Mbps)</text>
+            <text x="899" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">RAM/noise bounds</text>
+            <text x="899" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; schema checks</text>
             <!-- Badge Day 1 -->
             <rect x="950" y="323" width="45" height="18" rx="4" fill="#2563eb" />
             <text x="956" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 1</text>
@@ -954,10 +947,10 @@
           <g class="flow-node node-group-day1" id="node-apply" onclick="selectStep('apply')">
             <rect class="node-box" x="1040" y="220" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="1049" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Apply:</text>
-            <text x="1049" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">ServiceNow CR</text>
-            <text x="1049" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">auto-created; zero-</text>
-            <text x="1049" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">downtime rollout</text>
-            <text x="1049" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">in 4.2s (no restart)</text>
+            <text x="1049" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">CR created &amp; linked</text>
+            <text x="1049" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">to Maint. Window;</text>
+            <text x="1049" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">alarm suppression</text>
+            <text x="1049" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; SevOne update</text>
             <!-- Badge Day 1 -->
             <rect x="1100" y="323" width="45" height="18" rx="4" fill="#2563eb" />
             <text x="1106" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 1</text>
@@ -967,10 +960,10 @@
           <g class="flow-node node-group-day2" id="node-monitor" onclick="selectStep('monitor')">
             <rect class="node-box" x="1190" y="220" width="110" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="1199" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Monitor:</text>
-            <text x="1199" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">SevOne streams</text>
-            <text x="1199" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">live drop &lt;300; auto-</text>
-            <text x="1199" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">revert, resolves INC</text>
-            <text x="1199" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; posts to Slack</text>
+            <text x="1199" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">SevOne verifies</text>
+            <text x="1199" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">61 Mbps policy;</text>
+            <text x="1199" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">closes CR &amp; INC,</text>
+            <text x="1199" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">notifies ChatOps</text>
             <!-- Badge Day 2 -->
             <rect x="1255" y="323" width="45" height="18" rx="4" fill="#15803d" />
             <text x="1261" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
@@ -1087,20 +1080,20 @@
 
           <div class="activity-card" onclick="selectStep('apply')">
             <div class="act-head">
-              <span class="act-node-name">Apply Hot-Config Deployment</span>
-              <span class="act-sevone-badge">ServiceNow CR + Ansible</span>
+              <span class="act-node-name">Change Request &amp; Maintenance Window</span>
+              <span class="act-sevone-badge">ServiceNow CR + SevOne</span>
             </div>
-            <p class="act-desc">Creates approved ServiceNow Change Request CR-2024-0147 and pushes live pool limit bump (+50, 8-min lease) without restarting pods.</p>
-            <div class="act-sevone-detail">ServiceNow CR-2024-0147 · Applied in 4.2s (no restart)</div>
+            <p class="act-desc">Creates CR-2024-0147 linked to Incident INC-8841, schedules upcoming Maintenance Window, applies alarm suppression during change, and pushes SevOne threshold policy to 61 Mbps.</p>
+            <div class="act-sevone-detail">CR-2024-0147 linked to Maint. Window · Alarms suppressed · SevOne policy updated</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('recommend')">
             <div class="act-head">
-              <span class="act-node-name">Slack-Native Decision &amp; NL Query</span>
-              <span class="act-sevone-badge">Slack / In-App</span>
+              <span class="act-node-name">ChatOps Approval &amp; INI Deep-Link</span>
+              <span class="act-sevone-badge">Slack / Mattermost</span>
             </div>
-            <p class="act-desc">Issues interactive Slack card with NL-to-telemetry chart retrieval and 1-click operator approval for the pool bump.</p>
-            <div class="act-sevone-detail">Operator approved via Slack Block Kit in 1 click</div>
+            <p class="act-desc">Issues interactive decision card with direct "Go to INI" deep link, NL-to-telemetry chart retrieval, and 1-click operator approval for SevOne threshold update.</p>
+            <div class="act-sevone-detail">Operator audits in INI &amp; approves via Mattermost / Slack</div>
           </div>
         </div>
 
@@ -1115,38 +1108,38 @@
 
           <div class="activity-card" onclick="selectStep('detect')">
             <div class="act-head">
-              <span class="act-node-name">Detect Pool Saturation</span>
+              <span class="act-node-name">Detect Noise &amp; Threshold Breach</span>
               <span class="act-sevone-badge">NI · SevOne Kafka</span>
             </div>
-            <p class="act-desc">SevOne NPM streams metrics via Kafka to IBM Network Intelligence. NI's Granite time-series AI detects the 498/500 surge (99.6%) and auto-opens investigation INC-8841.</p>
-            <div class="act-sevone-detail">NI INC-8841 · P1 Critical · 498/500 conns · +12 conns/min</div>
+            <p class="act-desc">SevOne NPM streams metrics via Kafka to IBM Network Intelligence. NI's Granite AI detects system noise and threshold pressure (20 Mbps current policy) and auto-opens investigation INC-8841.</p>
+            <div class="act-sevone-detail">NI INC-8841 · P1 Alert · SevOne policy 67: 20 Mbps breached</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('reason')">
             <div class="act-head">
-              <span class="act-node-name">Reason &amp; Guardrail Check</span>
+              <span class="act-node-name">Reason &amp; Policy Calibration</span>
               <span class="act-sevone-badge">NI NOC Agent</span>
             </div>
-            <p class="act-desc">NI NOC AI agent (reasoning + RAG + function-calling) cross-correlates SevOne metrics and grounding docs → intercepts G-01 freeze → synthesizes pool alternative.</p>
-            <div class="act-sevone-detail">NI RCA: restart blocked by G-01; pool bump (94% conf)</div>
+            <p class="act-desc">NI NOC AI agent cross-correlates SevOne telemetry and grounding MOPs &rarr; intercepts prod freeze &rarr; recommends SevOne threshold change to 61 Mbps.</p>
+            <div class="act-sevone-detail">NI Recommendation: SevOne threshold 20 &rarr; 61 Mbps (94% conf)</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('close')">
             <div class="act-head">
               <span class="act-node-name">Escalate &amp; ServiceNow Incident</span>
-              <span class="act-sevone-badge">ServiceNow + Slack</span>
+              <span class="act-sevone-badge">ServiceNow + ChatOps</span>
             </div>
-            <p class="act-desc">Suppresses alert storms, generates pre-populated ServiceNow Incident INC-8841, and dispatches interactive Slack Block Kit alert.</p>
-            <div class="act-sevone-detail">ServiceNow INC-8841 created · Slack #ops-alerts notified</div>
+            <p class="act-desc">Suppresses alert storms, generates pre-populated ServiceNow Incident INC-8841 with INI investigation ID, and dispatches interactive Mattermost/Slack alert.</p>
+            <div class="act-sevone-detail">ServiceNow INC-8841 created · Linked to INI Investigation</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('monitor')">
             <div class="act-head">
-              <span class="act-node-name">Monitor &amp; Auto-Revert Loop</span>
+              <span class="act-node-name">Monitor &amp; Closed-Loop Verification</span>
               <span class="act-sevone-badge">SevOne Stream + NI</span>
             </div>
-            <p class="act-desc">SevOne streams live recovery metrics (284/500). System auto-reverts pool to 500, auto-resolves ServiceNow ticket, and notifies Slack.</p>
-            <div class="act-sevone-detail">NI closed-loop: 284/500 · ServiceNow auto-resolved · Slack confirmed</div>
+            <p class="act-desc">SevOne streams live verification metrics showing 61 Mbps active policy and zero noise. System auto-closes ServiceNow CR &amp; INC, lifts alarm suppression, and notifies ChatOps.</p>
+            <div class="act-sevone-detail">SevOne verified 61 Mbps · CR/INC resolved · ChatOps confirmed</div>
           </div>
         </div>
       </div>
@@ -1304,41 +1297,43 @@
 }`
       },
       recommend: {
-        title: "8. Recommend: Slack-Native Decision Card & Conversational NL Query",
-        desc: "NI surfaces an interactive Slack card to on-call SREs with the recommended zero-downtime pool bump (+50, 8-min lease). Operators can ask natural-language questions in Slack ('@NI show latency trend'), which NI translates to SevOne telemetry queries and returns live charts, before the operator clicks 'Approve recommended' in 1 click.",
-        day: "Day 0/1 (Slack-Native Staging & Interactive Proposal)",
-        proto: "Headless Slack Block Kit / NL-to-Telemetry Engine / SevOne NPM Query API",
-        type: "Slack Decision Card · Conversational Query Result · Risk Assessment",
+        title: "8. Recommend: ChatOps Decision Card & Direct 'Go to INI' Deep-Link",
+        desc: "IBM Network Intelligence surfaces an interactive approval card in ChatOps (Mattermost / Slack). The card includes the recommendation (e.g., update SevOne threshold policy 67 from 20 Mbps to 61 Mbps), NL telemetry exploration, and a direct 'Go to INI' link allowing administrators to inspect the full investigation in INI before clicking 'Approve'.",
+        day: "Day 0/1 (ChatOps Staging, INI Deep-Link & Operator Proposal)",
+        proto: "Mattermost / Slack Interactive Card · INI Deep-Link · SevOne Query API",
+        type: "ChatOps Decision Card · INI Investigation Link · SevOne Recommendation",
         code: `{
-  "slack_interactive_card": {
-    "channel": "#ops-alerts",
-    "proposed_action": "DYNAMIC_POOL_EXPANSION",
-    "target": "payment-service / HikariCP",
-    "param_diff": "max_connections: 500 -> 550",
-    "lease_duration": "8 minutes",
-    "auto_rollback_trigger": "connections < 300 or timeout 8m",
-    "risk_score": "LOW (Zero Restart Downtime)"
+  "chatops_interactive_card": {
+    "channel": "Mattermost #ops-alerts / Slack #general",
+    "proposed_action": "SEVONE_THRESHOLD_POLICY_UPDATE",
+    "target_tool": "SevOne threshold change tool",
+    "policy_id": "Policy 67 (Device: INIBTPRTR-Edge-1)",
+    "current_threshold": "20 Mbps",
+    "recommended_threshold": "61 Mbps",
+    "justification": "High alarm noise; real bandwidth baseline 58 Mbps with bursts to 60.4 Mbps",
+    "deep_link_ini": "https://ini.ibm.com/investigations/INV-2024-8841?device=INIBTPRTR-Edge-1",
+    "actions": ["Approve Change", "Reject", "Go to INI Investigation"]
   },
   "nl_query_support": {
-    "user_query_in_slack": "@NI show latency and pool utilization graph",
-    "nl_to_sevone_translation": "SELECT db_conns, p99_latency FROM sevone_metrics WHERE svc='payment-service' LAST 60m",
-    "slack_response": "Inline SVG chart rendered in Slack thread"
+    "user_query_in_chatops": "@NI show SevOne threshold noise & bandwidth trend for INIBTPRTR-Edge-1",
+    "nl_to_sevone_translation": "SELECT bandwidth_mbps, threshold_policy_val, alarm_count FROM sevone WHERE device='INIBTPRTR-Edge-1' LAST 24h",
+    "chatops_response": "Inline SevOne metric chart returned in thread"
   },
-  "user_action": "OPERATOR_CLICKED_APPROVE_IN_SLACK"
+  "user_action": "OPERATOR_AUDITED_IN_INI_AND_CLICKED_APPROVE"
 }`
       },
       test: {
         title: "9. Test: Backend Pre-flight Simulation & CI Boundary Verification",
-        desc: "Immediately upon user approval in Slack, SevOne, or ServiceNow, the backend triggers an automated CI dry-run test. It simulates the configuration change in a sandbox, verifying that increasing the pool to 550 consumes only +18.4MB RAM, stays within PostgreSQL primary connection limits (2000), and validates schema syntax.",
+        desc: "Upon user approval in ChatOps, the backend triggers an automated CI dry-run test. It verifies parameter bounds (SevOne threshold 20 &rarr; 61 Mbps / pool buffer headroom), checks downstream monitoring impact, validates schema syntax, and confirms zero service disruption.",
         day: "Day 1 (Automated Backend Validation & Dry Run)",
         proto: "Digital Twin Sandbox / CI Dry-Run Verifier / Schema Validator",
         type: "Resource Headroom Check & Schema Validation",
         code: `{
   "trigger": "OPERATOR_APPROVED_RECOMMENDATION",
   "dry_run_simulation": {
-    "target_config": "max_connections=550",
-    "db_host_ram_overhead": "+18.4 MB (Safe: 1.2GB available)",
-    "postgres_max_connections_limit": "2000 (Sufficient: 550 allocated)",
+    "target_config": "sevone_policy_67_bandwidth_threshold=61_mbps",
+    "interface_capacity_headroom": "100 Mbps port (Safe: 61 Mbps is 61% utilization)",
+    "alarm_noise_reduction_forecast": "-98.4% false alarms suppressed",
     "syntax_check": "PASS",
     "zero_downtime_verified": true,
     "rework_required": false
@@ -1346,51 +1341,58 @@
 }`
       },
       apply: {
-        title: "10. Apply: Automated ServiceNow Change Request & Zero-Downtime Rollout",
-        desc: "The backend automatically creates and signs off an auditable ServiceNow Change Request (CR-2024-0147) linked to Incident INC-8841 with full AI reasoning provenance. It then triggers Ansible / Kubernetes ConfigMap hot-reload to push the pool bump to payment-service pods in 4.2 seconds with zero container restarts.",
-        day: "Day 1 (ServiceNow Change Management & Production Deployment)",
-        proto: "ServiceNow ITSM API / Ansible Automation Platform / K8s ConfigMap Patch",
-        type: "ServiceNow CR-2024-0147 · Hot-Config Execution Log",
+        title: "10. Apply: Change Request Linked to Maintenance Window & Alarm Suppression",
+        desc: "As Sanil emphasized, approving does not execute remediation blindly in production. The backend automatically creates an auditable Change Request (CR-2024-0147) linked to Incident INC-8841 and INI Investigation. The CR contains justification, implementation plan, risk/impact analysis, and rollback plan, and is linked to the upcoming Maintenance Window. During execution, alarm suppression is configured, and SevOne threshold policy is updated to 61 Mbps.",
+        day: "Day 1 (Change Management, Maintenance Window & Policy Rollout)",
+        proto: "ServiceNow ITSM API / SevOne Configuration REST API / Maintenance Window Scheduler",
+        type: "Linked Change Request · Maintenance Window · Alarm Suppression Config",
         code: `{
-  "servicenow_change_request": {
+  "change_request": {
     "cr_number": "CR-2024-0147",
     "linked_incident": "INC-8841",
-    "approval_source": "Slack #ops-alerts (1-click approval by Drron Sharma)",
-    "type": "Standard Automated Emergency Hot-Patch",
-    "status": "APPROVED_AND_EXECUTED"
+    "linked_ini_investigation": "INV-2024-8841",
+    "approval_source": "Mattermost / Slack (Approved by Administrator)",
+    "status": "APPROVED_LINKED_TO_MAINTENANCE_WINDOW",
+    "justification": "Calibrate SevOne threshold policy 67 from 20 Mbps to 61 Mbps to suppress false alarm noise",
+    "implementation_plan": "Update SevOne threshold policy; enable alarm suppression during transition",
+    "risk_and_impact_analysis": "LOW - non-disruptive monitoring threshold change",
+    "backward_rollback_plan": "Revert SevOne policy 67 threshold to 20 Mbps if noise persists"
   },
-  "execution": {
-    "engine": "Ansible Automation Platform",
-    "target": "payment-service pods (us-east-1)",
-    "operation": "Hot-reload HikariCP max_connections=550",
-    "restart_performed": false,
-    "duration": "4.2s",
-    "active_lease_timer": "00:08:00"
+  "maintenance_window": {
+    "window_id": "MW-2024-W42-OVERNIGHT",
+    "scheduled_time": "2024-10-18T01:00:00Z (Upcoming Night Window / 10m Demo Mode)",
+    "actions_during_window": {
+      "alarm_suppression": "ENABLED (Suppress spurious SevOne alarms during policy cutover)",
+      "target_policy": "SevOne Policy 67 (INIBTPRTR-Edge-1)",
+      "operation": "SET_THRESHOLD: 20 Mbps -> 61 Mbps",
+      "execution_status": "SUCCESSFULLY_APPLIED"
+    }
   }
 }`
       },
       monitor: {
-        title: "11. Monitor: SevOne Live Verification Stream, Auto-Revert & Ticket Resolution",
-        desc: "SevOne NPM streams live verification telemetry back to Slack and the NI dashboard. Once connection pressure drops below 300 (or the 8-minute lease expires), the system auto-reverts the pool to 500, auto-resolves ServiceNow INC-8841 with MTTR and resolution metrics, sends a confirmation to Slack, and recalibrates Day 0 baselines.",
-        day: "Day 2 (SevOne Real-Time Telemetry · Auto-Reversion · ServiceNow Auto-Resolve)",
-        proto: "IBM SevOne NPM Kafka Stream · ServiceNow ITSM API · Slack Webhook · NI Baselines",
-        type: "SevOne Verification Stream · Incident Resolution · Baseline Recalibration",
+        title: "11. Monitor: SevOne Live Verification Stream, Alarm Release & Ticket Resolution",
+        desc: "SevOne NPM streams live verification telemetry confirming that the threshold policy is active at 61 Mbps and alarm noise is eliminated. Maintenance window alarm suppression is lifted, the linked Change Request and Incident INC-8841 are auto-resolved with MTTR metrics, and a completion report with SevOne graphs is posted back to ChatOps.",
+        day: "Day 2 (SevOne Real-Time Telemetry · Alarm Suppression Release · CR/INC Auto-Resolve)",
+        proto: "IBM SevOne NPM Kafka Stream · ServiceNow ITSM API · Mattermost / Slack Webhook",
+        type: "SevOne Verification Stream · Ticket Auto-Resolve · ChatOps Notification",
         code: `{
   "source_telemetry": "IBM SevOne NPM v9.0 · Kafka stream",
-  "post_remediation_telemetry": {
-    "active_connections": 284,
-    "pool_utilization": "56.8% (Healthy)",
-    "p99_latency": "142ms (SLO Met: <150ms)",
-    "auto_revert_status": "POOL_RESTORED_TO_500",
-    "time_to_stabilize": "3.8 minutes"
+  "sevone_policy_verification": {
+    "device": "INIBTPRTR-Edge-1",
+    "policy_id": "Policy 67",
+    "active_threshold": "61 Mbps (Successfully updated from 20 Mbps)",
+    "current_traffic_rate": "58.2 Mbps",
+    "alarm_status": "NORMAL / NO ALARM SPIKES (Noise Eliminated)",
+    "alarm_suppression_state": "LIFTED_POST_WINDOW"
   },
-  "servicenow_incident_status": {
-    "number": "INC-8841",
-    "state": "Resolved (Auto-Closed by NI)",
-    "close_notes": "Mitigated via zero-downtime pool bump under CR-2024-0147. SevOne verified normal."
+  "tickets_lifecycle": {
+    "incident": "INC-8841 (Resolved & Auto-Closed by NI)",
+    "change_request": "CR-2024-0147 (Closed - Implementation Successful)",
+    "ini_investigation": "INV-2024-8841 (Marked Completed)"
   },
-  "slack_notification": "Posted resolution summary & post-fix SevOne metric chart to #ops-alerts",
-  "ni_day0_update": "Grounding docs & 30-day baseline indexed with INC-8841 resolution pattern"
+  "chatops_notification": "Posted resolution summary & post-fix SevOne metric graph to Mattermost / Slack",
+  "ni_day0_update": "Grounding docs & 30-day baseline updated with verified 61 Mbps SevOne threshold"
 }`
       }
     };

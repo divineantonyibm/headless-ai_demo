@@ -1,6 +1,89 @@
 
 
 SANIL NAMBIAR
+46 minutes 50 seconds46:50
+SANIL NAMBIAR 46 minutes 50 seconds
+like an external chat op system, right? And...
+SANIL NAMBIAR 46 minutes 57 seconds
+It's like Mission Control where you sit headless with the system, right? And you can interact with that with INI as well from here. I think you can ask questions also if I'm not mistaken.
+SANIL NAMBIAR 47 minutes 12 seconds
+Like this state.
+SANIL NAMBIAR 47 minutes 16 seconds
+OK, sorry, device so INIBTPRTR.
+SANIL NAMBIAR 47 minutes 22 seconds
+Edge one.
+SANIL NAMBIAR 47 minutes 25 seconds
+So, you can, so it gives you answers from INI directly, but the more interesting thing is whenever approval is required, it sends a, you know, request like this, which I can approve or reject. Okay, in this one in the other, I have another system.
+SANIL NAMBIAR 47 minutes 44 seconds
+You know, it's not accessible now, it's on a different VM. I had also implemented, you know, what you had shown that, you know, you have another sort of link here, you know, which says, you know, go to INI.
+SANIL NAMBIAR 47 minutes 59 seconds
+Okay, so because then the user can click there and it actually takes you to that investigation ID in INI. So that's also because the approval is here, the administrator wants to check in INI first, so they have the option of going to INI also. Now if they approve, then it is not that the, you know, the remediation is going to be executed immediately.
+SANIL NAMBIAR 48 minutes 23 seconds
+So, in that, in the in one of the demos that I had shown for setting the thresholds in Sev One, you can see the screen now.
+JK
+Jayakrishna Kaimal
+48 minutes 33 seconds48:33
+Jayakrishna Kaimal 48 minutes 33 seconds
+Yeah.
+
+Divine Antony
+48 minutes 33 seconds48:33
+Divine Antony 48 minutes 33 seconds
+Yes, an Alias.
+
+SANIL NAMBIAR
+48 minutes 34 seconds48:34
+SANIL NAMBIAR 48 minutes 34 seconds
+So here you see that the recommendation has been done. Let me show you that. So the recommendation has been done here, right? So let's see.
+SANIL NAMBIAR 48 minutes 54 seconds
+Yeah, so here.
+SANIL NAMBIAR 48 minutes 58 seconds
+The system is telling you that.
+SANIL NAMBIAR 49 minutes 1 second
+There is a lot of noise in the system and it is asking you to.
+SANIL NAMBIAR 49 minutes 6 seconds
+Set a new threshold. That's the recommendation. OK, the threshold recommendation is has also been given right here, and so what is going to happen here is that...
+SANIL NAMBIAR 49 minutes 18 seconds
+I'm going to ask it to set it, right? So I'm going to ask it to set it, right? Okay, you know, use the seven threshold change tool to set it. So as soon as I do that, I get an approval to set it, right? So the user has looked at the recommendation and I'm showing you what the current, you know, setup is. It's only 20 megabits.
+SANIL NAMBIAR 49 minutes 39 seconds
+what the recommendation is to set it to 60, right, to set it to 60. So if you see here, the recommendation is to actually set it to 61 Mbps. The current recommendation is only 20, so that's what I'm showing you. The current one is only 20 in the threshold policy in SEV1, right? So, and so the next screen that I show.
+SANIL NAMBIAR 49 minutes 58 seconds
+is actually matter most because as soon as the prompt was sent.
+SANIL NAMBIAR 50 minutes 4 seconds
+Yeah, so that is 20 MBPS, that's the current one. So this is matter mode. So approval request was sent here, right? So demo 3 use case approval, it is sent here. So if I scroll down all the way, you will see that 7 threshold change, policy 67.
+SANIL NAMBIAR 50 minutes 19 seconds
+You see, that has already created a change request.
+SANIL NAMBIAR 50 minutes 24 seconds
+And it is asking the approval to set the policy from 20 megabits to 61 megabits. Okay. And I will approve this change. As soon as I approve this change, a few things happen in the workflow. So you will notice that. So approve.
+SANIL NAMBIAR 50 minutes 49 seconds
+because you can't like implement the change immediately. You have to set the maintenance window at a future time. But you know, and here I'm showing the flow itself. This could be slightly different depending on the maintenance systems, et cetera. But here it see that, you know, the, I have now planned a maintenance window in future.
+SANIL NAMBIAR 51 minutes 9 seconds
+In order to implement this change, links the newly created change ticket to that maintenance window.
+SANIL NAMBIAR 51 minutes 18 seconds
+Right, so if you see the maintenance window, it says, okay, the maintenance window is start time, end time. What actions you can take during the maintenance window when I change this policy, there might be too many alarms or less alarms. You can suppress those alarms, et cetera, that you can, you know, configure here. The user can configure that and then save it.
+SANIL NAMBIAR 51 minutes 36 seconds
+And once you save it, you know, it has been implemented. So it has been implemented, you know, during that time, right? I'm just showing the demo immediately to set the maintenance window. That might not be the case. The maintenance window might be next week, right? But in the demo I showed you immediately in 10 minutes, you know, just for the sake of the demo. So.
+SANIL NAMBIAR 51 minutes 56 seconds
+Now I'm showing that the policy has now changed to 61 megabits automatically. Now the changes happened. So if you go to the change request, so the incident request linked in, the initial investigation done by INI, when these thresholds were breached, the incident ID was this one.
+SANIL NAMBIAR 52 minutes 17 seconds
+After the recommendation was done, I and I created a change request because you cannot change something just because somebody approved without a change request. The change request was created and the approval was sent. Once it was approved, the change request was linked to the maintenance window. That's the change request that you see here. So if I go to this...
+SANIL NAMBIAR 52 minutes 37 seconds
+incident, you will see the initial original incident, everything is here. And if you scroll down, ILI has already linked this incident to the change request here. So if you go to the change request, you will see that the change request has all the details of the change. So you will see that this is a change request.
+SANIL NAMBIAR 52 minutes 57 seconds
+And you will see what is the justification, what is the implementation plan, when is the maintenance window to be set, what is the risk and impact analysis, and what is the backward plan. This is how things work in production. So just because somebody approves does not mean that immediately the agent will implement something.
+SANIL NAMBIAR 53 minutes 16 seconds
+There is a further process, and this is the process that I'm showing. The further processes, change request, look for the right maintenance window upcoming in the next week. Depending on the priority, you implement the change, you know, queue it for that maintenance window. Overnight, in the night, the 1 A.m. when everybody's sleeping, the maintenance window starts.
+SANIL NAMBIAR 53 minutes 35 seconds
+The night shift will implement this change till morning, they will test and, you know, verify and, you know, change. And if there is a backup required, we roll back the change, all of those things. By the time people come in the morning, everything is set. So that's the process, right, that I was trying to tell you earlier.
+
+Divine Antony
+53 minutes 55 seconds53:55
+Divine Antony 53 minutes 55 seconds
+Thanks, Anil, for sharing this. So now we have the clear picture of how things are happening in different channels when you approach a certain action item, yes.
+Divine Antony 55 minutes 10 seconds
+Yeah.
+
+SANIL NAMBIAR
 55 minutes 14 seconds55:14
 SANIL NAMBIAR 55 minutes 14 seconds
 They were a Slack native product, which means to say that.
@@ -87,3 +170,5 @@ Divine Antony
 58 minutes 34 seconds58:34
 Divine Antony 58 minutes 34 seconds
 Thank you. Thank you. Bye.
+
+Jayakrishna Kaimal stopped transcription
