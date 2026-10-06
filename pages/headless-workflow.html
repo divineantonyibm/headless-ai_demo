@@ -735,10 +735,7 @@
       <span class="brand-badge">Autonomous Closed-Loop Demo</span>
     </div>
     <div class="nav-links">
-      <a href="headless-new.html" class="nav-link">Full Ops Studio</a>
-      <a href="headless-workflow.html" class="nav-link active">Workflow Architecture</a>
-      <a href="Slack-alerts.html" class="nav-link">Slack Alerts Simulator</a>
-      <a href="headless-ai-case-study.html" class="nav-link">Case Study</a>
+      <a href="Slack-alerts.html" class="nav-link">The Concept &rarr;</a>
     </div>
   </nav>
 
@@ -748,7 +745,7 @@
       <div class="hero-title-area">
         <h1>Closed-Loop <strong>Autonomous Ops Workflow</strong></h1>
         <p class="hero-subtitle">
-          Real-time execution architecture mapping <strong>Day 0 (Design &amp; Guardrails)</strong>, <strong>Day 1 (Simulation &amp; Rollout)</strong>, and <strong>Day 2 (Detection &amp; Closed-Loop Escalation)</strong> powered by <strong>IBM SevOne Network Performance Management (NPM)</strong>.
+          Real-time execution architecture mapping <strong>Day 0 (Design &amp; Guardrails)</strong>, <strong>Day 1 (Simulation &amp; Rollout)</strong>, and <strong>Day 2 (Detection &amp; Closed-Loop Escalation)</strong>. Illustrates the headless backend orchestration when an operator approves a recommendation in <strong>Slack</strong>, <strong>ServiceNow</strong>, or <strong>IBM SevOne NPM</strong> — triggering automated Change Requests, pre-flight CI dry-run checks, zero-downtime configuration rollout, and live telemetry verification.
         </p>
 
         <!-- Use Case Specific Hero Alert Bar -->
@@ -756,10 +753,9 @@
           <div class="usecase-left">
             <span class="usecase-tag">Active Scenario</span>
             <span class="usecase-desc">
-              <strong>DB connection pool exhausted (498/500, 99.6%) on payment-service:</strong> Auto-restart blocked by hard guardrail <em>G-01 (Prod Freeze 14:00–16:00 UTC)</em> &rarr; Agent synthesizes zero-downtime pool bump (+50, 8-min window) &amp; escalates to Slack.
+              <strong>DB connection pool exhausted (498/500, 99.6%) on payment-service:</strong> Auto-restart blocked by hard guardrail <em>G-01 (Prod Freeze 14:00–16:00 UTC)</em> &rarr; Agent synthesizes zero-downtime pool bump (+50, 8-min lease) &rarr; SRE approves via Slack &rarr; Backend auto-creates ServiceNow CR and pushes live config.
             </span>
           </div>
-          <span class="usecase-badge">CR-2024-0147 &bull; INC-8841</span>
         </div>
       </div>
 
@@ -778,9 +774,9 @@
     <div class="canvas-card">
       <div class="canvas-toolbar">
         <div class="legend-group">
-          <div class="legend-item"><div class="badge-dot bg-day0"></div><span>Day 0 (Strategic / Design &amp; Freeze Rules)</span></div>
-          <div class="legend-item"><div class="badge-dot bg-day1"></div><span>Day 1 (Dry-run, Canary &amp; Escalation)</span></div>
-          <div class="legend-item"><div class="badge-dot bg-day2"></div><span>Day 2 (Operational / Feedback &amp; Recalibration)</span></div>
+          <div class="legend-item"><div class="badge-dot bg-day0"></div><span>Day 0</span></div>
+          <div class="legend-item"><div class="badge-dot bg-day1"></div><span>Day 1</span></div>
+          <div class="legend-item"><div class="badge-dot bg-day2"></div><span>Day 2</span></div>
         </div>
       </div>
 
@@ -860,18 +856,19 @@
           <g class="flow-node node-group-day0" id="node-understand" onclick="selectStep('understand')">
             <rect class="node-box" x="150" y="25" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="159" y="47" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Understand:</text>
-            <text x="159" y="66" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">normalize data</text>
-            <text x="159" y="82" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; build DB/</text>
-            <text x="159" y="98" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">service context</text>
+            <text x="159" y="66" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">NI builds DB/</text>
+            <text x="159" y="82" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">service topology</text>
+            <text x="159" y="98" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; baselines</text>
           </g>
 
           <!-- NODE 3: Detect (DAY 2) -->
           <g class="flow-node node-group-day2" id="node-detect" onclick="selectStep('detect')">
             <rect class="node-box" x="300" y="25" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="309" y="47" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Detect:</text>
-            <text x="309" y="66" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">pool peak</text>
-            <text x="309" y="82" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">498/500 conns</text>
-            <text x="309" y="98" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">(99.6% surge)</text>
+            <text x="309" y="63" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">NI time-series</text>
+            <text x="309" y="79" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">AI: 498/500</text>
+            <text x="309" y="95" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">conns (99.6%)</text>
+            <text x="309" y="111" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">surge alert</text>
             <!-- Badge Day 2 -->
             <rect x="360" y="128" width="45" height="18" rx="4" fill="#15803d" />
             <text x="366" y="141" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
@@ -881,21 +878,23 @@
           <g class="flow-node node-group-day2" id="node-reason" onclick="selectStep('reason')">
             <rect class="node-box" x="450" y="25" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="459" y="47" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Reason:</text>
-            <text x="459" y="66" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">leak isolated;</text>
-            <text x="459" y="82" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">G-01 freeze</text>
-            <text x="459" y="98" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">blocks restart</text>
+            <text x="459" y="63" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">NI NOC agent:</text>
+            <text x="459" y="79" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">leak isolated;</text>
+            <text x="459" y="95" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">G-01 freeze</text>
+            <text x="459" y="111" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">blocks restart</text>
             <!-- Badge Day 2 -->
             <rect x="510" y="128" width="45" height="18" rx="4" fill="#15803d" />
             <text x="516" y="141" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
           </g>
 
-          <!-- NODE 5: Close (DAY 2) -->
+          <!-- NODE 5: Close / Escalate (DAY 2) -->
           <g class="flow-node node-group-day2" id="node-close" onclick="selectStep('close')">
             <rect class="node-box" x="600" y="25" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
-            <text x="609" y="47" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Close:</text>
-            <text x="609" y="66" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">suppress noise;</text>
-            <text x="609" y="82" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">escalate card</text>
-            <text x="609" y="98" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">to Slack #ops</text>
+            <text x="609" y="47" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Escalate:</text>
+            <text x="609" y="63" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">NI: suppress</text>
+            <text x="609" y="79" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">noise; create</text>
+            <text x="609" y="95" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">ServiceNow INC;</text>
+            <text x="609" y="111" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">alert in Slack</text>
             <!-- Badge Day 2 -->
             <rect x="660" y="128" width="45" height="18" rx="4" fill="#15803d" />
             <text x="666" y="141" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
@@ -905,10 +904,10 @@
           <g class="flow-node node-group-day2" id="node-learn" onclick="selectStep('learn')">
             <rect class="node-box" x="555" y="220" width="110" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="564" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Learn:</text>
-            <text x="564" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">11 past cases:</text>
-            <text x="564" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">9 resolved via</text>
-            <text x="564" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">pool limit bump</text>
-            <text x="564" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">(94% rollback)</text>
+            <text x="564" y="258" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">NI grounding</text>
+            <text x="564" y="274" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">docs + 11 past</text>
+            <text x="564" y="290" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">cases: 9 via</text>
+            <text x="564" y="306" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">pool bump (94%)</text>
             <!-- Badge Day 2 -->
             <rect x="620" y="323" width="45" height="18" rx="4" fill="#15803d" />
             <text x="626" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
@@ -930,12 +929,9 @@
           <g class="flow-node node-group-day0 node-group-day1" id="node-recommend" onclick="selectStep('recommend')">
             <rect class="node-box" x="740" y="220" width="105" height="115" rx="8" fill="#bae6fd" stroke="#38bdf8" stroke-width="2" />
             <text x="749" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#0369a1">Recommend:</text>
-            <text x="749" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">Approve pool</text>
-            <text x="749" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">bump (+50, 8m)</text>
-            <text x="749" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">no restart needed</text>
-            <!-- Circular Icon Indicator -->
-            <circle cx="754" cy="328" r="8" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
-            <text x="751" y="332" font-family="'IBM Plex Sans', sans-serif" font-size="10" font-weight="700" fill="#0284c7">+</text>
+            <text x="749" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">Slack card;</text>
+            <text x="749" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">NL telemetry Q&amp;A</text>
+            <text x="749" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#0c4a6e">&amp; 1-click approve</text>
             <!-- Badge Day 0/1 -->
             <rect x="785" y="323" width="60" height="18" rx="4" fill="#2563eb" />
             <text x="789" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 0/1</text>
@@ -947,8 +943,8 @@
             <text x="899" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Test:</text>
             <text x="899" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">dry-run param</text>
             <text x="899" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">diff (500&rarr;550)</text>
-            <text x="899" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">syntax &amp; schema</text>
-            <text x="899" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">bounds check</text>
+            <text x="899" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">RAM (+18MB) &amp;</text>
+            <text x="899" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">schema bounds</text>
             <!-- Badge Day 1 -->
             <rect x="950" y="323" width="45" height="18" rx="4" fill="#2563eb" />
             <text x="956" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 1</text>
@@ -958,10 +954,10 @@
           <g class="flow-node node-group-day1" id="node-apply" onclick="selectStep('apply')">
             <rect class="node-box" x="1040" y="220" width="105" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="1049" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Apply:</text>
-            <text x="1049" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">zero-downtime</text>
-            <text x="1049" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">config push to</text>
-            <text x="1049" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">payment-service</text>
-            <text x="1049" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">under CR-0147</text>
+            <text x="1049" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">ServiceNow CR</text>
+            <text x="1049" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">auto-created; zero-</text>
+            <text x="1049" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">downtime rollout</text>
+            <text x="1049" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">in 4.2s (no restart)</text>
             <!-- Badge Day 1 -->
             <rect x="1100" y="323" width="45" height="18" rx="4" fill="#2563eb" />
             <text x="1106" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 1</text>
@@ -971,10 +967,10 @@
           <g class="flow-node node-group-day2" id="node-monitor" onclick="selectStep('monitor')">
             <rect class="node-box" x="1190" y="220" width="110" height="115" rx="8" fill="#99f6e4" stroke="#5eead4" stroke-width="1.5" />
             <text x="1199" y="242" font-family="'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#042f2e">Monitor:</text>
-            <text x="1199" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">SevOne checks</text>
-            <text x="1199" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">pool drops &lt;300;</text>
-            <text x="1199" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">auto-reverts &amp;</text>
-            <text x="1199" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">feeds to Detect</text>
+            <text x="1199" y="260" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">SevOne streams</text>
+            <text x="1199" y="276" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">live drop &lt;300; auto-</text>
+            <text x="1199" y="292" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">revert, resolves INC</text>
+            <text x="1199" y="308" font-family="'IBM Plex Sans', sans-serif" font-size="10.5" fill="#134e4a">&amp; posts to Slack</text>
             <!-- Badge Day 2 -->
             <rect x="1255" y="323" width="45" height="18" rx="4" fill="#15803d" />
             <text x="1261" y="336" font-family="'IBM Plex Sans', sans-serif" font-size="9" font-weight="700" fill="#ffffff">DAY 2</text>
@@ -985,28 +981,30 @@
       <!-- Detail Inspector Panel (Changes based on selected step) -->
       <div id="inspector" class="inspector-panel">
         <div class="inspector-left">
-          <h3 id="insp-title">3. Detect: DB Connection Surge (SevOne High-Watermark Alert)</h3>
+          <h3 id="insp-title">3. Detect: DB Connection Surge (NI Time-Series AI + SevOne Stream)</h3>
           <p id="insp-desc">
-            SevOne NMS streaming metrics detect DB connection count rapidly spiking to 498/500 (99.6%) on payment-service with a rising slope of +12 conns/min. Warning thresholds crossed at 14:02:18 UTC.
+            SevOne NPM streams DB connection metrics via Kafka to IBM Network Intelligence. NI's Granite time-series models detect the acute surge to 498/500 (99.6%) at 14:02:18 UTC — flagging an anomaly before threshold-based tools would alert. NI auto-generates an investigation ticket (INC-8841).
           </p>
           <div class="inspector-meta" id="insp-meta">
             <div class="meta-chip">Lifecycle: <strong id="insp-day">Day 2 (Operational Runtime)</strong></div>
-            <div class="meta-chip">Trigger: <strong id="insp-proto">SevOne Threshold Metric Breach Event</strong></div>
+            <div class="meta-chip">Trigger: <strong id="insp-proto">NI Anomaly Detection · SevOne Kafka Stream</strong></div>
             <div class="meta-chip">Target Service: <strong id="insp-type">payment-service · us-east-1 pod cluster</strong></div>
           </div>
         </div>
         <div class="inspector-right">
-          <div class="inspector-right-title">SevOne Telemetry &amp; Anomaly Payload</div>
+          <div class="inspector-right-title">NI Anomaly Detection · SevOne Telemetry Payload</div>
           <pre id="insp-code">
 {
-  "alert_id": "INC-8841",
-  "source": "IBM SevOne NMS v9.0",
+  "ni_investigation_id": "INC-8841",
+  "detection_engine": "IBM Network Intelligence · Granite time-series",
+  "source_telemetry": "IBM SevOne NPM v9.0 · Kafka stream",
   "target": "payment-service / postgres-primary",
   "metric": "db_active_connections",
   "observed": "498 / 500 (99.6%)",
   "rate_of_rise": "+12 conns/min",
   "p99_latency": "1420ms (Warning > 800ms)",
-  "status": "ANOMALY_TRIGGERED"
+  "ni_anomaly_confidence": 0.97,
+  "status": "NI_INVESTIGATION_OPENED"
 }
           </pre>
         </div>
@@ -1018,7 +1016,7 @@
   <section class="canvas-wrapper" style="display: none;">
     <div class="activities-section" style="border-radius: 16px; box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08); margin-top: 24px; border: 1px solid rgba(226, 232, 240, 0.95);">
       <div class="section-title-bar">
-        <h2>IBM SevOne Operational Lifecycle Breakdown (Use Case: DB Connection Saturation &amp; Prod Freeze)</h2>
+        <h2>IBM SevOne + IBM Network Intelligence — Operational Lifecycle Breakdown (Use Case: DB Connection Saturation &amp; Prod Freeze)</h2>
         <span style="font-size: 13px; color: var(--gray-600);">Click any activity below to inspect live workflow telemetry</span>
       </div>
 
@@ -1035,19 +1033,19 @@
           <div class="activity-card" onclick="selectStep('connect')">
             <div class="act-head">
               <span class="act-node-name">Connect &amp; DB Ingestion</span>
-              <span class="act-sevone-badge">SevOne NPM</span>
+              <span class="act-sevone-badge">SevOne NPM → NI</span>
             </div>
-            <p class="act-desc">Continuous telemetry stream from database clusters, connection pools, and microservices via MCP &amp; SevOne agents.</p>
-            <div class="act-sevone-detail">gRPC / SNMPv3 / PostgreSQL connection indicators</div>
+            <p class="act-desc">Continuous telemetry stream from database clusters, connection pools, and microservices via MCP &amp; SevOne agents, streamed via Kafka to IBM Network Intelligence.</p>
+            <div class="act-sevone-detail">gRPC / SNMPv3 / PostgreSQL → Kafka → NI SDP</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('understand')">
             <div class="act-head">
-              <span class="act-node-name">Understand &amp; Graph Context</span>
-              <span class="act-sevone-badge">SevOne Graph</span>
+              <span class="act-node-name">Understand &amp; Baseline Modeling</span>
+              <span class="act-sevone-badge">NI · Granite AI</span>
             </div>
-            <p class="act-desc">Maps payment-service dependency tree, DB connection pooling limits (500 max), and sets baseline consumption profiles.</p>
-            <div class="act-sevone-detail">30-day rolling baseline: normal peak 320/500 conns</div>
+            <p class="act-desc">NI ingests SevOne historical metrics to build per-device anomaly baselines and service topology. Sets calibrated thresholds for Day 2 detection with minimal false positives.</p>
+            <div class="act-sevone-detail">NI 30-day baseline: normal peak 320/500 conns · calibrated</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('plan')">
@@ -1090,18 +1088,18 @@
           <div class="activity-card" onclick="selectStep('apply')">
             <div class="act-head">
               <span class="act-node-name">Apply Hot-Config Deployment</span>
-              <span class="act-sevone-badge">Ansible / Netconf</span>
+              <span class="act-sevone-badge">ServiceNow CR + Ansible</span>
             </div>
-            <p class="act-desc">Pushes live pool limit bump (+50, 8-min window) under approved CR-2024-0147 without restarting payment pods.</p>
-            <div class="act-sevone-detail">Applied hot-reload in 4.2s under CR-2024-0147</div>
+            <p class="act-desc">Creates approved ServiceNow Change Request CR-2024-0147 and pushes live pool limit bump (+50, 8-min lease) without restarting pods.</p>
+            <div class="act-sevone-detail">ServiceNow CR-2024-0147 · Applied in 4.2s (no restart)</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('recommend')">
             <div class="act-head">
-              <span class="act-node-name">Escalate &amp; Interactive Chat</span>
+              <span class="act-node-name">Slack-Native Decision &amp; NL Query</span>
               <span class="act-sevone-badge">Slack / In-App</span>
             </div>
-            <p class="act-desc">Issues interactive Slack card to on-call SRE with Recommended option (pool bump) vs High-Risk Override (restart).</p>
+            <p class="act-desc">Issues interactive Slack card with NL-to-telemetry chart retrieval and 1-click operator approval for the pool bump.</p>
             <div class="act-sevone-detail">Operator approved via Slack Block Kit in 1 click</div>
           </div>
         </div>
@@ -1118,28 +1116,37 @@
           <div class="activity-card" onclick="selectStep('detect')">
             <div class="act-head">
               <span class="act-node-name">Detect Pool Saturation</span>
-              <span class="act-sevone-badge">SevOne Alerts</span>
+              <span class="act-sevone-badge">NI · SevOne Kafka</span>
             </div>
-            <p class="act-desc">SevOne NMS triggers P1 threshold breach as payment-service hits 498/500 connections (99.6%).</p>
-            <div class="act-sevone-detail">Alert: P1 Critical · 498/500 conns · +12 conns/min</div>
+            <p class="act-desc">SevOne NPM streams metrics via Kafka to IBM Network Intelligence. NI's Granite time-series AI detects the 498/500 surge (99.6%) and auto-opens investigation INC-8841.</p>
+            <div class="act-sevone-detail">NI INC-8841 · P1 Critical · 498/500 conns · +12 conns/min</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('reason')">
             <div class="act-head">
               <span class="act-node-name">Reason &amp; Guardrail Check</span>
-              <span class="act-sevone-badge">Headless Agent</span>
+              <span class="act-sevone-badge">NI NOC Agent</span>
             </div>
-            <p class="act-desc">Agent attempts restart &rarr; intercepts G-01 freeze rule &rarr; synthesizes non-restart dynamic pool alternative.</p>
-            <div class="act-sevone-detail">Restart blocked by G-01; pool bump synthesized (94% conf)</div>
+            <p class="act-desc">NI NOC AI agent (reasoning + RAG + function-calling) cross-correlates SevOne metrics and grounding docs → intercepts G-01 freeze → synthesizes pool alternative.</p>
+            <div class="act-sevone-detail">NI RCA: restart blocked by G-01; pool bump (94% conf)</div>
+          </div>
+
+          <div class="activity-card" onclick="selectStep('close')">
+            <div class="act-head">
+              <span class="act-node-name">Escalate &amp; ServiceNow Incident</span>
+              <span class="act-sevone-badge">ServiceNow + Slack</span>
+            </div>
+            <p class="act-desc">Suppresses alert storms, generates pre-populated ServiceNow Incident INC-8841, and dispatches interactive Slack Block Kit alert.</p>
+            <div class="act-sevone-detail">ServiceNow INC-8841 created · Slack #ops-alerts notified</div>
           </div>
 
           <div class="activity-card" onclick="selectStep('monitor')">
             <div class="act-head">
               <span class="act-node-name">Monitor &amp; Auto-Revert Loop</span>
-              <span class="act-sevone-badge">Closed-Loop</span>
+              <span class="act-sevone-badge">SevOne Stream + NI</span>
             </div>
-            <p class="act-desc">SevOne monitors pool drain (&lt;300 conns) &rarr; auto-reverts pool size back to 500 and updates long-term capacity model.</p>
-            <div class="act-sevone-detail">Pool stabilized at 284/500 &bull; Auto-reverted in 8m</div>
+            <p class="act-desc">SevOne streams live recovery metrics (284/500). System auto-reverts pool to 500, auto-resolves ServiceNow ticket, and notifies Slack.</p>
+            <div class="act-sevone-detail">NI closed-loop: 284/500 · ServiceNow auto-resolved · Slack confirmed</div>
           </div>
         </div>
       </div>
@@ -1147,21 +1154,22 @@
   </section>
 
   <footer>
-    Made with IBM Bob &bull; IBM SevOne Network Performance Management &bull; Headless Autonomous Operations
+    Made with IBM Bob &bull; IBM SevOne Network Performance Management &bull; IBM Network Intelligence (NI) &bull; Headless Autonomous Operations
   </footer>
 
   <!-- Interactive JavaScript Controller -->
   <script>
     const stepDetails = {
       connect: {
-        title: "1. Connect: Real-Time Telemetry & DB Metrics (SevOne NPM & Agents)",
-        desc: "Ingests continuous time-series metrics from PostgreSQL connection pools, HikariCP stats, container resource telemetry, and application gateway request logs into IBM SevOne NMS via MCP connectors and streaming APIs.",
+        title: "1. Connect: SevOne NPM Streams Telemetry → IBM Network Intelligence",
+        desc: "IBM SevOne NPM ingests continuous time-series metrics from PostgreSQL connection pools, HikariCP stats, container telemetry, and application gateway logs. Metrics are streamed via Kafka and SDP to IBM Network Intelligence, where the AI pipeline begins continuous analysis.",
         day: "Day 0 & Day 2 (Continuous)",
-        proto: "SevOne REST API v3 / gRPC Telemetry / PostgreSQL Connector",
+        proto: "SevOne REST API v3 / gRPC / Kafka → IBM Network Intelligence SDP",
         type: "Active DB Connections, Query Latency, HikariCP Pool Saturation",
         code: `{
   "source": "IBM SevOne NPM / Database Connector",
   "target_cluster": "payment-db-primary.us-east-1",
+  "streaming_to": "IBM Network Intelligence (via Kafka / SDP)",
   "monitored_metrics": [
     "db_active_connections",
     "db_idle_connections",
@@ -1173,12 +1181,13 @@
 }`
       },
       understand: {
-        title: "2. Understand: Normalize Topology & Build Service Context",
-        desc: "Builds a unified contextual topology mapping the payment-service pod cluster to downstream PostgreSQL instances, Redis caches, and external payment gateways. Establishes the normal 30-day baseline ceiling (320/500 connections).",
-        day: "Day 0 (Baseline Building)",
-        proto: "GraphQL / Service Dependency Graph / SevOne Data Insight",
-        type: "Service Topology Model & Baseline Thresholds",
+        title: "2. Understand: NI Builds Topology Model & Anomaly Baselines (Day 0)",
+        desc: "IBM Network Intelligence ingests SevOne historical metrics (SDP batch) and constructs the service topology context for payment-service. NI's Granite time-series models build per-device, per-metric anomaly baselines calibrated to 30 days of real traffic — setting accurate Day 2 detection thresholds with minimal false positives.",
+        day: "Day 0 (NI Baseline Modeling & Topology Ingestion)",
+        proto: "NI SDP Batch Ingestion / SevOne Historical Metrics / NI Grounding Documents",
+        type: "NI Anomaly Baselines · Service Topology Model · Capacity Thresholds",
         code: `{
+  "ni_baseline_model": "IBM Network Intelligence · Granite time-series",
   "service": "payment-service",
   "cluster": "us-east-1-prod",
   "db_pool_configuration": {
@@ -1186,34 +1195,39 @@
     "min_idle": 25,
     "max_connection_lifetime_ms": 1800000
   },
-  "historical_peak_30d": "320 connections",
-  "context_status": "NORMALIZED_AND_INDEXED"
+  "ni_historical_peak_30d": "320 connections",
+  "ni_anomaly_threshold_calibrated": true,
+  "context_status": "NI_BASELINE_INDEXED"
 }`
       },
       detect: {
-        title: "3. Detect: DB Connection Pool Exhaustion (498/500, 99.6% Surge)",
-        desc: "At 14:02:18 UTC, SevOne NPM detects an acute connection surge. Active connections reach 498 out of 500 (99.6%) with a rapid escalation rate of +12 connections/minute, triggering a critical anomaly event.",
-        day: "Day 2 (Operational Runtime)",
-        proto: "SevOne Threshold Event / Webhook Trigger",
-        type: "P1 Critical Anomaly & Resource Exhaustion Alert",
+        title: "3. Detect: NI Anomaly Detection (Granite AI) + SevOne Pool Alert",
+        desc: "SevOne NPM streams DB connection metrics via Kafka to IBM Network Intelligence. NI's Granite time-series foundation models detect the surge to 498/500 (99.6%) at 14:02:18 UTC — earlier than threshold-based tools. NI auto-opens investigation INC-8841 and correlates the spike across device, component, and indicator triplets.",
+        day: "Day 2 (Operational Runtime · NI Continuous Analysis)",
+        proto: "IBM Network Intelligence Anomaly Detection · SevOne Kafka Stream",
+        type: "NI P1 Critical Investigation · DB Connection Exhaustion",
         code: `{
-  "incident_id": "INC-8841",
-  "severity": "P1_CRITICAL",
+  "ni_investigation_id": "INC-8841",
+  "detection_engine": "IBM Network Intelligence · Granite time-series",
+  "source_telemetry": "IBM SevOne NPM v9.0 · Kafka stream",
   "service": "payment-service",
   "metric": "db_active_connections",
   "observed_value": "498 / 500 (99.6%)",
   "rate_of_rise": "+12 conns/min",
   "p99_latency": "1420ms (Breach > 800ms)",
-  "status": "DETECTED_AND_CORRELATED"
+  "ni_anomaly_confidence": 0.97,
+  "status": "NI_INVESTIGATION_OPENED"
 }`
       },
       reason: {
-        title: "4. Reason: Root-Cause Analysis & Freeze Guardrail Interception",
-        desc: "The autonomous agent diagnoses a connection leak in payment-service v2.3.9. Default automated remediation is a pod restart, but the agent evaluates active guardrails and discovers Hard Guardrail G-01 (Prod Freeze 14:00–16:00 UTC weekdays) blocks restarts.",
-        day: "Day 2 (Autonomous Reasoning & Guardrail Evaluation)",
-        proto: "Headless Agent Reasoning Engine",
-        type: "Root-Cause Probability & Guardrail Interception Record",
+        title: "4. Reason: NI NOC Agent — Root-Cause Hypothesis & Guardrail Interception",
+        desc: "IBM Network Intelligence's NOC AI agent (reasoning + RAG + function-calling) cross-correlates SevOne metrics, topology context, and grounding documents (MOPs/runbooks). It diagnoses a connection leak in payment-service v2.3.9, generates a ranked root-cause hypothesis, then discovers Hard Guardrail G-01 blocks the default pod restart action.",
+        day: "Day 2 (NI Agentic Root-Cause Analysis & Guardrail Evaluation)",
+        proto: "IBM Network Intelligence NOC Agent · RAG Grounding Documents · Guardrail Policy",
+        type: "NI Root-Cause Hypothesis · Guardrail Interception Record",
         code: `{
+  "ni_agent": "IBM Network Intelligence NOC AI Agent",
+  "rag_sources": ["payment-service MOP v3.1", "HikariCP runbook", "G-01 policy"],
   "root_cause_diagnosis": {
     "issue": "Slow connection release in checkout handler",
     "confidence": 0.94,
@@ -1227,39 +1241,51 @@
 }`
       },
       close: {
-        title: "5. Close: Noise Suppression & Human-in-the-Loop Slack Escalation",
-        desc: "Suppresses redundant downstream alerts to prevent notification fatigue and dispatches an actionable IBM Network Intelligence Block Kit card to the #ops-alerts Slack channel with ranked decision options.",
-        day: "Day 2 (Noise Filtering & Escalation)",
-        proto: "Slack Block Kit / In-App Decision Inbox",
-        type: "Suppression Log & Interactive Decision Card",
+        title: "5. Escalate: Noise Suppression, ServiceNow Incident & Slack-Native Alert",
+        desc: "IBM Network Intelligence suppresses 32 redundant downstream alert storms, automatically creates a linked ServiceNow Incident (INC-8841) pre-populated with AI diagnosis and root cause, and dispatches an interactive Block Kit notification card into Slack #ops-alerts for headless human-in-the-loop review.",
+        day: "Day 2 (NI Noise Filtering · ServiceNow ITSM Ticketing · Slack Escalation)",
+        proto: "IBM Network Intelligence Tool Management · ServiceNow REST API · Slack Block Kit Webhook",
+        type: "NI Suppression Log · ServiceNow Incident INC-8841 · Interactive Slack Card",
         code: `{
-  "suppression_metric": "32 downstream connection timeout alerts suppressed",
-  "escalation_channel": "Slack #ops-alerts & Decision Inbox",
-  "interactive_card": {
+  "ni_action": "IBM Network Intelligence Tool Management",
+  "suppressed_alerts": 32,
+  "servicenow_incident": {
+    "number": "INC-8841",
+    "short_description": "DB connection pool exhausted on payment-service (99.6%)",
+    "priority": "1 - Critical",
+    "state": "In Progress (AI Triage)",
+    "assigned_to": "NetOps / SRE On-Call",
+    "ai_root_cause": "HikariCP connection leak in checkout handler",
+    "active_guardrail": "G-01 (Prod Freeze 14:00-16:00 UTC blocks container restart)"
+  },
+  "escalation_channel": "Slack #ops-alerts",
+  "slack_block_kit": {
     "title": "DB connection pool exhausted — prod freeze blocks restart",
-    "option_1": "Approve pool bump (+50, 8-min window) [Recommended]",
-    "option_2": "Override freeze window and restart [High Risk]"
+    "recommended_action": "Approve pool bump (+50, 8-min lease)",
+    "risk_level": "LOW (Zero Restart Downtime)"
   }
 }`
       },
       learn: {
-        title: "6. Learn: Historical Pattern Mining across Past Incidents",
-        desc: "Correlates current incident against 11 historical connection pool incidents. Identifies that in 9 out of 11 similar cases, a temporary pool bump resolved the traffic spike with 94% rollback confidence, avoiding costly downtime.",
-        day: "Day 2 -> Day 0 Bridge",
-        proto: "Vector Knowledge Base / Analytics Engine",
-        type: "Historical Success Pattern & Risk Profile",
+        title: "6. Learn: NI Grounding Documents + Historical Pattern Mining",
+        desc: "IBM Network Intelligence queries its RAG vector store of grounding documents (MOPs, config guides, past incident reports) and analyzes 11 historical connection pool incidents. NI identifies 9 cases successfully mitigated via temporary pool bump (94% confidence) without restart, synthesizing this precedent into the recommended action.",
+        day: "Day 2 → Day 0 Bridge (NI Post-Incident Learning)",
+        proto: "IBM Network Intelligence Grounding Documents · RAG Vector Store · Investigation History",
+        type: "NI Historical Pattern Match · Post-Incident Knowledge Update",
         code: `{
-  "historical_query": "DB connection pool saturation in payment cluster",
+  "ni_rag_query": "DB connection pool saturation in payment cluster",
+  "grounding_docs_consulted": ["payment-service-mop-v3.1", "hikaricp-tuning-guide"],
   "matched_cases": 11,
   "successful_pool_bumps": 9,
   "successful_restarts": 2,
   "recommendation_confidence": 0.94,
-  "mean_time_to_stabilize": "3.8 minutes"
+  "mean_time_to_stabilize": "3.8 minutes",
+  "ni_post_incident_update": "Grounding docs updated with INC-8841 findings"
 }`
       },
       plan: {
         title: "7. Plan: Day 0 Guardrail Architecture & Capacity Policy",
-        desc: "Strategic Day 0 governance defines the guardrail boundaries: G-01 blocks restarts during peak business hours to prevent transaction drops, while establishing pre-approved limits for zero-downtime hot config bumps (+50 conns max).",
+        desc: "Strategic Day 0 governance defines operational boundaries: Guardrail G-01 blocks container restarts during peak business hours (14:00–16:00 UTC weekdays) to protect in-flight checkout transactions, while pre-authorizing temporary zero-downtime hot config expansions (+50 connections ceiling, max 10 min lease).",
         day: "Day 0 (Strategic Policy & Guardrails)",
         proto: "Guardrail Policy Studio / YAML Rule Definition",
         type: "Immutable Guardrail Rules & Capacity Limits",
@@ -1278,67 +1304,93 @@
 }`
       },
       recommend: {
-        title: "8. Recommend: Propose Zero-Downtime Temporary Pool Bump (+50, 8m)",
-        desc: "The agent synthesizes a safe, non-restart solution: Increase DB pool capacity from 500 to 550 for an 8-minute lease with automatic reversion once connection pressure falls below 300. Prepares full change diff for operator sign-off.",
-        day: "Day 0/1 (Staging & Proposal)",
-        proto: "Headless Recommendation Engine",
-        type: "Synthesized Change Proposal & Risk Assessment",
+        title: "8. Recommend: Slack-Native Decision Card & Conversational NL Query",
+        desc: "NI surfaces an interactive Slack card to on-call SREs with the recommended zero-downtime pool bump (+50, 8-min lease). Operators can ask natural-language questions in Slack ('@NI show latency trend'), which NI translates to SevOne telemetry queries and returns live charts, before the operator clicks 'Approve recommended' in 1 click.",
+        day: "Day 0/1 (Slack-Native Staging & Interactive Proposal)",
+        proto: "Headless Slack Block Kit / NL-to-Telemetry Engine / SevOne NPM Query API",
+        type: "Slack Decision Card · Conversational Query Result · Risk Assessment",
         code: `{
-  "proposed_change": {
-    "action": "DYNAMIC_POOL_EXPANSION",
+  "slack_interactive_card": {
+    "channel": "#ops-alerts",
+    "proposed_action": "DYNAMIC_POOL_EXPANSION",
     "target": "payment-service / HikariCP",
     "param_diff": "max_connections: 500 -> 550",
-    "duration": "8 minutes",
-    "auto_rollback_trigger": "connections < 300 or timeout 8m"
+    "lease_duration": "8 minutes",
+    "auto_rollback_trigger": "connections < 300 or timeout 8m",
+    "risk_score": "LOW (Zero Restart Downtime)"
   },
-  "risk_score": "LOW (Zero Restart Downtime)"
+  "nl_query_support": {
+    "user_query_in_slack": "@NI show latency and pool utilization graph",
+    "nl_to_sevone_translation": "SELECT db_conns, p99_latency FROM sevone_metrics WHERE svc='payment-service' LAST 60m",
+    "slack_response": "Inline SVG chart rendered in Slack thread"
+  },
+  "user_action": "OPERATOR_CLICKED_APPROVE_IN_SLACK"
 }`
       },
       test: {
-        title: "9. Test: Pre-flight Simulation & CI Boundary Verification",
-        desc: "Simulates the proposed hot-configuration change in a sandboxed CI environment. Verifies that increasing the pool to 550 will consume only 18MB additional database RAM and will not trigger connection limits on the PostgreSQL primary.",
-        day: "Day 1 (Pre-flight Validation & Dry Run)",
-        proto: "Digital Twin Sandbox / CI Dry-Run Verifier",
+        title: "9. Test: Backend Pre-flight Simulation & CI Boundary Verification",
+        desc: "Immediately upon user approval in Slack, SevOne, or ServiceNow, the backend triggers an automated CI dry-run test. It simulates the configuration change in a sandbox, verifying that increasing the pool to 550 consumes only +18.4MB RAM, stays within PostgreSQL primary connection limits (2000), and validates schema syntax.",
+        day: "Day 1 (Automated Backend Validation & Dry Run)",
+        proto: "Digital Twin Sandbox / CI Dry-Run Verifier / Schema Validator",
         type: "Resource Headroom Check & Schema Validation",
         code: `{
+  "trigger": "OPERATOR_APPROVED_RECOMMENDATION",
   "dry_run_simulation": {
     "target_config": "max_connections=550",
-    "db_host_ram_overhead": "+18.4 MB (Safe)",
-    "postgres_max_connections_limit": "2000 (Sufficient)",
+    "db_host_ram_overhead": "+18.4 MB (Safe: 1.2GB available)",
+    "postgres_max_connections_limit": "2000 (Sufficient: 550 allocated)",
     "syntax_check": "PASS",
+    "zero_downtime_verified": true,
     "rework_required": false
   }
 }`
       },
       apply: {
-        title: "10. Apply: Controlled Zero-Downtime Rollout under CR-2024-0147",
-        desc: "Upon operator approval in Slack or the Decision Inbox, the system automatically creates Change Request CR-2024-0147, pushes the dynamic pool limit to payment-service pods in 4.2 seconds, and initializes the rollback timer.",
-        day: "Day 1 (Production Deployment & Auditing)",
-        proto: "Ansible Automation Platform / Kubernetes ConfigMap Live Patch",
-        type: "Execution Log & Audit Trail",
+        title: "10. Apply: Automated ServiceNow Change Request & Zero-Downtime Rollout",
+        desc: "The backend automatically creates and signs off an auditable ServiceNow Change Request (CR-2024-0147) linked to Incident INC-8841 with full AI reasoning provenance. It then triggers Ansible / Kubernetes ConfigMap hot-reload to push the pool bump to payment-service pods in 4.2 seconds with zero container restarts.",
+        day: "Day 1 (ServiceNow Change Management & Production Deployment)",
+        proto: "ServiceNow ITSM API / Ansible Automation Platform / K8s ConfigMap Patch",
+        type: "ServiceNow CR-2024-0147 · Hot-Config Execution Log",
         code: `{
-  "change_request_id": "CR-2024-0147",
-  "approved_by": "Drron Sharma (Network SRE Lead)",
-  "execution_engine": "Ansible Automation Controller",
-  "execution_duration": "4.2s",
-  "status": "APPLIED_SUCCESSFULLY",
-  "active_lease_timer": "00:08:00"
+  "servicenow_change_request": {
+    "cr_number": "CR-2024-0147",
+    "linked_incident": "INC-8841",
+    "approval_source": "Slack #ops-alerts (1-click approval by Drron Sharma)",
+    "type": "Standard Automated Emergency Hot-Patch",
+    "status": "APPROVED_AND_EXECUTED"
+  },
+  "execution": {
+    "engine": "Ansible Automation Platform",
+    "target": "payment-service pods (us-east-1)",
+    "operation": "Hot-reload HikariCP max_connections=550",
+    "restart_performed": false,
+    "duration": "4.2s",
+    "active_lease_timer": "00:08:00"
+  }
 }`
       },
       monitor: {
-        title: "11. Monitor: SevOne Verification & Closed-Loop Auto-Reversion",
-        desc: "SevOne NPM tracks connection count decline in real-time. As connection pressure drops to 284/500, the system automatically reverts the pool limit back to 500, completes the audit record, and updates Day 0 baseline models.",
-        day: "Day 2 (Closed-Loop Validation & Learning)",
-        proto: "SevOne Closed-Loop Monitor & Auto-Reversion Engine",
-        type: "SLO Recovery Metric & Feedback Signal",
+        title: "11. Monitor: SevOne Live Verification Stream, Auto-Revert & Ticket Resolution",
+        desc: "SevOne NPM streams live verification telemetry back to Slack and the NI dashboard. Once connection pressure drops below 300 (or the 8-minute lease expires), the system auto-reverts the pool to 500, auto-resolves ServiceNow INC-8841 with MTTR and resolution metrics, sends a confirmation to Slack, and recalibrates Day 0 baselines.",
+        day: "Day 2 (SevOne Real-Time Telemetry · Auto-Reversion · ServiceNow Auto-Resolve)",
+        proto: "IBM SevOne NPM Kafka Stream · ServiceNow ITSM API · Slack Webhook · NI Baselines",
+        type: "SevOne Verification Stream · Incident Resolution · Baseline Recalibration",
         code: `{
+  "source_telemetry": "IBM SevOne NPM v9.0 · Kafka stream",
   "post_remediation_telemetry": {
     "active_connections": 284,
     "pool_utilization": "56.8% (Healthy)",
-    "p99_latency": "142ms (SLO Met)",
+    "p99_latency": "142ms (SLO Met: <150ms)",
     "auto_revert_status": "POOL_RESTORED_TO_500",
-    "incident_status": "RESOLVED_CLOSED_LOOP"
-  }
+    "time_to_stabilize": "3.8 minutes"
+  },
+  "servicenow_incident_status": {
+    "number": "INC-8841",
+    "state": "Resolved (Auto-Closed by NI)",
+    "close_notes": "Mitigated via zero-downtime pool bump under CR-2024-0147. SevOne verified normal."
+  },
+  "slack_notification": "Posted resolution summary & post-fix SevOne metric chart to #ops-alerts",
+  "ni_day0_update": "Grounding docs & 30-day baseline indexed with INC-8841 resolution pattern"
 }`
       }
     };

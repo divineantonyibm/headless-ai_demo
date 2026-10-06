@@ -1,77 +1,89 @@
 
-Transcript. Use arrow keys to navigate between transcript entries. Select an entry to navigate the media to the time of the entry.
-
-
-Search
-
-AI-generated content may be incorrect
-
-Jayakrishna Kaimal started transcription
-JK
 
-Jayakrishna Kaimal
-0 minutes 11 seconds0:11
-Jayakrishna Kaimal 0 minutes 11 seconds
-Yes.
-Jayakrishna Kaimal 0 minutes 15 seconds
-Divine Drron.
+SANIL NAMBIAR
+55 minutes 14 seconds55:14
+SANIL NAMBIAR 55 minutes 14 seconds
+They were a Slack native product, which means to say that.
+SANIL NAMBIAR 55 minutes 18 seconds
+They had a model as an I would say a natural language to SQL, you know, model where.
+SANIL NAMBIAR 55 minutes 27 seconds
+Everything in their system is Slack native, which means you don't need to go to the UI. You can do pretty much everything in Slack in natural language. That prompt, I mean, it was not even, you know, generative AI at that time. It was pure NL to SQL, you know, you know, changes. Like you ask something, hey, get me this particular report.
+SANIL NAMBIAR 55 minutes 49 seconds
+that natural language will translate itself to SQL, it will implement that, and then it'll come back, you know, with a graph for you, you know, in Slack, right? So it was pretty cool. So they were already, you know, thinking about headless at that time, is what I would say.
+SANIL NAMBIAR 56 minutes 7 seconds
+I think I have a really nice demo of that, you know, also somewhere. I don't know whether I have it here. But yeah, they're an interesting company. They were, so now they've added all their, what do you say, they've added more.
+SANIL NAMBIAR 56 minutes 26 seconds
+You know, AI now, so they are even more slack native and headless.
 
 Drron Sharma
-0 minutes 17 seconds0:17
-Drron Sharma 0 minutes 17 seconds
-Yeah, I hope you guys could hear me all right.
-JK
-
-Jayakrishna Kaimal
-0 minutes 21 seconds0:21
-Jayakrishna Kaimal 0 minutes 21 seconds
-Yeah.
+56 minutes 32 seconds56:32
+Drron Sharma 56 minutes 32 seconds
+Right, selector was one of the first products we considered when we were getting onboarded and that entire process was sort of radically different from how we were tackling things, right? A lot of it, as you said, was on this.
 
 Divine Antony
-0 minutes 21 seconds0:21
-Divine Antony 0 minutes 21 seconds
-Yes, Ron, yes.
-
-Drron Sharma
-0 minutes 22 seconds0:22
-Drron Sharma 0 minutes 22 seconds
-Yeah, perfect. I'll start presenting my screen. Just give me a second.
-Drron Sharma 0 minutes 32 seconds
-All right. So, hi, SANIL. As JK said, we've been working on this for a while. I wouldn't be getting into the details. I assume all of us in the meeting have a very fair understanding of what is it that we are exploring with headless design concepts. Although...
-Drron Sharma 0 minutes 51 seconds
-There is one thing that I would start by mentioning. When we started designing for this thing, we created, based on our research and based on what all the other competitors were doing in the space, 4 exact pillars that we defined our design around. The 4 pillars were goal definition. The user is required to set a goal for the agent. That's
-Drron Sharma 1 minute 14 seconds
-That's something that is a must. The second is guardrails. The user also, be it in the time of setting up and while operating, need to give the agent a very clear understanding of those boundaries that all the processes are supposed to be done under. Any breach in those boundaries.
-Drron Sharma 1 minute 34 seconds
-creates issues in the systems, but in an ideal case scenario, that is exactly the boundaries are being followed and the agent operates under those boundaries. And there are a bunch of escalation rules as well. This is something that is related to the boundaries, but also has to do with the day-to-day process of the agent where we tell the agent that, okay,
-Drron Sharma 1 minute 57 seconds
-If you encounter a scenario like this, you're supposed to ask with some sort of an RBAC, you're supposed to auto-approve, you're supposed to auto-approve with the time limit, rules like that. And the fourth thing is scheduling, where we talk about when is it exactly that a decision is to be made, is it trigger-based?
-Drron Sharma 2 minutes 16 seconds
-Is it continuous? Is it on demand? With this four pillar and an understanding of in the far future or in the future, trying to automate a lot many processes for the user that network intelligence does now, we started creating a concept, i.e.
-Drron Sharma 2 minutes 35 seconds
-I'm going to start sharing the concept right away. Yeah.
-Drron Sharma 2 minutes 41 seconds
-So how we imagine this in the future is the user interacting initially with network intelligence with their communication tool. For this example, we have taken IBM Slack to be that, as in Slack to be that, and working in the IBM team.
-Drron Sharma 3 minutes
-The user operates under normal condition, how Slack is supposed to be operated. They might have a channel, they might have a board that is configured. We'll have to figure out how exactly this interaction works with Slack, what Slack allows or not. In this example, we have imagined that Slack does allow it.
-Drron Sharma 3 minutes 19 seconds
-And it is when a decision is needed from the agent's end, that is when the agent approaches the user. The user is very well able to see that, okay, there is a decision required from a network engineer, which is the user, and they can gain, okay.
+56 minutes 32 seconds56:32
+Divine Antony 56 minutes 32 seconds
+No.
 
 SANIL NAMBIAR
-3 minutes 34 seconds3:34
-SANIL NAMBIAR 3 minutes 34 seconds
-Sorry, one sec, hold on one sec. So you mentioned Slack ability to do what? You said you're not sure about that. What was that? To send a card like this?
+56 minutes 42 seconds56:42
+SANIL NAMBIAR 56 minutes 42 seconds
+Yeah.
+SANIL NAMBIAR 56 minutes 46 seconds
+So here, you know, yeah, exactly. So if you see, you know, this is their product. It's very, I mean, from a design point of view, it's like very in your face, et cetera. But you know, their Slack native thing starts here. So if you see here, right, they log into their Slack, they launch Slack.
+SANIL NAMBIAR 57 minutes 6 seconds
+that's a selector as an application there. And so, you know, this Slack, this is how it looks, right? So this is the customer channel. Everything comes here, you know, in their environment. So you can ask for details, like, you know, alerts. It automatically posts there, right? So you can do a select.
+SANIL NAMBIAR 57 minutes 26 seconds
+query, you know, you can do a lot of, you know, stuff here. Like, for example, see this, it's multimodal, obviously. So it asks for something, it gives you that, and then you can click on that, and you can then go to that site. You know, you can ask for details about latency, and it'll show you that specific, you know, this one. This is how it was, like, I'm talking about, like,
+SANIL NAMBIAR 57 minutes 47 seconds
+You know, this is an old video, but yeah, I mean, this is how they were right, then you never need to go to this one, you know, you can do everything, you know, from the from the Slack native interface itself. It's pretty cool at that time.
+SANIL NAMBIAR 58 minutes 2 seconds
+Sure.
 
-Drron Sharma
-3 minutes 43 seconds3:43
-Drron Sharma 3 minutes 43 seconds
-So yeah, exactly. So how is it that Slack would allow with respect to design onto how is it that we are portraying that information? I know simple text is possible with links, but the exact approach to how it is looking in the UI, we'll have to figure that out.
+Divine Antony
+58 minutes 4 seconds58:04
+Divine Antony 58 minutes 4 seconds
+So, thanks, Hani.
+Divine Antony 58 minutes 7 seconds
+So yeah, so I think that's pretty much from our side. Drron, Jacob, do you want to add anything here?
+Divine Antony 58 minutes 15 seconds
+Good.
+JK
+Jayakrishna Kaimal
+58 minutes 17 seconds58:17
+Jayakrishna Kaimal 58 minutes 17 seconds
+Yeah, we we are good. Excellent. Thanks for your time. Thanks for your feedback.
+
+Divine Antony
+58 minutes 17 seconds58:17
+Divine Antony 58 minutes 17 seconds
+OK, so yeah.
+Divine Antony 58 minutes 20 seconds
+Yeah.
+Divine Antony 58 minutes 23 seconds
+Thanks, Hani, for joining.
 
 SANIL NAMBIAR
-3 minutes 54 seconds3:54
-SANIL NAMBIAR 3 minutes 54 seconds
-Hare.
-SANIL NAMBIAR 3 minutes 58 seconds
-Got it.
-SANIL NAMBIAR 4 minutes
-Slack does have this, you know, capability. You can send cards in Slack, but yeah, go ahead.
+58 minutes 23 seconds58:23
+SANIL NAMBIAR 58 minutes 23 seconds
+Yeah, great. Yeah, sorry I had to, I didn't know about your holidays, so you know, enjoy your holidays. Bye. Long weekend. Thank you.
+
+Divine Antony
+58 minutes 29 seconds58:29
+Divine Antony 58 minutes 29 seconds
+No, it is. No, it is.
+JK
+Jayakrishna Kaimal
+58 minutes 33 seconds58:33
+Jayakrishna Kaimal 58 minutes 33 seconds
+Thank you. Thank you.
+
+SANIL NAMBIAR
+58 minutes 33 seconds58:33
+SANIL NAMBIAR 58 minutes 33 seconds
+Thank you, guys. Cheers. Bye.
+
+Divine Antony
+58 minutes 34 seconds58:34
+Divine Antony 58 minutes 34 seconds
+Thank you. Thank you. Bye.
