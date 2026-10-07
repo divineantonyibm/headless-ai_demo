@@ -76,12 +76,34 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; }
-  html { font-size: 100%; } /* Carbon: never override root font size */
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  html { font-size: 100%; } /* IBM type scale base: 1rem = 16px */
+
+  /* ── IBM type scale tokens ───────────────────────────────────
+     Source: ibm.com/design/language/typography/type-scale
+     Step 1  = 0.75rem  / 12px  — labels, tags, captions
+     Step 2  = 0.875rem / 14px  — body compact, helper text
+     Step 3  = 1rem     / 16px  — body, heading-compact-02
+     Step 4  = 1.125rem / 18px  — (reserved)
+     Step 5  = 1.25rem  / 20px  — heading-03
+     Step 6  = 1.5rem   / 24px  — heading section
+     Step 7  = 1.75rem  / 28px  — heading-04
+     Step 8  = 2rem     / 32px  — heading-05
+     Step 9  = 2.625rem / 42px  — display numbers
+  ─────────────────────────────────────────────────────────────── */
+  :root {
+    --type-label:   0.75rem;   /* 12px — IBM scale step 1 */
+    --type-helper:  0.875rem;  /* 14px — IBM scale step 2 / body-compact-01 */
+    --type-body:    1rem;      /* 16px — IBM scale step 3 / body-02 */
+    --type-h3:      1.25rem;   /* 20px — IBM scale step 5 / heading-03 */
+    --type-h4:      1.75rem;   /* 28px — IBM scale step 7 / heading-04 */
+    --type-display: 2.625rem;  /* 42px — IBM scale step 9 / display */
+  }
+
   body {
     font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-    font-size: 0.875rem; /* Carbon body-short-01: 14px */
-    line-height: 1.42857; /* Carbon body-short-01 line-height */
+    font-size: var(--type-helper); /* 14px — body-compact-01 */
+    line-height: 1.42857;
     color: var(--cds-text-primary);
     -webkit-font-smoothing: antialiased;
     background: var(--cds-layer-01);
@@ -182,7 +204,7 @@
   }
   @keyframes modalIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
   .modal-title {
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 1.25rem; font-weight: 400;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 1.375rem; font-weight: 400;
     color: var(--cds-text-primary); padding: var(--cds-spacing-05) var(--cds-spacing-05) var(--cds-spacing-03);
     margin-bottom: 0; border-bottom: 1px solid var(--cds-border-subtle-01);
   }
@@ -196,10 +218,10 @@
     margin: 0 var(--cds-spacing-05) var(--cds-spacing-04); white-space: pre-wrap;
   }
   .modal-body { font-size: 0.875rem; color: var(--cds-text-primary); line-height: 1.5; padding: 0 var(--cds-spacing-05) var(--cds-spacing-05); margin-bottom: 0; }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 0; padding: var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: var(--cds-spacing-03); padding: var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
   /* Carbon Ghost button (secondary action) */
   .modal-btn-cancel {
-    padding: 0 var(--cds-spacing-05); height: 48px; border-radius: 0;
+    padding: 0 var(--cds-spacing-04); height: 38px; border-radius: 0;
     border: 1px solid var(--ibm-gray-80); background: transparent;
     color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.875rem; font-weight: 400; cursor: pointer; transition: background 0.1s;
@@ -207,7 +229,7 @@
   .modal-btn-cancel:hover { background: var(--cds-background-hover); }
   /* Carbon Primary button */
   .modal-btn-confirm {
-    padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
+    padding: 0 var(--cds-spacing-06); height: 38px; border-radius: 0; border: none;
     background: var(--cds-button-primary); color: var(--cds-text-on-color);
     font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
     cursor: pointer; transition: background 0.1s;
@@ -220,7 +242,7 @@
   ════════════════════════════════════ */
   .gr-wrap { flex: 1; overflow-y: auto; padding: var(--cds-spacing-07) var(--cds-spacing-07) var(--cds-spacing-08); display: flex; flex-direction: column; gap: var(--cds-spacing-06); }
   .gr-page-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: var(--cds-spacing-04); }
-  /* Carbon productive-heading-04: 28px/400 */
+  /* IBM type scale step 7: heading-04 28px/400 */
   .gr-page-title { font-size: 1.75rem; font-weight: 400; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); }
   .gr-page-sub { font-size: 0.875rem; color: var(--cds-text-secondary); max-width: 560px; line-height: 1.5; }
   .gr-header-actions { display: flex; align-items: center; gap: var(--cds-spacing-03); }
@@ -245,15 +267,15 @@
     padding: var(--cds-spacing-05);
   }
   .gr-sum-label { font-size: 0.75rem; color: var(--cds-text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; margin-bottom: var(--cds-spacing-03); }
-  /* Carbon fluid-display-01: 54px / 300 weight */
-  .gr-sum-val { font-size: 2.25rem; font-weight: 300; color: var(--cds-text-primary); line-height: 1; letter-spacing: -0.5px; margin-bottom: var(--cds-spacing-01); }
+  /* IBM type scale step 9: 42px / 300 weight */
+  .gr-sum-val { font-size: 2.625rem; font-weight: 300; color: var(--cds-text-primary); line-height: 1; letter-spacing: -0.5px; margin-bottom: var(--cds-spacing-01); }
   .gr-sum-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
 
   /* guardrail table — Carbon DataTable */
   .gr-table-wrap { background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; display: flex; flex-direction: column; flex-shrink: 0; }
   .gr-table-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: var(--cds-spacing-04) var(--cds-spacing-05); border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    padding: var(--cds-spacing-04) var(--cds-spacing-05);
     flex-shrink: 0;
   }
   .gr-table-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); }
@@ -270,7 +292,7 @@
   .gr-type-badge {
     display: inline-flex; align-items: center; gap: var(--cds-spacing-01);
     font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px;
-    padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0;
+    padding: 1px 9px; border-radius: 4px;
   }
   .gr-type-hard { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
   .gr-type-soft { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid #f1c21b; }
@@ -280,7 +302,7 @@
   /* Carbon status tag */
   .gr-status-badge {
     display: inline-flex; align-items: center; gap: var(--cds-spacing-01);
-    font-size: 0.75rem; font-weight: 600; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0;
+    font-size: 0.75rem; font-weight: 600; padding: 1px 9px; border-radius: 4px;
   }
   .gr-status-active   { background: var(--ibm-green-10); color: var(--ibm-green-50); }
   .gr-status-drift    { background: var(--ibm-yellow-10); color: #8e6a00; }
@@ -309,12 +331,12 @@
     display: flex; align-items: flex-start; justify-content: space-between;
     padding: var(--cds-spacing-05); border-bottom: 1px solid var(--cds-border-subtle-01); flex-shrink: 0;
   }
-  .gr-drawer-title { font-size: 1rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); }
+  .gr-drawer-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); }
   .gr-drawer-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
   .gr-drawer-close {
     width: 32px; height: 32px; background: none; border: none;
     color: var(--cds-text-secondary); cursor: pointer; border-radius: 0;
-    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
   }
   .gr-drawer-close:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
   .gr-drawer-body { flex: 1; overflow-y: auto; padding: var(--cds-spacing-05); display: flex; flex-direction: column; gap: var(--cds-spacing-05); }
@@ -345,27 +367,30 @@
   ════════════════════════════════════ */
   .hp-wrap { flex: 1; overflow-y: auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 20px; }
   .hp-hero {
-    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: 28px 32px;
-    display: flex; align-items: center; gap: 32px;
+    background: var(--ibm-green-10);
+    border: 1px solid var(--ibm-green-30);
+    border-left: 4px solid var(--ibm-green-50);
+    border-radius: 0; padding: 36px 40px;
+    display: flex; align-items: center; gap: 36px;
   }
   .hp-orb-wrap { position: relative; flex-shrink: 0; }
   .hp-orb {
-    width: 80px; height: 80px; border-radius: 50%;
-    background: var(--ibm-green-10);
+    width: 72px; height: 72px; border-radius: 50%;
+    background: #ffffff;
     border: 2px solid var(--ibm-green-30);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 0 8px rgba(36,161,72,0.1);
+    box-shadow: 0 0 0 10px rgba(36,161,72,0.12);
     animation: hpOrbPulse 3s ease-in-out infinite;
   }
-  @keyframes hpOrbPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(36,161,72,0.1); } 50% { box-shadow: 0 0 0 16px rgba(36,161,72,0.04); } }
-  .hp-orb.warn { background: var(--ibm-yellow-10); border-color: var(--ibm-yellow-30); box-shadow: 0 0 0 8px rgba(212,167,44,0.1); animation: none; }
-  .hp-orb.crit { background: var(--ibm-red-10); border-color: var(--ibm-red-20); box-shadow: 0 0 0 8px rgba(218,30,40,0.1); animation: hpCritPulse 1.4s ease-in-out infinite; }
-  @keyframes hpCritPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(218,30,40,0.15); } 50% { box-shadow: 0 0 0 18px rgba(218,30,40,0.04); } }
+  @keyframes hpOrbPulse { 0%,100% { box-shadow: 0 0 0 10px rgba(36,161,72,0.12); } 50% { box-shadow: 0 0 0 18px rgba(36,161,72,0.04); } }
+  .hp-orb.warn { background: #ffffff; border-color: var(--ibm-yellow-30); box-shadow: 0 0 0 10px rgba(212,167,44,0.1); animation: none; }
+  .hp-orb.crit { background: #ffffff; border-color: var(--ibm-red-20); box-shadow: 0 0 0 10px rgba(218,30,40,0.1); animation: hpCritPulse 1.4s ease-in-out infinite; }
+  @keyframes hpCritPulse { 0%,100% { box-shadow: 0 0 0 10px rgba(218,30,40,0.15); } 50% { box-shadow: 0 0 0 20px rgba(218,30,40,0.04); } }
   .hp-hero-text { flex: 1; }
-  .hp-hero-status { font-size: 22px; font-weight: 400; color: var(--cds-text-primary); margin-bottom: 4px; }
-  .hp-hero-sub { font-size: 13px; color: var(--cds-text-secondary); line-height: 1.6; margin-bottom: 14px; }
-  .hp-hero-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-  .hp-meta-item { font-size: 12px; color: var(--cds-text-secondary); display: flex; align-items: center; gap: 5px; }
+  .hp-hero-status { font-size: 1.375rem; font-weight: 400; color: var(--cds-text-primary); margin-bottom: 4px; }
+  .hp-hero-sub { font-size: 0.9375rem; color: var(--cds-text-secondary); line-height: 1.6; margin-bottom: 14px; }
+  .hp-hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+  .hp-meta-item { font-size: 0.9375rem; color: var(--cds-text-secondary); display: flex; align-items: center; gap: 5px; }
   .hp-meta-dot { width: 6px; height: 6px; border-radius: 50%; }
 
   /* channel routing */
@@ -377,23 +402,23 @@
   .hp-channel-card:hover { border-color: var(--ibm-blue-40); box-shadow: 0 2px 12px rgba(15,98,254,0.08); }
   .hp-channel-card.connected { border-color: var(--ibm-green-30); }
   .hp-channel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .hp-channel-name { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 7px; }
+  .hp-channel-name { font-size: 0.9375rem; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 7px; }
   .hp-channel-icon { width: 24px; height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .hp-channel-status { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 0; }
+  .hp-channel-status { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 0; }
   .hp-cs-on { background: var(--ibm-green-10); color: var(--ibm-green-60); }
   .hp-cs-off { background: var(--cds-layer-01); color: var(--cds-text-secondary); }
-  .hp-channel-desc { font-size: 11px; color: var(--cds-text-secondary); line-height: 1.5; margin-bottom: 10px; }
+  .hp-channel-desc { font-size: 0.8125rem; color: var(--cds-text-secondary); line-height: 1.5; margin-bottom: 10px; }
   .hp-channel-rules { display: flex; flex-direction: column; gap: 4px; }
-  .hp-channel-rule { font-size: 11px; color: var(--cds-text-primary); display: flex; align-items: center; gap: 5px; }
+  .hp-channel-rule { font-size: 0.8125rem; color: var(--cds-text-primary); display: flex; align-items: center; gap: 5px; }
   .hp-channel-rule::before { content: '·'; color: var(--cds-text-secondary); }
 
   /* notification log */
   .hp-log-wrap { background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; }
   .hp-log-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01); }
-  .hp-log-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); }
-  .hp-log-clear { font-size: 11px; color: var(--cds-text-secondary); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 0; }
+  .hp-log-title { font-size: 0.9375rem; font-weight: 600; color: var(--cds-text-primary); }
+  .hp-log-clear { font-size: 0.8125rem; color: var(--cds-text-secondary); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 0; }
   .hp-log-clear:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
-  .hp-log-list { max-height: 280px; overflow-y: auto; }
+  .hp-log-list { overflow-y: visible; }
   .hp-log-item {
     display: flex; align-items: flex-start; gap: 12px;
     padding: 12px 18px; border-bottom: 1px solid var(--cds-border-subtle-01);
@@ -403,9 +428,9 @@
   @keyframes logSlide { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
   .hp-log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
   .hp-log-content { flex: 1; }
-  .hp-log-msg { font-size: 12px; color: var(--cds-text-primary); line-height: 1.5; margin-bottom: 2px; }
-  .hp-log-meta { font-size: 10px; color: var(--cds-text-secondary); }
-  .hp-log-channel { display: inline-flex; align-items: center; gap: 3px; background: var(--cds-layer-01); border-radius: 0; padding: 1px 5px; font-size: 10px; color: var(--cds-text-secondary); margin-left: 6px; }
+  .hp-log-msg { font-size: 0.8125rem; color: var(--cds-text-primary); line-height: 1.5; margin-bottom: 2px; }
+  .hp-log-meta { font-size: 0.8125rem; color: var(--cds-text-secondary); }
+  .hp-log-channel { display: inline-flex; align-items: center; gap: 3px; background: var(--cds-layer-01); border-radius: 0; padding: 1px 5px; font-size: 0.8125rem; color: var(--cds-text-secondary); margin-left: 6px; }
 
   /* silence panel */
   .hp-silence-panel {
@@ -415,13 +440,17 @@
   }
   .hp-silence-icon { width: 40px; height: 40px; border-radius: 0; background: var(--ibm-green-20); border: 1.5px solid var(--ibm-green-30); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .hp-silence-text { flex: 1; }
-  .hp-silence-title { font-size: 14px; font-weight: 600; color: var(--ibm-green-60); margin-bottom: 3px; }
-  .hp-silence-sub { font-size: 12px; color: var(--ibm-green-60); line-height: 1.5; opacity: 0.85; }
+  .hp-silence-title { font-size: 0.9375rem; font-weight: 600; color: var(--ibm-green-60); margin-bottom: 3px; }
+  .hp-silence-sub { font-size: 0.8125rem; color: var(--ibm-green-60); line-height: 1.5; opacity: 0.85; }
 
   /* ════════════════════════════════════
      TAB 3: DECISION INBOX
   ════════════════════════════════════ */
-  .di-wrap { flex: 1; min-height: 0; overflow: hidden; display: flex; gap: 0; }
+  .di-wrap {
+    display: flex; gap: 0;
+    flex: 1 1 0; min-height: 100%;
+    overflow: hidden;
+  }
   .di-list-col {
     width: 320px; flex-shrink: 0;
     overflow-y: auto;
@@ -432,9 +461,9 @@
   }
   .di-detail-col {
     flex: 1; min-width: 0; min-height: 0;
-    overflow-y: auto;
-    padding: var(--cds-spacing-06) var(--cds-spacing-07) var(--cds-spacing-10) var(--cds-spacing-06);
-    display: flex; flex-direction: column; gap: var(--cds-spacing-05);
+    overflow: hidden;
+    padding: var(--cds-spacing-06) var(--cds-spacing-07) var(--cds-spacing-06) var(--cds-spacing-06);
+    display: flex; flex-direction: column; align-items: stretch;
   }
 
   .di-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cds-spacing-02); }
@@ -443,7 +472,7 @@
   @keyframes diPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 
   .di-card {
-    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-06) var(--cds-spacing-06);
     cursor: pointer; transition: border-color 0.1s, background 0.1s;
     flex-shrink: 0;
   }
@@ -451,8 +480,7 @@
   .di-card.selected { border-color: var(--ibm-blue-60); background: var(--ibm-blue-10); outline: 2px solid var(--ibm-blue-60); outline-offset: -2px; }
   .di-card.urgent { border-left: 3px solid var(--ibm-red-60); }
   .di-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--cds-spacing-03); }
-  /* Carbon Tag — no border-radius */
-  .di-card-tag { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0; }
+  .di-card-tag { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: 1px 9px; border-radius: 4px; }
   .di-tag-urgent { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
   .di-tag-warn   { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid var(--ibm-yellow-30); }
   .di-tag-info   { background: var(--ibm-blue-10); color: var(--ibm-blue-70); border: 1px solid var(--ibm-blue-20); }
@@ -463,35 +491,36 @@
 
   /* decision card detail */
   .dc-card {
-    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: visible;
-    flex-shrink: 0;
+    background: #ffffff; border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden;
+    display: flex; flex-direction: column; width: 100%; flex: 1 1 0; min-height: 0;
   }
   .dc-header {
     padding: var(--cds-spacing-05) var(--cds-spacing-06) var(--cds-spacing-04); border-bottom: 1px solid var(--cds-border-subtle-01);
-    background: var(--ibm-red-10);
+    background: #ffffff;
     display: flex; align-items: flex-start; justify-content: space-between; gap: var(--cds-spacing-05);
   }
   .dc-header-left { flex: 1; }
   .dc-header-badges { display: flex; align-items: center; gap: var(--cds-spacing-03); margin-bottom: var(--cds-spacing-03); flex-wrap: wrap; }
-  /* Carbon Tag — no border-radius */
-  .dc-priority-badge { display: inline-flex; align-items: center; gap: var(--cds-spacing-01); border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); }
+  /* Pills — rounded, 10% smaller */
+  .dc-priority-badge { display: inline-flex; align-items: center; gap: var(--cds-spacing-01); border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: 1px 9px; }
   .dc-priority-p1 { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
   .dc-priority-p2 { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid var(--ibm-yellow-30); }
   .dc-priority-p3 { background: var(--ibm-blue-10); color: var(--ibm-blue-70); border: 1px solid var(--ibm-blue-20); }
-  .dc-action-req { display: inline-flex; align-items: center; gap: var(--cds-spacing-02); background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); }
+  .dc-action-req { display: inline-flex; align-items: center; gap: var(--cds-spacing-02); background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); border-radius: 4px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: 1px 9px; }
   .dc-service-tag { font-size: 0.75rem; color: var(--cds-text-secondary); }
-  /* Carbon productive-heading-03: 20px/400 */
+  /* IBM type scale step 5: heading-03 20px/400 */
   .dc-title { font-size: 1.25rem; font-weight: 400; color: var(--cds-text-primary); line-height: 1.4; margin-bottom: var(--cds-spacing-03); }
   .dc-summary { font-size: 0.875rem; color: var(--cds-text-primary); line-height: 1.5; }
   .dc-slo-countdown {
-    flex-shrink: 0; text-align: right;
+    flex-shrink: 0; text-align: center;
     background: var(--ibm-red-10); border: 1px solid var(--ibm-red-20); border-radius: 0; padding: var(--cds-spacing-03) var(--cds-spacing-04);
   }
   .dc-slo-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--ibm-red-60); margin-bottom: var(--cds-spacing-02); }
+  /* IBM type scale step 7: 28px */
   .dc-slo-time { font-size: 1.75rem; font-weight: 300; color: var(--ibm-red-60); letter-spacing: -0.5px; line-height: 1; }
   .dc-slo-sub { font-size: 0.75rem; color: var(--cds-text-secondary); margin-top: var(--cds-spacing-01); }
 
-  .dc-body { padding: var(--cds-spacing-05) var(--cds-spacing-06); display: flex; flex-direction: column; gap: var(--cds-spacing-05); }
+  .dc-body { padding: var(--cds-spacing-05) var(--cds-spacing-06); display: flex; flex-direction: column; gap: var(--cds-spacing-05); flex: 1; overflow-y: auto; min-height: 0; }
   .dc-section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
   .dc-why-badge { display: inline-flex; align-items: center; gap: var(--cds-spacing-03); background: var(--ibm-yellow-10); border: 1px solid var(--ibm-yellow-30); border-radius: 0; padding: var(--cds-spacing-03) var(--cds-spacing-04); font-size: 0.875rem; color: #8e6a00; line-height: 1.5; }
 
@@ -510,7 +539,7 @@
   .dc-option-content { flex: 1; }
   .dc-option-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-01); }
   .dc-option-desc { font-size: 0.75rem; color: var(--cds-text-secondary); line-height: 1.5; }
-  .dc-option-badge { font-size: 0.75rem; font-weight: 600; padding: 1px var(--cds-spacing-03); border-radius: 0; margin-left: var(--cds-spacing-03); }
+  .dc-option-badge { font-size: 0.75rem; font-weight: 600; padding: 1px 9px; border-radius: 4px; margin-left: var(--cds-spacing-03); }
   .dc-ob-rec  { background: var(--ibm-green-10); color: var(--ibm-green-50); }
   .dc-ob-risk { background: var(--ibm-red-10); color: var(--ibm-red-60); }
 
@@ -541,12 +570,12 @@
   .plan-popup-icon.red   { background: var(--ibm-red-10); }
   .plan-popup-icon.grey  { background: var(--cds-layer-01); }
   .plan-popup-heading { flex: 1; }
-  /* Carbon productive-heading-03: 20px/400 */
-  .plan-popup-title { font-size: 1rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); line-height: 1.35; }
+  /* IBM type scale step 2: 14px/600 */
+  .plan-popup-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); line-height: 1.35; }
   .plan-popup-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
   .plan-popup-close {
     width: 32px; height: 32px; border-radius: 0; border: none; cursor: pointer;
-    background: transparent; color: var(--cds-text-secondary); font-size: 16px;
+    background: transparent; color: var(--cds-text-secondary); font-size: 1rem;
     display: flex; align-items: center; justify-content: center;
     transition: background 0.1s; flex-shrink: 0;
   }
@@ -593,23 +622,22 @@
   .plan-kv-val.red   { color: var(--ibm-red-60); }
   .plan-kv-val.orange{ color: #8e6a00; }
   .plan-popup-footer {
-    padding: var(--cds-spacing-05); display: flex; justify-content: flex-end; gap: 0;
+    padding: var(--cds-spacing-05); display: flex; justify-content: flex-end; gap: var(--cds-spacing-03);
     border-top: 1px solid var(--cds-border-subtle-01); margin-top: var(--cds-spacing-04);
   }
-  /* Carbon Ghost + Primary buttons — no border-radius, 48px height */
   .plan-btn-cancel {
-    padding: 0 var(--cds-spacing-05); height: 48px; border-radius: 0;
+    padding: 0 var(--cds-spacing-04); height: 38px; border-radius: 0;
     border: 1px solid var(--ibm-gray-80); background: transparent;
     color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.875rem; cursor: pointer; transition: background 0.1s;
   }
   .plan-btn-cancel:hover { background: var(--cds-background-hover); }
   .plan-btn-approve {
-    padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
+    padding: 0 var(--cds-spacing-06); height: 38px; border-radius: 0; border: none;
     background: var(--ibm-green-50); color: #fff;
     font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; cursor: pointer; transition: background 0.1s;
   }
-  .plan-btn-approve:hover { background: var(--ibm-green-70); }
+  .plan-btn-approve:hover { background: #0e6027; color: #fff; }
   .plan-btn-danger {
     padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
     background: var(--cds-button-danger); color: #fff;
@@ -617,7 +645,7 @@
   }
   .plan-btn-danger:hover { background: #a2191f; }
 
-  /* evidence */
+  /* evidence + reasoning trace accordions — shared shell */
   .dc-evidence {
     background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; flex-shrink: 0;
   }
@@ -634,8 +662,64 @@
   .dc-evidence-item:last-child { border-bottom: none; }
   .dc-ev-label { color: var(--cds-text-secondary); min-width: 100px; }
 
+  /* reasoning trace accordion */
+  .dc-trace { background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; flex-shrink: 0; }
+  .dc-trace-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--cds-spacing-03) var(--cds-spacing-04); background: none; border: none; cursor: pointer;
+    font-size: 0.875rem; font-weight: 500; color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
+    transition: background 0.1s;
+  }
+  .dc-trace-toggle-label { display: flex; align-items: center; gap: var(--cds-spacing-03); }
+  .dc-trace-toggle-label svg { color: var(--ibm-purple-60); flex-shrink: 0; }
+  .dc-trace-toggle:hover { background: var(--cds-background-hover); }
+  .dc-trace-body { display: none; padding: 0 var(--cds-spacing-04) var(--cds-spacing-04); }
+  .dc-trace-body.open { display: block; }
+  .dc-trace-summary {
+    font-size: 0.875rem; color: var(--cds-text-secondary); line-height: 1.6;
+    padding: var(--cds-spacing-03) 0 var(--cds-spacing-04);
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+    margin-bottom: var(--cds-spacing-03);
+  }
+  /* timeline layout */
+  .dc-trace-step {
+    display: flex; gap: var(--cds-spacing-03); font-size: 0.75rem; line-height: 1.6; position: relative;
+  }
+  .dc-trace-step-spine {
+    display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 20px;
+  }
+  .dc-trace-step-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--cds-text-primary);
+    flex-shrink: 0; margin-top: 4px; z-index: 1;
+  }
+  .dc-trace-step-connector {
+    width: 1px; flex: 1; background: var(--cds-border-subtle-01); margin-top: 3px; min-height: 12px;
+  }
+  .dc-trace-step:last-child .dc-trace-step-connector { display: none; }
+  .dc-trace-step-content { flex: 1; padding-bottom: var(--cds-spacing-04); }
+  .dc-trace-step:last-child .dc-trace-step-content { padding-bottom: 0; }
+  .dc-trace-step-stage {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem; font-weight: 600;
+    color: var(--cds-text-primary); margin-bottom: 1px;
+  }
+  .dc-trace-step-time {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    font-size: 0.6875rem; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-01);
+  }
+  .dc-trace-step-desc {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem;
+    color: var(--cds-text-primary); line-height: 1.5;
+  }
+
   /* action buttons — Carbon button sizes */
-  .dc-actions { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; }
+  .dc-actions {
+    display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; align-items: center;
+    background: #ffffff;
+    border-top: 1px solid var(--cds-border-subtle-01);
+    padding: var(--cds-spacing-04) var(--cds-spacing-06);
+    flex-shrink: 0;
+  }
+  .dc-actions-right { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; margin-left: auto; }
   .dc-act-btn {
     display: flex; align-items: center; gap: var(--cds-spacing-02);
     padding: 0 var(--cds-spacing-05); height: 40px; border-radius: 0;
@@ -643,7 +727,7 @@
     cursor: pointer; transition: background 0.1s; white-space: nowrap;
   }
   .dc-act-approve  { background: var(--ibm-green-50); color: #fff; border: none; }
-  .dc-act-approve:hover  { background: var(--ibm-green-70); }
+  .dc-act-approve:hover  { background: #0e6027; color: #fff; }
   .dc-act-override { background: transparent; color: var(--cds-text-primary); border: 1px solid var(--cds-border-strong-01); }
   .dc-act-override:hover { background: var(--cds-background-hover); }
   .dc-act-reject   { background: transparent; color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
@@ -670,20 +754,20 @@
   .modify-chat-panel-header {
     padding: var(--cds-spacing-04) var(--cds-spacing-05);
     border-bottom: 1px solid var(--cds-border-subtle-01);
-    display: flex; align-items: center; gap: var(--cds-spacing-03); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: flex-end; gap: var(--cds-spacing-03); flex-shrink: 0;
     background: var(--cds-layer-01);
   }
   .modify-chat-orb {
     width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
     background: var(--ibm-blue-60);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.625rem; font-weight: 700; color: #fff;
+    font-size: 0.75rem; font-weight: 700; color: #fff;
   }
   .modify-chat-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); flex: 1; }
   .modify-chat-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
   .modify-chat-close {
     width: 32px; height: 32px; border-radius: 0; border: none; cursor: pointer;
-    background: transparent; color: var(--cds-text-secondary); font-size: 14px; display: flex;
+    background: transparent; color: var(--cds-text-secondary); font-size: 0.875rem; display: flex;
     align-items: center; justify-content: center; transition: background 0.1s; flex-shrink: 0;
   }
   .modify-chat-close:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
@@ -701,7 +785,7 @@
   .modify-chat-avatar {
     width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.625rem; font-weight: 700;
+    font-size: 0.75rem; font-weight: 700;
   }
   .modify-chat-msg.user  .modify-chat-avatar { background: var(--ibm-blue-10); color: var(--ibm-blue-60); }
   .modify-chat-msg.agent .modify-chat-avatar { background: var(--ibm-blue-60); color: #fff; }
@@ -730,7 +814,7 @@
   }
   .modify-chat-chip {
     font-size: 0.75rem; color: var(--cds-text-primary); background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01);
-    border-radius: 0; padding: var(--cds-spacing-01) var(--cds-spacing-04); cursor: pointer;
+    border-radius: 4px; padding: 1px 9px; cursor: pointer;
     transition: background 0.1s, border-color 0.1s, color 0.1s; white-space: nowrap;
   }
   .modify-chat-chip:hover { background: var(--ibm-blue-10); border-color: var(--ibm-blue-40); color: var(--ibm-blue-70); }
@@ -786,15 +870,15 @@
     padding: 40px; flex-shrink: 0;
   }
   .di-empty-icon { width: 48px; height: 48px; border-radius: 0; background: var(--ibm-green-10); display: flex; align-items: center; justify-content: center; }
-  .di-empty-title { font-size: 15px; font-weight: 600; color: var(--ibm-green-60); }
-  .di-empty-sub { font-size: 13px; color: var(--cds-text-secondary); text-align: center; max-width: 260px; }
+  .di-empty-title { font-size: 0.875rem; font-weight: 600; color: var(--ibm-green-60); }
+  .di-empty-sub { font-size: 0.875rem; color: var(--cds-text-secondary); text-align: center; max-width: 260px; }
 
   /* ════════════════════════════════════
      TAB 4: REMEDIATION
   ════════════════════════════════════ */
   .rm-wrap { flex: 1; min-height: 0; display: flex; overflow: hidden; }
   .rm-list-col {
-    width: 280px; flex-shrink: 0;
+    width: 320px; flex-shrink: 0;
     overflow-y: auto;
     padding: var(--cds-spacing-06) var(--cds-spacing-04) var(--cds-spacing-10) var(--cds-spacing-07);
     border-right: 1px solid var(--cds-border-subtle-01);
@@ -809,22 +893,22 @@
   }
 
   .rm-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cds-spacing-02); }
-  .rm-list-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); }
+  .rm-list-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); }
 
   .rm-item {
-    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-06) var(--cds-spacing-06);
     cursor: pointer; transition: border-color 0.15s;
   }
   .rm-item:hover { border-color: var(--ibm-blue-40); }
   .rm-item.selected { border-color: var(--ibm-blue-60); background: var(--ibm-blue-10); outline: 2px solid var(--ibm-blue-60); outline-offset: -2px; }
-  .rm-item-id { font-size: 10px; font-weight: 700; color: var(--ibm-blue-60); letter-spacing: 0.5px; margin-bottom: 3px; }
-  .rm-item-title { font-size: 13px; font-weight: 500; color: var(--cds-text-primary); margin-bottom: 6px; line-height: 1.4; }
+  .rm-item-id { font-size: 0.75rem; font-weight: 700; color: var(--ibm-blue-60); letter-spacing: 0.5px; margin-bottom: 3px; }
+  .rm-item-title { font-size: 0.875rem; font-weight: 500; color: var(--cds-text-primary); margin-bottom: 6px; line-height: 1.4; }
   .rm-item-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
   /* Carbon Tag — no border-radius */
   .rm-stage-pill {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 600; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0; white-space: nowrap;
+    font-size: 0.75rem; font-weight: 600; padding: 1px 9px; border-radius: 4px; white-space: nowrap;
   }
   .rm-stage-invest { background: var(--ibm-red-10); color: var(--ibm-red-60); }
   .rm-stage-ticket { background: var(--ibm-yellow-10); color: #8e6a00; }
@@ -834,33 +918,45 @@
   .rm-stage-done { background: var(--ibm-green-20); color: var(--ibm-green-70); }
 
   /* workflow stepper */
+  /* ── rm-stepper — Carbon Progress Indicator style ── */
   .rm-stepper {
-    display: flex; align-items: stretch; gap: 0;
-    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden;
-    flex-shrink: 0;
+    display: flex; align-items: flex-start; gap: 0;
+    background: var(--cds-layer-02);
+    padding: 0 var(--cds-spacing-05) var(--cds-spacing-05);
+    flex-shrink: 0; position: relative;
   }
   .rm-step {
-    flex: 1; padding: var(--cds-spacing-04) var(--cds-spacing-03) var(--cds-spacing-03); text-align: center; font-size: 11px; font-weight: 500;
-    color: var(--cds-text-secondary); border-right: 1px solid var(--cds-border-subtle-01); cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 5px;
-    transition: background 0.1s;
+    flex: 1; padding-top: var(--cds-spacing-07); text-align: left; font-size: 0.875rem; font-weight: 400;
+    color: var(--cds-text-secondary); cursor: pointer;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+    transition: color 0.1s; position: relative; background: transparent; border: none;
   }
-  .rm-step:last-child { border-right: none; }
-  .rm-step:hover:not(.blocked) { background: var(--cds-background-hover); }
-  .rm-step.active { color: var(--cds-text-primary); background: var(--ibm-blue-10); }
-  .rm-step.done { color: var(--ibm-green-60); background: var(--ibm-green-10); }
-  .rm-step.blocked { color: var(--cds-text-disabled); background: var(--cds-layer-01); cursor: not-allowed; }
+  .rm-step:hover:not(.blocked) { color: var(--cds-text-primary); }
+  .rm-step.active  { color: var(--cds-text-primary); }
+  .rm-step.done    { color: var(--cds-text-secondary); }
+  .rm-step.blocked { color: var(--cds-text-disabled); cursor: not-allowed; }
+  /* circle icon */
   .rm-step-num {
-    font-size: 10px; font-weight: 700;
-    width: 20px; height: 20px; border-radius: 50%;
+    width: 28px; height: 28px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    background: var(--cds-layer-accent-01); color: var(--cds-text-secondary);
+    flex-shrink: 0; margin-bottom: 6px; position: relative; z-index: 1;
+    background: var(--cds-layer-02);
+    border: 2px solid var(--cds-text-disabled); color: var(--cds-text-disabled);
+    font-size: 0.75rem; font-weight: 700;
   }
-  .rm-step.done .rm-step-num { background: var(--ibm-green-50); color: #fff; }
-  .rm-step.active .rm-step-num { background: var(--ibm-blue-60); color: #fff; }
-  .rm-step.blocked .rm-step-num { background: var(--cds-layer-01); color: var(--cds-text-disabled); }
-  .rm-step-name { display: block; font-size: 11px; line-height: 1.3; }
+  /* done — blue circle with checkmark SVG */
+  .rm-step.done .rm-step-num {
+    background: var(--cds-layer-02); border-color: var(--ibm-blue-60); color: var(--ibm-blue-60);
+  }
+  /* active — half-filled circle */
+  .rm-step.active .rm-step-num {
+    background: linear-gradient(to right, var(--ibm-blue-60) 50%, var(--cds-layer-02) 50%);
+    border-color: var(--ibm-blue-60); color: transparent;
+    overflow: hidden;
+  }
+  .rm-step.blocked .rm-step-num { border-color: var(--cds-text-disabled); color: var(--cds-text-disabled); background: var(--cds-layer-02); }
+  .rm-step-name { display: block; font-size: 0.875rem; font-weight: 400; line-height: 1.3; color: inherit; }
+  .rm-step-label { display: block; font-size: 0.75rem; color: var(--cds-text-secondary); line-height: 1.3; }
 
   /* detail panels */
   .rm-detail-card {
@@ -871,30 +967,30 @@
     padding: var(--cds-spacing-04) var(--cds-spacing-05) var(--cds-spacing-03); border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01);
     display: flex; align-items: center; justify-content: space-between;
   }
-  .rm-detail-card-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 8px; }
+  .rm-detail-card-title { font-size: 0.9375rem; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 8px; }
   .rm-detail-card-body { padding: var(--cds-spacing-05) var(--cds-spacing-05); }
 
-  .rm-field-row { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--cds-spacing-03) 0; border-bottom: 1px solid var(--cds-border-subtle-01); font-size: 12px; gap: 12px; }
+  .rm-field-row { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--cds-spacing-03) 0; border-bottom: 1px solid var(--cds-border-subtle-01); font-size: 0.8125rem; gap: 12px; }
   .rm-field-row:last-child { border-bottom: none; }
   .rm-field-key { color: var(--cds-text-secondary); min-width: 130px; flex-shrink: 0; }
   .rm-field-val { color: var(--cds-text-primary); font-weight: 500; text-align: right; flex: 1; }
-  .rm-field-val.mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; font-size: 11px; }
+  .rm-field-val.mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; font-size: 0.8125rem; }
 
   /* timeline inside remediation */
   .rm-timeline { display: flex; flex-direction: column; gap: 0; }
-  .rm-tl-item { display: flex; gap: 12px; padding: var(--cds-spacing-03) 0; border-bottom: 1px solid var(--cds-border-subtle-01); }
-  .rm-tl-item:last-child { border-bottom: none; }
-  .rm-tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-  .rm-tl-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
-  .rm-tl-line { width: 1px; flex: 1; background: var(--cds-border-subtle-01); margin-top: 3px; min-height: 20px; }
+  .rm-tl-item { display: flex; gap: var(--cds-spacing-03); padding: var(--cds-spacing-02) 0; }
+  .rm-tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 20px; }
+  .rm-tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cds-text-primary); flex-shrink: 0; margin-top: 4px; z-index: 1; }
+  .rm-tl-line { width: 1px; flex: 1; background: var(--cds-border-subtle-01); margin-top: 3px; min-height: 12px; }
   .rm-tl-item:last-child .rm-tl-line { display: none; }
-  .rm-tl-content { flex: 1; padding-top: 3px; }
-  .rm-tl-title { font-size: 12px; font-weight: 600; color: var(--cds-text-primary); margin-bottom: 2px; }
-  .rm-tl-desc { font-size: 11px; color: var(--cds-text-secondary); line-height: 1.5; }
-  .rm-tl-time { font-size: 10px; color: var(--cds-text-secondary); margin-top: 2px; }
+  .rm-tl-content { flex: 1; padding-bottom: var(--cds-spacing-04); }
+  .rm-tl-item:last-child .rm-tl-content { padding-bottom: 0; }
+  .rm-tl-title { font-size: 0.8125rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: 1px; }
+  .rm-tl-time { font-family: 'IBM Plex Mono', 'Courier New', monospace; font-size: 0.75rem; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-01); }
+  .rm-tl-desc { font-size: 0.8125rem; color: var(--cds-text-secondary); line-height: 1.5; }
 
   /* action buttons in remediation — Carbon button tokens */
-  .rm-actions { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; padding: var(--cds-spacing-04) var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
+  .rm-actions { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; justify-content: flex-end; padding: var(--cds-spacing-04) var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
   .rm-act-btn { display: flex; align-items: center; gap: var(--cds-spacing-02); padding: 0 var(--cds-spacing-05); height: 40px; border-radius: 0; font-size: 0.875rem; font-weight: 400; cursor: pointer; transition: background 0.1s; font-family: 'IBM Plex Sans', sans-serif; }
   .rm-act-primary { background: var(--ibm-blue-60); color: #fff; border: none; }
   .rm-act-primary:hover { background: var(--ibm-blue-70); }
@@ -907,11 +1003,11 @@
   .rm-canary-bar { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
   .rm-canary-track { flex: 1; height: 8px; background: var(--cds-layer-accent-01); border-radius: 0; overflow: hidden; }
   .rm-canary-fill { height: 100%; border-radius: 0; background: var(--ibm-green-50); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
-  .rm-canary-label { font-size: 11px; color: var(--cds-text-secondary); white-space: nowrap; }
-  .rm-canary-pct { font-size: 13px; font-weight: 600; color: var(--ibm-green-60); }
+  .rm-canary-label { font-size: 0.75rem; color: var(--cds-text-secondary); white-space: nowrap; }
+  .rm-canary-pct { font-size: 0.875rem; font-weight: 600; color: var(--ibm-green-60); }
 
   /* section label */
-  .sec-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
+  .sec-label { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
 
   /* ── scrollbar tweaks — cover all scrollable cols ── */
   .gr-wrap::-webkit-scrollbar, .hp-wrap::-webkit-scrollbar,
@@ -979,12 +1075,12 @@
 <div class="modal-backdrop" id="reasoningTraceModal" onclick="if(event.target===this) closeModal('reasoningTraceModal')">
   <div class="modal" style="width: 560px; max-width: 95vw;">
     <div class="modal-title" style="display:flex;align-items:center;gap:8px;">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:0;background:var(--ibm-purple-10);color:var(--ibm-purple-60);font-size:14px;">🧠</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:0;background:var(--ibm-purple-10);color:var(--ibm-purple-60);font-size:15px;">🧠</span>
       <span>Autonomous Reasoning Trace</span>
     </div>
     <div class="modal-sub" id="traceModalSub">payment-service · us-east-1</div>
     <div class="modal-label">Agent Inference &amp; Decision Chain</div>
-    <div class="modal-trace" id="traceModalContent" style="font-size:12px;max-height:260px;overflow-y:auto;"></div>
+    <div class="modal-trace" id="traceModalContent" style="font-size:11px;max-height:260px;overflow-y:auto;"></div>
     <div class="modal-body" id="traceModalExplanation" style="margin-bottom:16px;"></div>
     <div class="modal-actions">
       <button class="modal-btn-cancel" onclick="closeModal('reasoningTraceModal')">Close</button>
@@ -1038,23 +1134,17 @@
     <!-- TOP NAV -->
     <div class="topnav">
       <div class="logo-area">
-        <div class="logo-icon">
-          <img src="./Headless Ops — Full Vision_files/ini_logo.png" alt="IBM Network Intelligence logo" onerror="this.style.display=&#39;none&#39;;this.parentNode.innerHTML=&#39;&lt;svg width=22 height=22 viewBox=\&#39;0 0 32 32\&#39; fill=\&#39;%230f62fe\&#39;&gt;&lt;path d=\&#39;M16 2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2zm0 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 18h-8v-2h2v-7h-2v-2h6v9h2v2z\&#39;/&gt;&lt;/svg&gt;&#39;;">
-        </div>
         <span class="logo-name">IBM Network Intelligence</span>
-        <span class="headless-badge"><span class="headless-badge-dot"></span>Headless</span>
       </div>
 
       <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab(&#39;decision&#39;, this)">Decision Inbox <span id="inboxBadge" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:0;background:var(--ibm-red-60);color:#fff;font-size:10px;font-weight:700;margin-left:5px;flex-shrink:0;animation:diPulse 1.8s ease-in-out infinite;">3</span></button>
+        <button class="nav-tab active" onclick="switchTab(&#39;decision&#39;, this)">Decision Inbox <span id="inboxBadge" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:0;background:var(--ibm-red-60);color:#fff;font-size:11px;font-weight:700;margin-left:5px;flex-shrink:0;animation:diPulse 1.8s ease-in-out infinite;">3</span></button>
         <div class="nav-sep"></div>
         <button class="nav-tab" onclick="switchTab(&#39;guardrail&#39;, this)">Guardrail Studio</button>
         <div class="nav-sep"></div>
         <button class="nav-tab" onclick="switchTab(&#39;health&#39;, this)">Health Pulse</button>
         <div class="nav-sep"></div>
-        <button class="nav-tab" onclick="switchTab(&#39;remediation&#39;, this)">Remediation</button>
-        <div class="nav-sep"></div>
-        <a class="nav-tab" href="headless-workflow.html" style="text-decoration:none;display:inline-flex;align-items:center;">Workflow Flowchart</a>
+        <button class="nav-tab" onclick="switchTab(&#39;remediation&#39;, this)">Investigations</button>
       </div>
 
       <div class="nav-icons">
@@ -1126,6 +1216,7 @@
               <span class="gr-table-title">All guardrails</span>
               <span style="font-size:11px;color:var(--cds-text-secondary);">Click a row to edit · Impact score runs pre-flight before any change is applied</span>
             </div>
+            <div style="border-bottom: 1px solid var(--cds-border-subtle-01);"></div>
             <div class="gr-table-scroll">
               <table class="gr-table">
                 <thead>
@@ -1146,7 +1237,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Availability · G-01</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">14:00–16:00 UTC Mon–Fri</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">14:00–16:00 UTC Mon–Fri</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1154,7 +1245,7 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1164,7 +1255,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Capacity · G-02</div>
       </td>
       <td><span class="gr-type-badge gr-type-soft">Soft limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">3 replicas max</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">3 replicas max</td>
       <td><span class="gr-status-badge gr-status-drift">Drifting</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1172,7 +1263,7 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">Yes ±15%</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">Yes ±15%</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1182,7 +1273,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Autonomy · G-03</div>
       </td>
       <td><span class="gr-type-badge gr-type-conf">Confidence</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">85% minimum</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">85% minimum</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1190,7 +1281,7 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1200,7 +1291,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Cost · G-04</div>
       </td>
       <td><span class="gr-type-badge gr-type-cost">Cost ceiling</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">$50 / hr</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">$50 / hr</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1208,7 +1299,7 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">Yes up to 120%</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">Yes up to 120%</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1218,7 +1309,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Network · G-05</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1226,7 +1317,7 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1236,7 +1327,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Remediation · G-06</div>
       </td>
       <td><span class="gr-type-badge gr-type-soft">Soft limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Ask mode</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Ask mode</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-low">
@@ -1244,7 +1335,7 @@
           <span class="gr-impact-label">Low</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">Yes ±15%</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">Yes ±15%</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1254,7 +1345,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Data · G-07</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1262,7 +1353,7 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1272,7 +1363,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Change · G-08</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Fri 17:00 UTC onwards</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Fri 17:00 UTC onwards</td>
       <td><span class="gr-status-badge gr-status-drift">Drifting</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1280,7 +1371,7 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
@@ -1290,7 +1381,7 @@
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Autonomy · G-09</div>
       </td>
       <td><span class="gr-type-badge gr-type-conf">Confidence</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">5% traffic cap</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">5% traffic cap</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1298,7 +1389,7 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">No</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   </tbody>
@@ -1313,17 +1404,6 @@
       ═══════════════════════════════════════ -->
       <div class="canvas-area canvas-tab-content" id="tab-health">
         <div class="hp-wrap">
-          <!-- hero silence panel -->
-          <div class="hp-silence-panel" id="hpSilencePanel">
-            <div class="hp-silence-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4L12 14.01l-3-3"></path></svg>
-            </div>
-            <div class="hp-silence-text">
-              <div class="hp-silence-title">All systems nominal — running silently</div>
-              <div class="hp-silence-sub">33 issues auto-resolved in the last 7 days. No alerts sent. Silence is the primary signal of health. You will only be notified when the system cannot resolve something autonomously.</div>
-            </div>
-          </div>
-
           <!-- hero status -->
           <div class="hp-hero">
             <div class="hp-orb-wrap">
@@ -1577,21 +1657,80 @@
             <div class="dc-evidence-item"><span class="dc-ev-label">Connection peak</span><span>498 / 500 (99.6%)</span></div><div class="dc-evidence-item"><span class="dc-ev-label">Rate of rise</span><span>+12 connections/min</span></div><div class="dc-evidence-item"><span class="dc-ev-label">Blast radius</span><span>payment-service only (1 service)</span></div><div class="dc-evidence-item"><span class="dc-ev-label">Historical matches</span><span>11 similar cases — 9 resolved via pool bump</span></div><div class="dc-evidence-item"><span class="dc-ev-label">Rollback confidence</span><span>94%</span></div><div class="dc-evidence-item"><span class="dc-ev-label">Guardrail blocking</span><span>G-01 · Hard limit</span></div>
           </div>
         </div>
-        <div>
-          <div class="dc-section-title">Actions</div>
-          <div class="dc-actions">
-            <button class="dc-act-btn dc-act-approve" onclick="actApprove(0)">✓ Approve recommended</button>
-            <button class="dc-act-btn dc-act-modify" onclick="actModify(0)">✎ Modify &amp; approve</button>
-            <button class="dc-act-btn dc-act-trace" onclick="openDecisionReasoningTrace(0)">🧠 Reasoning trace</button>
-            <button class="dc-act-btn dc-act-override" onclick="showToast(&#39;Override freeze window — audit entry created&#39;, &#39;orange&#39;)">⚡ Override guardrail</button>
-            <button class="dc-act-btn dc-act-reject" onclick="actReject(0)">✕ Reject</button>
+        <div class="dc-trace">
+          <button class="dc-trace-toggle" onclick="toggleTrace(this)">
+            <span>Reasoning trace</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="ev-caret"><path d="M4 6l4 4 4-4"></path></svg>
+          </button>
+          <div class="dc-trace-body" id="traceBody">
+            <div class="dc-trace-summary">The AI agent detected connection pool saturation and confirmed high confidence from 11 historical cases. While auto-restart is blocked by active freeze guardrail G-01, the agent synthesized a zero-downtime pool bump alternative and escalated for approval.</div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Anomaly Detection</div><div class="dc-trace-step-time">14:02:18 UTC</div><div class="dc-trace-step-desc">DB connection metric crossed warning threshold (420/500). Continuous rate: +12 conns/min.</div></div>
+            </div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Root Cause Analysis</div><div class="dc-trace-step-time">14:03:05 UTC</div><div class="dc-trace-step-desc">Connection pool saturation localized to payment-service pod cluster in us-east-1.</div></div>
+            </div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Pattern Matching</div><div class="dc-trace-step-time">14:03:42 UTC</div><div class="dc-trace-step-desc">Cross-referenced vector DB: 11 past incidents matched (pattern: ORM connection timeout leak, cosine sim 0.94).</div></div>
+            </div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Policy &amp; Guardrail Check</div><div class="dc-trace-step-time">14:04:10 UTC</div><div class="dc-trace-step-desc">Automated service restart evaluated → BLOCKED by Hard Guardrail G-01 ("No prod restarts weekdays 14:00–16:00 UTC").</div></div>
+            </div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Remediation Synthesis</div><div class="dc-trace-step-time">14:04:35 UTC</div><div class="dc-trace-step-desc">Synthesized safe alternative: Dynamic pool limit bump (+50, 8-min window). Zero restart downtime, blast radius confined to 1 service.</div></div>
+            </div>
+            <div class="dc-trace-step">
+              <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+              <div class="dc-trace-step-content"><div class="dc-trace-step-stage">Escalation Trigger</div><div class="dc-trace-step-time">14:05:00 UTC</div><div class="dc-trace-step-desc">Confidence score 91% exceeds execution threshold, but G-01 policy constraint requires explicit human approval before execution.</div></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <div class="dc-actions">
+        <button class="dc-act-btn dc-act-reject" onclick="actReject(0)">Reject</button>
+        <div class="dc-actions-right">
+          <button class="dc-act-btn dc-act-modify" onclick="actModify(0)">Modify &amp; approve</button>
+          <button class="dc-act-btn dc-act-approve" onclick="actApprove(0)">Approve recommended</button>
         </div>
       </div>
+    </div>
+          </div><!-- /di-detail-col -->
+
+      <!-- MODIFY CHAT RIGHT PANEL (in-flow sibling inside di-wrap, pushes detail col left) -->
+      <div class="modify-chat-panel" id="modifyChatPanel">
+        <div class="modify-chat-panel-header">
+          <button class="modify-chat-close" onclick="closeModifyChat()">✕</button>
+        </div>
+        <div class="modify-chat-msgs" id="modifyChatMsgs"></div>
+        <div class="modify-chat-chips" id="modifyChatChips">
+          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Adjust pool size</span>
+          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Change rollback window</span>
+          <span class="modify-chat-chip" onclick="modifyChatChip(this)">What caused this?</span>
+          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Modify guardrail scope</span>
+        </div>
+        <div class="modify-chat-input-row">
+          <div class="modify-chat-input-pill">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3" stroke-linecap="round"/>
+            </svg>
+            <input class="modify-chat-input" id="modifyChatInput" type="text"
+              placeholder="Ask anything or describe a scenario to chart…"
+              onkeydown="if(event.key==='Enter') modifyChatSend()" />
+            <button class="modify-chat-send" onclick="modifyChatSend()">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <path d="M14 8L2 14l4-6-4-6 12 6z" fill="white"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div><!-- /modify-chat-panel -->
+        </div><!-- /di-wrap -->
+      </div><!-- /tab-decision -->
 
       <!-- ═══════════════════════════════════════
            TAB 4: REMEDIATION
@@ -1601,6 +1740,7 @@
           <div class="rm-list-col">
             <div class="rm-list-header">
               <span class="rm-list-title">Active cases</span>
+              <span class="di-count-badge" id="rmBadge">3</span>
             </div>
             <div id="rmList">
     <div class="rm-item selected" onclick="selectCase(0)">
@@ -1608,7 +1748,7 @@
       <div class="rm-item-title">DB connection pool exhausted — payment-service</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-deploy">Deploy</span>
-        <span style="font-size:10px;color:var(--cds-text-secondary);">P1 · Remediation Agent</span>
+        <span style="font-size:11px;color:var(--cds-text-secondary);">P1 · Remediation Agent</span>
       </div>
     </div>
   
@@ -1617,7 +1757,7 @@
       <div class="rm-item-title">Recurring CRC error — TVM-EDGE-04 optic port 7/4</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-cr">Change Request</span>
-        <span style="font-size:10px;color:var(--cds-text-secondary);">P2 · Fault Detection Agent</span>
+        <span style="font-size:11px;color:var(--cds-text-secondary);">P2 · Fault Detection Agent</span>
       </div>
     </div>
   
@@ -1626,36 +1766,18 @@
       <div class="rm-item-title">MTU mismatch — SG-01 peering interface</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-ticket">Ticket</span>
-        <span style="font-size:10px;color:var(--cds-text-secondary);">P3 · Network Agent</span>
+        <span style="font-size:11px;color:var(--cds-text-secondary);">P3 · Network Agent</span>
       </div>
     </div>
   </div>
           </div>
           <div class="rm-detail-col" id="rmDetail">
-    <div class="rm-stepper"><div class="rm-step done" onclick="showToast(&#39;Viewing: Investigation&#39;,&#39;blue&#39;)">
-      <div class="rm-step-num">✓</div>
-      <span class="rm-step-name">Investigation</span>
-    </div><div class="rm-step done" onclick="showToast(&#39;Viewing: Ticket&#39;,&#39;blue&#39;)">
-      <div class="rm-step-num">✓</div>
-      <span class="rm-step-name">Ticket</span>
-    </div><div class="rm-step done" onclick="showToast(&#39;Viewing: Change Request&#39;,&#39;blue&#39;)">
-      <div class="rm-step-num">✓</div>
-      <span class="rm-step-name">Change Request</span>
-    </div><div class="rm-step done" onclick="showToast(&#39;Viewing: Maint. Window&#39;,&#39;blue&#39;)">
-      <div class="rm-step-num">✓</div>
-      <span class="rm-step-name">Maint. Window</span>
-    </div><div class="rm-step active" onclick="showToast(&#39;Viewing: Deploy&#39;,&#39;blue&#39;)">
-      <div class="rm-step-num">5</div>
-      <span class="rm-step-name">Deploy</span>
-    </div></div>
-    
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-red-60)" stroke-width="1.4"></circle><path d="M8 5v3.5M8 10.5v.01" stroke="var(--ibm-red-60)" stroke-width="1.4" stroke-linecap="round"></path></svg>
           Investigation · INC-8841
         </div>
-        <span class="rm-stage-pill rm-stage-invest" style="font-size:10px;">AI-driven</span>
+        <span class="rm-stage-pill rm-stage-invest" style="font-size:11px;">AI-driven</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Root cause</span><span class="rm-field-val" style="max-width:360px;text-align:left;">Connection leak in payment-service v2.3.9 under high-load conditions (&gt;400 concurrent requests). Third-party ORM library not releasing connections on timeout.</span></div>
@@ -1665,67 +1787,89 @@
         <div style="margin-top:14px;">
           <div class="sec-label">Event timeline</div>
           <div class="rm-timeline">
-            
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:var(--ibm-red-10);border:1.5px solid var(--ibm-red-60);color:var(--ibm-red-60);">●</div>
+                  <div class="rm-tl-dot"></div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
                   <div class="rm-tl-title">Anomaly detected</div>
-                  <div class="rm-tl-desc">Connection pool at 92% · Alert suppressed (auto-monitoring)</div>
                   <div class="rm-tl-time">14:03 UTC</div>
+                  <div class="rm-tl-desc">Connection pool at 92% · Alert suppressed (auto-monitoring)</div>
                 </div>
               </div>
-            
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:#f59e0b20;border:1.5px solid #f59e0b;color:#f59e0b;">●</div>
+                  <div class="rm-tl-dot"></div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
                   <div class="rm-tl-title">Pattern matched</div>
-                  <div class="rm-tl-desc">14 similar historical cases matched · confidence 91%</div>
                   <div class="rm-tl-time">14:04 UTC</div>
+                  <div class="rm-tl-desc">14 similar historical cases matched · confidence 91%</div>
                 </div>
               </div>
-            
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:var(--ibm-red-10);border:1.5px solid var(--ibm-red-60);color:var(--ibm-red-60);">●</div>
+                  <div class="rm-tl-dot"></div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
                   <div class="rm-tl-title">Guardrail block</div>
-                  <div class="rm-tl-desc">Auto-restart blocked by G-01 (freeze window) · escalated to human</div>
                   <div class="rm-tl-time">14:05 UTC</div>
+                  <div class="rm-tl-desc">Auto-restart blocked by G-01 (freeze window) · escalated to human</div>
                 </div>
               </div>
-            
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:var(--ibm-green-10);border:1.5px solid var(--ibm-green-50);color:var(--ibm-green-60);">●</div>
+                  <div class="rm-tl-dot"></div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
                   <div class="rm-tl-title">Human approved</div>
-                  <div class="rm-tl-desc">Pool bump +50 approved · applied · connections stabilised at 340</div>
                   <div class="rm-tl-time">14:07 UTC</div>
+                  <div class="rm-tl-desc">Pool bump +50 approved · applied · connections stabilised at 340</div>
                 </div>
               </div>
-            
           </div>
         </div>
       </div>
     </div>
-    
+
+    <div class="rm-stepper">
+      <div class="rm-step done" onclick="showToast('Viewing: Investigation','blue')">
+        <div class="rm-step-num"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-6"/></svg></div>
+        <span class="rm-step-name">Investigation</span>
+        <span class="rm-step-label">Completed</span>
+      </div>
+      <div class="rm-step done" onclick="showToast('Viewing: Ticket','blue')">
+        <div class="rm-step-num"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-6"/></svg></div>
+        <span class="rm-step-name">Ticket</span>
+        <span class="rm-step-label">Completed</span>
+      </div>
+      <div class="rm-step done" onclick="showToast('Viewing: Change Request','blue')">
+        <div class="rm-step-num"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-6"/></svg></div>
+        <span class="rm-step-name">Change Request</span>
+        <span class="rm-step-label">Completed</span>
+      </div>
+      <div class="rm-step done" onclick="showToast('Viewing: Maint. Window','blue')">
+        <div class="rm-step-num"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-6"/></svg></div>
+        <span class="rm-step-name">Maint. Window</span>
+        <span class="rm-step-label">Completed</span>
+      </div>
+      <div class="rm-step active" onclick="showToast('Viewing: Deploy','blue')">
+        <div class="rm-step-num"></div>
+        <span class="rm-step-name">Deploy</span>
+        <span class="rm-step-label">In progress</span>
+      </div>
+    </div>
+
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#8e6a00" stroke-width="1.4"></rect><path d="M5 7h6M5 9.5h4" stroke="#8e6a00" stroke-width="1.3" stroke-linecap="round"></path></svg>
           Ticket · NOC-4421
         </div>
-        <span class="rm-stage-pill rm-stage-ticket" style="font-size:10px;">Auto + approve</span>
+        <span class="rm-stage-pill rm-stage-ticket" style="font-size:11px;">Auto + approve</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">System</span><span class="rm-field-val">ServiceNow</span></div>
@@ -1745,10 +1889,9 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2l4 2v5c0 2.5-4 5-4 5S4 11.5 4 9V4l4-2z" stroke="#3b82f6" stroke-width="1.4" stroke-linejoin="round"></path></svg>
           Change Request · CR-2024-0147
         </div>
-        <span class="rm-stage-pill rm-stage-cr" style="font-size:10px;">Approved</span>
+        <span class="rm-stage-pill rm-stage-cr" style="font-size:11px;">Approved</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">CR ID</span><span class="rm-field-val mono">CR-2024-0147</span></div>
@@ -1758,7 +1901,6 @@
         <div class="rm-field-row"><span class="rm-field-key">Maintenance window</span><span class="rm-field-val">22:00–23:00 UTC tonight</span></div>
       </div>
       <div class="rm-actions">
-        <span style="font-size:12px;color:var(--ibm-green-60);padding:7px 0;">✓ CR Approved</span>
         <button class="rm-act-btn rm-act-secondary" onclick="showToast(&#39;CR details opened&#39;,&#39;blue&#39;)">View full CR</button>
       </div>
     </div>
@@ -1766,10 +1908,9 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-purple-60)" stroke-width="1.4"></circle><path d="M8 5v3l2 2" stroke="var(--ibm-purple-60)" stroke-width="1.3" stroke-linecap="round"></path></svg>
           Maintenance Window
         </div>
-        <span class="rm-stage-pill rm-stage-mw" style="font-size:10px;">AI-proposed</span>
+        <span class="rm-stage-pill rm-stage-mw" style="font-size:11px;">AI-proposed</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Window start</span><span class="rm-field-val">22:00 UTC</span></div>
@@ -1782,10 +1923,9 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="var(--ibm-green-50)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           Deployment · Canary Strategy
         </div>
-        <span class="rm-stage-pill rm-stage-deploy" style="font-size:10px;">In progress</span>
+        <span class="rm-stage-pill rm-stage-deploy" style="font-size:11px;">In progress</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="sec-label">Canary progress</div>
@@ -1819,48 +1959,10 @@
       </div>
       <div class="rm-actions">
         <button class="rm-act-btn rm-act-primary" onclick="advanceCanary()">Advance to 100%</button>
-        <button class="rm-act-btn rm-act-danger" onclick="showToast(&#39;Auto-rollback triggered — reverting to v2.3.9&#39;,&#39;red&#39;)">⚡ Rollback now</button>
+        <button class="rm-act-btn rm-act-danger" onclick="showToast(&#39;Auto-rollback triggered — reverting to v2.3.9&#39;,&#39;red&#39;)">Rollback now</button>
       </div>
     </div>
   </div>
-        </div>
-      </div>
-
-      <!-- MODIFY CHAT RIGHT PANEL (in-flow sibling, pushes content left) -->
-      <div class="modify-chat-panel" id="modifyChatPanel">
-        <div class="modify-chat-panel-header">
-          <div class="modify-chat-orb">AI</div>
-          <div class="modify-chat-title">Modify &amp; approve</div>
-          <div class="modify-chat-sub">Ask about this case</div>
-          <button class="modify-chat-close" onclick="closeModifyChat()">✕</button>
-        </div>
-        <div class="modify-chat-msgs" id="modifyChatMsgs"></div>
-        <div class="modify-chat-chips" id="modifyChatChips">
-          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Adjust pool size</span>
-          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Change rollback window</span>
-          <span class="modify-chat-chip" onclick="modifyChatChip(this)">What caused this?</span>
-          <span class="modify-chat-chip" onclick="modifyChatChip(this)">Modify guardrail scope</span>
-        </div>
-        <div class="modify-chat-input-row">
-          <div class="modify-chat-input-pill">
-            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
-              <circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3" stroke-linecap="round"/>
-            </svg>
-            <input class="modify-chat-input" id="modifyChatInput" type="text"
-              placeholder="Ask anything or describe a scenario to chart…"
-              onkeydown="if(event.key==='Enter') modifyChatSend()" />
-            <button class="modify-chat-send" onclick="modifyChatSend()">
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                <path d="M2 8l12-6-4 6 4 6-12-6z" fill="white"/>
-              </svg>
-            </button>
-          </div>
-          <button class="modify-chat-mic">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round">
-              <rect x="5" y="1" width="6" height="9" rx="3"/>
-              <path d="M2 8a6 6 0 0 0 12 0M8 14v2"/>
-            </svg>
-          </button>
         </div>
       </div>
 
@@ -1915,7 +2017,7 @@ function buildGrTable() {
         <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">${g.category} · ${g.id}</div>
       </td>
       <td><span class="gr-type-badge gr-type-${g.type}">${g.type==='hard'?'Hard limit':g.type==='soft'?'Soft limit':g.type==='conf'?'Confidence':'Cost ceiling'}</span></td>
-      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">${g.val}</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">${g.val}</td>
       <td><span class="gr-status-badge gr-status-${g.status}">${g.status==='active'?'Active':g.status==='drift'?'Drifting':'Breached'}</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-${g.impactLevel}">
@@ -1923,7 +2025,7 @@ function buildGrTable() {
           <span class="gr-impact-label">${g.impactLevel==='high'?'High':g.impactLevel==='med'?'Medium':'Low'}</span>
         </div>
       </td>
-      <td style="font-size:12px;color:var(--cds-text-primary);">${g.auto}</td>
+      <td style="font-size:11px;color:var(--cds-text-primary);">${g.auto}</td>
       <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   `).join('');
@@ -1973,7 +2075,7 @@ function buildHpLog() {
 }
 
 function clearLog() {
-  document.getElementById('hpLogList').innerHTML = `<div style="padding:24px;text-align:center;font-size:12px;color:var(--cds-text-secondary);">No recent notifications</div>`;
+  document.getElementById('hpLogList').innerHTML = `<div style="padding:24px;text-align:center;font-size:11px;color:var(--cds-text-secondary);">No recent notifications</div>`;
 }
 buildHpLog();
 
@@ -2140,24 +2242,48 @@ function renderDecisionDetail(d) {
             ${d.evidence.map(e => `<div class="dc-evidence-item"><span class="dc-ev-label">${e.key}</span><span>${e.val}</span></div>`).join('')}
           </div>
         </div>
-        <div>
-          <div class="dc-section-title">Actions</div>
-          <div class="dc-actions">
-            <button class="dc-act-btn dc-act-approve" onclick="actApprove(${DECISIONS.indexOf(d)})">✓ Approve recommended</button>
-            <button class="dc-act-btn dc-act-modify" onclick="actModify(${DECISIONS.indexOf(d)})">✎ Modify &amp; approve</button>
-            <button class="dc-act-btn dc-act-trace" onclick="openDecisionReasoningTrace(${DECISIONS.indexOf(d)})">🧠 Reasoning trace</button>
-            <button class="dc-act-btn dc-act-override" onclick="showToast('Override freeze window — audit entry created', 'orange')">⚡ Override guardrail</button>
-            <button class="dc-act-btn dc-act-reject" onclick="actReject(${DECISIONS.indexOf(d)})">✕ Reject</button>
+        ${d.reasoningTrace && d.reasoningTrace.length ? `
+        <div class="dc-trace">
+          <button class="dc-trace-toggle" onclick="toggleTrace(this)">
+            <span>Reasoning trace</span>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="ev-caret"><path d="M4 6l4 4 4-4"/></svg>
+          </button>
+          <div class="dc-trace-body" id="traceBody">
+            ${d.reasoningSummary ? `<div class="dc-trace-summary">${d.reasoningSummary}</div>` : ''}
+            ${d.reasoningTrace.map(line => {
+              const match = line.match(/^(\d{2}:\d{2}:\d{2} UTC) \[([^\]]+)\] (.+)$/);
+              const stage = match ? match[2] : '';
+              const time  = match ? match[1] : '';
+              const desc  = match ? match[3] : line;
+              return `<div class="dc-trace-step">
+                <div class="dc-trace-step-spine"><div class="dc-trace-step-dot"></div><div class="dc-trace-step-connector"></div></div>
+                <div class="dc-trace-step-content"><div class="dc-trace-step-stage">${stage}</div><div class="dc-trace-step-time">${time}</div><div class="dc-trace-step-desc">${desc}</div></div>
+              </div>`;
+            }).join('')}
           </div>
-        </div>
+        </div>` : ''}
       </div>
     </div>
+    <div class="dc-actions">
+      <button class="dc-act-btn dc-act-reject" onclick="actReject(${DECISIONS.indexOf(d)})">Reject</button>
+        <div class="dc-actions-right">
+        <button class="dc-act-btn dc-act-modify" onclick="actModify(${DECISIONS.indexOf(d)})">Modify &amp; approve</button>
+        <button class="dc-act-btn dc-act-approve" onclick="actApprove(${DECISIONS.indexOf(d)})">Approve recommended</button>
+      </div>
+    </div>
+  </div>
   `;
   if (isUrgent) startSloTimer();
 }
 
 function toggleEvidence(btn) {
   const body = document.getElementById('evidenceBody');
+  body.classList.toggle('open');
+  btn.querySelector('.ev-caret').style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+function toggleTrace(btn) {
+  const body = document.getElementById('traceBody');
   body.classList.toggle('open');
   btn.querySelector('.ev-caret').style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
 }
@@ -2299,7 +2425,7 @@ function selectOption(el, decIdx, rank) {
         <div class="plan-step-connector"></div>
       </div>
       <div class="plan-step-body">
-        ${s.stage ? `<div style="font-size:10px;font-weight:700;letter-spacing:0.32px;text-transform:uppercase;color:var(--ibm-blue-60);margin-bottom:2px;">${s.stage}</div>` : ''}
+        ${s.stage ? `<div style="font-size:11px;font-weight:700;letter-spacing:0.32px;text-transform:uppercase;color:var(--ibm-blue-60);margin-bottom:2px;">${s.stage}</div>` : ''}
         <div class="plan-step-title">${s.title}</div>
         <div class="plan-step-desc">${s.desc}</div>
       </div>
@@ -2352,7 +2478,7 @@ function _exMsg(html) {
   const msgs = document.getElementById('modifyChatMsgs');
   const div = document.createElement('div');
   div.className = 'modify-chat-msg agent';
-  div.innerHTML = `<div class="modify-chat-avatar">AI</div><div class="modify-chat-bubble" style="font-size:12.5px;line-height:1.6;">${html}</div>`;
+  div.innerHTML = `<div class="modify-chat-avatar">AI</div><div class="modify-chat-bubble" style="font-size:13px;line-height:1.6;">${html}</div>`;
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
   return div;
@@ -2423,11 +2549,27 @@ async function _runExecutionInChat(planTitle, planService) {
   _exTyping(); await _exDelay(700); _exHideTyping();
   _exMsg(`<strong>① Test</strong> — Backend pre-flight dry-run`);
 
+  _exCard(`
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:2px;">
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-blue-10);color:var(--ibm-blue-60);border:1px solid var(--ibm-blue-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/></svg> MCP · ni-config-api
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · validate_threshold_diff
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-green-10);color:var(--ibm-green-60);border:1px solid var(--ibm-green-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · check_interface_bounds
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--cds-layer-02);color:var(--cds-text-secondary);border:1px solid var(--cds-border-subtle-01);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2" width="12" height="12" rx="2"/></svg> Agent · CI Validator
+      </span>
+    </div>`);
+
   const uid1 = 'ex-bar-' + Date.now();
   const uid1log = 'ex-log-' + Date.now();
   _exCard(`
-    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-blue-60);margin-bottom:8px;">CI Validation</div>
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:11px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-blue-60);margin-bottom:8px;">CI Validation</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
         <span id="${uid1}-lbl">Fetching config diff…</span><span id="${uid1}-pct">0%</span>
       </div>
@@ -2465,11 +2607,33 @@ async function _runExecutionInChat(planTitle, planService) {
   _exTyping(); await _exDelay(700); _exHideTyping();
   _exMsg(`<strong>② Apply</strong> — CR created, linked to Maintenance Window &amp; alarm suppression`);
 
+  _exCard(`
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:2px;">
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-blue-10);color:var(--ibm-blue-60);border:1px solid var(--ibm-blue-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/></svg> MCP · servicenow-api
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-blue-10);color:var(--ibm-blue-60);border:1px solid var(--ibm-blue-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/></svg> MCP · sevone-policy-api
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · create_change_request
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · set_alarm_suppression
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · apply_policy_threshold
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--cds-layer-02);color:var(--cds-text-secondary);border:1px solid var(--cds-border-subtle-01);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2" width="12" height="12" rx="2"/></svg> Agent · Change Orchestrator
+      </span>
+    </div>`);
+
   const uid2 = 'ex-bar2-' + Date.now();
   const uid2log = 'ex-log2-' + Date.now();
   _exCard(`
-    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-purple-60);margin-bottom:8px;">Change Management</div>
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:11px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-purple-60);margin-bottom:8px;">Change Management</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
         <span id="${uid2}-lbl">Creating Change Request…</span><span id="${uid2}-pct">0%</span>
       </div>
@@ -2508,11 +2672,33 @@ async function _runExecutionInChat(planTitle, planService) {
   _exTyping(); await _exDelay(700); _exHideTyping();
   _exMsg(`<strong>③ Monitor</strong> — SevOne live verification &amp; closed-loop resolution`);
 
+  _exCard(`
+    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:2px;">
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-blue-10);color:var(--ibm-blue-60);border:1px solid var(--ibm-blue-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/></svg> MCP · sevone-npm-stream
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-blue-10);color:var(--ibm-blue-60);border:1px solid var(--ibm-blue-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="7"/></svg> MCP · servicenow-api
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · stream_telemetry
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-purple-10);color:var(--ibm-purple-60);border:1px solid var(--ibm-purple-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · auto_close_incident
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--ibm-green-10);color:var(--ibm-green-60);border:1px solid var(--ibm-green-20);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l2 5h5l-4 3 1.5 5L8 11l-4.5 3L5 9 1 6h5z"/></svg> Tool · recalibrate_baseline
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:var(--cds-layer-02);color:var(--cds-text-secondary);border:1px solid var(--cds-border-subtle-01);border-radius:1rem;padding:1px 8px;">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2" width="12" height="12" rx="2"/></svg> Agent · Resolution Monitor
+      </span>
+    </div>`);
+
   const uid3 = 'ex-bar3-' + Date.now();
   const uid3log = 'ex-log3-' + Date.now();
   _exCard(`
-    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);margin-bottom:8px;">SevOne NPM · Live Stream</div>
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:11px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);margin-bottom:8px;">SevOne NPM · Live Stream</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
         <span id="${uid3}-lbl">Streaming telemetry…</span><span id="${uid3}-pct">0%</span>
       </div>
@@ -2544,7 +2730,7 @@ async function _runExecutionInChat(planTitle, planService) {
 
   // ── Resolution summary ───────────────────────
   _exCard(`
-    <div style="background:var(--ibm-green-10);border:1.5px solid var(--ibm-green-30);border-radius:0;padding:14px 16px;font-size:12px;">
+    <div style="background:var(--ibm-green-10);border:1.5px solid var(--ibm-green-30);border-radius:0;padding:14px 16px;font-size:11px;">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
         <div style="width:28px;height:28px;border-radius:0;background:var(--ibm-green-20);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
@@ -2552,12 +2738,12 @@ async function _runExecutionInChat(planTitle, planService) {
         <span style="font-size:13px;font-weight:700;color:var(--ibm-green-70);">Closed-loop complete — zero service disruption</span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 12px;margin-bottom:12px;">
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">MTTR</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">3 min 42 sec</div></div>
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Alarm noise</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">−98.4%</div></div>
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Downtime</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Zero</div></div>
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Threshold</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">61 Mbps active</div></div>
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">INC-8841</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Auto-closed</div></div>
-        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">CR-2024-0147</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Closed</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">MTTR</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">3 min 42 sec</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Alarm noise</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">−98.4%</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Downtime</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Zero</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Threshold</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">61 Mbps active</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">INC-8841</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Auto-closed</div></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">CR-2024-0147</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Closed</div></div>
       </div>
     </div>`);
 
@@ -2593,6 +2779,11 @@ function confirmDeploy() {
 
 function confirmApproveAction() {
   closeModal('approveModal');
+  const d = DECISIONS[selectedDecision] || DECISIONS[0];
+  const planTitle = d ? d.options.find(o => o.recommended)?.title || d.title : 'Recommended action';
+  const planService = d ? d.service : 'payment-service';
+
+  // Remove the decision from the inbox
   DECISIONS.splice(selectedDecision, 1);
   selectedDecision = 0;
   document.getElementById('diBadge').textContent = DECISIONS.length;
@@ -2609,7 +2800,9 @@ function confirmApproveAction() {
     buildDiList();
     renderDecisionDetail(DECISIONS[0]);
   }
-  showToast('Decision approved — system proceeding with recommended action', 'green');
+
+  // Run the same execution workflow in the chat panel
+  _runExecutionInChat(planTitle, planService);
 }
 
 function actReject(i) {
@@ -2804,7 +2997,7 @@ function buildRmList() {
       <div class="rm-item-title">${c.title}</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-${c.stage}">${STAGE_NAMES[c.stage] || c.stage}</span>
-        <span style="font-size:10px;color:var(--cds-text-secondary);">${c.priority} · ${c.agent}</span>
+        <span style="font-size:11px;color:var(--cds-text-secondary);">${c.priority} · ${c.agent}</span>
       </div>
     </div>
   `).join('');
@@ -2819,11 +3012,16 @@ function selectCase(i) {
 function renderRmDetail(c) {
   const stageIdx = STAGE_ORDER.indexOf(c.stage);
 
+  const checkSVG = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l4 4 6-6"/></svg>`;
   const stepperHTML = STAGE_ORDER.map((s, i) => {
     const cls = i < stageIdx ? 'done' : i === stageIdx ? 'active' : 'blocked';
-    return `<div class="rm-step ${cls}" onclick="${i <= stageIdx ? `showToast('Viewing: ${STAGE_NAMES[s]}','blue')` : `showToast('Stage not reached yet','orange')`}">
-      <div class="rm-step-num">${cls === 'done' ? '✓' : i+1}</div>
+    const icon = cls === 'done' ? checkSVG : '';
+    const sublabel = cls === 'done' ? 'Completed' : cls === 'active' ? 'In progress' : 'Not started';
+    const onclick = i <= stageIdx ? `showToast('Viewing: ${STAGE_NAMES[s]}','blue')` : `showToast('Stage not reached yet','orange')`;
+    return `<div class="rm-step ${cls}" onclick="${onclick}">
+      <div class="rm-step-num">${icon}</div>
       <span class="rm-step-name">${STAGE_NAMES[s]}</span>
+      <span class="rm-step-label">${sublabel}</span>
     </div>`;
   }).join('');
 
@@ -2832,10 +3030,9 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-red-60)" stroke-width="1.4"/><path d="M8 5v3.5M8 10.5v.01" stroke="var(--ibm-red-60)" stroke-width="1.4" stroke-linecap="round"/></svg>
           Investigation · ${c.id}
         </div>
-        <span class="rm-stage-pill rm-stage-invest" style="font-size:10px;">AI-driven</span>
+        <span class="rm-stage-pill rm-stage-invest" style="font-size:11px;">AI-driven</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Root cause</span><span class="rm-field-val" style="max-width:360px;text-align:left;">${inv.rootCause}</span></div>
@@ -2848,13 +3045,13 @@ function renderRmDetail(c) {
             ${inv.timeline.map(t => `
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:${t.dot}20;border:1.5px solid ${t.dot};color:${t.dot};">●</div>
+                  <div class="rm-tl-dot"></div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
                   <div class="rm-tl-title">${t.title}</div>
-                  <div class="rm-tl-desc">${t.desc}</div>
                   <div class="rm-tl-time">${t.time}</div>
+                  <div class="rm-tl-desc">${t.desc}</div>
                 </div>
               </div>
             `).join('')}
@@ -2868,10 +3065,9 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#8e6a00" stroke-width="1.4"/><path d="M5 7h6M5 9.5h4" stroke="#8e6a00" stroke-width="1.3" stroke-linecap="round"/></svg>
           Ticket · ${tkt.id}
         </div>
-        <span class="rm-stage-pill rm-stage-ticket" style="font-size:10px;">Auto + approve</span>
+        <span class="rm-stage-pill rm-stage-ticket" style="font-size:11px;">Auto + approve</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">System</span><span class="rm-field-val">${tkt.system}</span></div>
@@ -2892,10 +3088,9 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2l4 2v5c0 2.5-4 5-4 5S4 11.5 4 9V4l4-2z" stroke="#3b82f6" stroke-width="1.4" stroke-linejoin="round"/></svg>
           Change Request · ${c.cr.id}
         </div>
-        <span class="rm-stage-pill rm-stage-cr" style="font-size:10px;">${c.cr.status}</span>
+        <span class="rm-stage-pill rm-stage-cr" style="font-size:11px;">${c.cr.status}</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">CR ID</span><span class="rm-field-val mono">${c.cr.id}</span></div>
@@ -2905,7 +3100,7 @@ function renderRmDetail(c) {
         <div class="rm-field-row"><span class="rm-field-key">Maintenance window</span><span class="rm-field-val">${c.cr.window}</span></div>
       </div>
       <div class="rm-actions">
-        ${c.cr.status === 'Pending approval' ? `<button class="rm-act-btn rm-act-primary" onclick="showToast('CR-2024-0145 approved — proceeding to maintenance window','green')">Approve CR</button>` : `<span style="font-size:12px;color:var(--ibm-green-60);padding:7px 0;">✓ CR Approved</span>`}
+        ${c.cr.status === 'Pending approval' ? `<button class="rm-act-btn rm-act-primary" onclick="showToast('CR-2024-0145 approved — proceeding to maintenance window','green')">Approve CR</button>` : ''}
         <button class="rm-act-btn rm-act-secondary" onclick="showToast('CR details opened','blue')">View full CR</button>
       </div>
     </div>` : '';
@@ -2914,10 +3109,9 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-purple-60)" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="var(--ibm-purple-60)" stroke-width="1.3" stroke-linecap="round"/></svg>
           Maintenance Window
         </div>
-        <span class="rm-stage-pill rm-stage-mw" style="font-size:10px;">AI-proposed</span>
+        <span class="rm-stage-pill rm-stage-mw" style="font-size:11px;">AI-proposed</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Window start</span><span class="rm-field-val">${c.maintenanceWindow.start}</span></div>
@@ -2931,10 +3125,9 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="var(--ibm-green-50)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Deployment · Canary Strategy
         </div>
-        <span class="rm-stage-pill rm-stage-deploy" style="font-size:10px;">In progress</span>
+        <span class="rm-stage-pill rm-stage-deploy" style="font-size:11px;">In progress</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="sec-label">Canary progress</div>
@@ -2954,7 +3147,7 @@ function renderRmDetail(c) {
       </div>
       <div class="rm-actions">
         <button class="rm-act-btn rm-act-primary" onclick="advanceCanary()">Advance to 100%</button>
-        <button class="rm-act-btn rm-act-danger" onclick="showToast('Auto-rollback triggered — reverting to v2.3.9','red')">⚡ Rollback now</button>
+        <button class="rm-act-btn rm-act-danger" onclick="showToast('Auto-rollback triggered — reverting to v2.3.9','red')">Rollback now</button>
       </div>
     </div>` : '';
 
