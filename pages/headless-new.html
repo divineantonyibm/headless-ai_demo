@@ -1,72 +1,145 @@
 <!DOCTYPE html>
 <!-- saved from url=(0055)https://jayakrishnakaimal.github.io/JK_Demo/uireal.html -->
-<html lang="en" wm-editor-extension-available="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Headless Ops — Full Vision</title>
+<title>Headless Ops — IBM Network Intelligence</title>
+<!-- IBM Plex Sans & Mono — IBM CDN -->
+<link rel="stylesheet" href="https://1.www.s81c.com/common/carbon/plex/sans.css">
+<link rel="stylesheet" href="https://1.www.s81c.com/common/carbon/plex/mono.css">
 <style>
+  /* ── Carbon / IBM Design Language tokens ── */
+  :root {
+    /* IBM Color Palette — Blue family (primary action) */
+    --ibm-blue-60:  #0f62fe;
+    --ibm-blue-70:  #0043ce;
+    --ibm-blue-10:  #edf5ff;
+    --ibm-blue-20:  #d0e2ff;
+    /* IBM Color Palette — Gray family */
+    --ibm-gray-100: #161616;
+    --ibm-gray-90:  #262626;
+    --ibm-gray-80:  #393939;
+    --ibm-gray-70:  #525252;
+    --ibm-gray-60:  #6f6f6f;
+    --ibm-gray-50:  #8d8d8d;
+    --ibm-gray-30:  #c6c6c6;
+    --ibm-gray-20:  #e0e0e0;
+    --ibm-gray-10:  #f4f4f4;
+    /* IBM Color Palette — Alert colors */
+    --ibm-red-60:   #da1e28;
+    --ibm-red-10:   #fff1f1;
+    --ibm-red-20:   #ffd7d9;
+    --ibm-yellow-30:#f1c21b;
+    --ibm-yellow-10:#fcf4d6;
+    --ibm-green-50: #198038;
+    --ibm-green-10: #defbe6;
+    --ibm-green-20: #a7f0ba;
+    --ibm-purple-60:#8a3ffc;
+    --ibm-purple-10:#f6f2ff;
+    --ibm-purple-20:#e8daff;
+    /* Carbon White theme semantic tokens */
+    --cds-background:           #ffffff;
+    --cds-background-hover:     rgba(141,141,141,0.12);
+    --cds-layer-01:             #f4f4f4;
+    --cds-layer-02:             #ffffff;
+    --cds-layer-accent-01:      #e0e0e0;
+    --cds-border-subtle-01:     #e0e0e0;
+    --cds-border-strong-01:     #8d8d8d;
+    --cds-border-interactive:   #0f62fe;
+    --cds-text-primary:         #161616;
+    --cds-text-secondary:       #525252;
+    --cds-text-placeholder:     #a8a8a8;
+    --cds-text-disabled:        rgba(22,22,22,0.25);
+    --cds-text-on-color:        #ffffff;
+    --cds-interactive:          #0f62fe;
+    --cds-focus:                #0f62fe;
+    --cds-button-primary:       #0f62fe;
+    --cds-button-primary-hover: #0353e9;
+    --cds-button-primary-active:#002d9c;
+    --cds-button-secondary:     #393939;
+    --cds-button-danger:        #da1e28;
+    --cds-support-error:        #da1e28;
+    --cds-support-warning:      #f1c21b;
+    --cds-support-success:      #198038;
+    --cds-support-info:         #0043ce;
+    /* Carbon spacing scale (4px base × 8) */
+    --cds-spacing-01: 2px;
+    --cds-spacing-02: 4px;
+    --cds-spacing-03: 8px;
+    --cds-spacing-04: 12px;
+    --cds-spacing-05: 16px;
+    --cds-spacing-06: 24px;
+    --cds-spacing-07: 32px;
+    --cds-spacing-08: 40px;
+    --cds-spacing-09: 48px;
+    --cds-spacing-10: 64px;
+  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; }
-  html {
-    font-size: 110%;
-  }
+  html { font-size: 100%; } /* Carbon: never override root font size */
   body {
-    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 0.875rem; /* Carbon body-short-01: 14px */
+    line-height: 1.42857; /* Carbon body-short-01 line-height */
+    color: var(--cds-text-primary);
     -webkit-font-smoothing: antialiased;
-    background: linear-gradient(160deg, #f8fafd 0%, #f3f6fb 25%, #ddeaf5 55%, #b8d4e8 75%, #9ec8e0 100%);
-    background-attachment: fixed;
-    zoom: 1.1;
+    background: var(--cds-layer-01);
   }
 
   /* ── layout ── */
   .outer-chrome { width: 100%; height: 100vh; overflow: hidden; }
   .dashboard { background: transparent; display: flex; flex-direction: column; height: 100vh; overflow: hidden; min-height: 0; }
 
-  /* ── topnav ── */
+  /* ── topnav — Carbon shell header height: 48px ── */
   .topnav {
-    display: flex; align-items: center; padding: 0 20px; height: 56px;
-    border-bottom: 1px solid #e5e7eb; background: transparent; flex-shrink: 0; gap: 0;
+    display: flex; align-items: center; padding: 0 var(--cds-spacing-05); height: 48px;
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+    background: var(--cds-gray-100, #161616); flex-shrink: 0; gap: 0;
   }
-  .logo-area { display: flex; align-items: center; gap: 8px; margin-right: 24px; }
+  .logo-area { display: flex; align-items: center; gap: var(--cds-spacing-03); margin-right: var(--cds-spacing-06); }
   .logo-icon {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: #ffffff; border: 1.5px solid #e5e7eb;
+    width: 32px; height: 32px; border-radius: 0;
+    background: var(--cds-background); border: none;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;
   }
-  .logo-icon img { width: 28px; height: 28px; object-fit: contain; }
-  .logo-name { font-size: 14px; font-weight: 600; color: #111827; letter-spacing: -0.1px; white-space: nowrap; }
+  .logo-icon img { width: 24px; height: 24px; object-fit: contain; }
+  /* Carbon shell header: product name in IBM Plex Sans SemiBold, white on dark */
+  .logo-name { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 600; color: #ffffff; letter-spacing: 0; white-space: nowrap; }
 
-  /* headless mode badge */
+  /* headless mode badge — Carbon tag style (Green 10/50) */
   .headless-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 20px; margin-left: 10px;
+    display: inline-flex; align-items: center; gap: var(--cds-spacing-02);
+    background: var(--ibm-green-10); border: 1px solid var(--ibm-green-20); color: var(--ibm-green-50);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.32px; text-transform: uppercase;
+    padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0; margin-left: var(--cds-spacing-03);
   }
-  .headless-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; animation: hbPulse 2s ease-in-out infinite; }
-  @keyframes hbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); } 50% { box-shadow: 0 0 0 5px rgba(22,163,74,0); } }
+  .headless-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ibm-green-50); animation: hbPulse 2s ease-in-out infinite; }
+  @keyframes hbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(25,128,56,0.4); } 50% { box-shadow: 0 0 0 5px rgba(25,128,56,0); } }
 
-  /* nav tabs */
+  /* nav tabs — Carbon shell header navigation style */
   .nav-tabs {
-    display: flex; align-items: center; gap: 2px;
-    background: #f3f4f6; border-radius: 6px; padding: 3px; margin: 0 auto;
+    display: flex; align-items: center; gap: 0;
+    background: transparent; border-radius: 0; padding: 0; margin: 0 auto;
   }
   .nav-tab {
-    padding: 6px 18px; border-radius: 4px; font-size: 13px; font-weight: 400;
-    cursor: pointer; border: none; background: transparent; color: #374151;
-    transition: all 0.15s; white-space: nowrap;
+    padding: 0 var(--cds-spacing-05); height: 48px; line-height: 48px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
+    cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.7);
+    transition: background 0.1s, color 0.1s; white-space: nowrap; border-bottom: 3px solid transparent;
   }
-  .nav-tab:hover { color: #111827; }
-  .nav-tab.active { background: #2563eb; color: #ffffff; font-weight: 500; }
-  .nav-sep { width: 1px; height: 20px; background: #d1d5db; margin: 0 2px; }
+  .nav-tab:hover { background: rgba(141,141,141,0.16); color: #ffffff; }
+  .nav-tab.active { background: rgba(141,141,141,0.16); color: #ffffff; font-weight: 600; border-bottom-color: var(--ibm-blue-60); }
+  .nav-sep { display: none; }
 
-  .nav-icons { display: flex; align-items: center; gap: 8px; margin-left: 24px; }
+  .nav-icons { display: flex; align-items: center; gap: var(--cds-spacing-02); margin-left: var(--cds-spacing-06); }
   .nav-icon-btn {
-    width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb;
-    background: #ffffff; display: flex; align-items: center; justify-content: center;
-    cursor: pointer; color: #374151; transition: all 0.15s;
+    width: 48px; height: 48px; border-radius: 0; border: none;
+    background: transparent; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: rgba(255,255,255,0.7); transition: background 0.1s, color 0.1s;
   }
-  .nav-icon-btn:hover { background: #f3f4f6; color: #111827; }
+  .nav-icon-btn:hover { background: rgba(141,141,141,0.16); color: #ffffff; }
   .nav-icon-btn svg { width: 16px; height: 16px; }
 
   /* ── body layout ── */
@@ -75,382 +148,418 @@
   .canvas-tab-content { display: none; }
   .canvas-tab-content.active-tab { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
 
-  /* ── toast ── */
-  .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+  /* ── toast — Carbon inline notification style ── */
+  .toast-container { position: fixed; bottom: var(--cds-spacing-06); right: var(--cds-spacing-06); z-index: 9999; display: flex; flex-direction: column; gap: var(--cds-spacing-03); pointer-events: none; }
   .toast {
-    display: flex; align-items: center; gap: 10px;
-    background: #1e293b; color: #f8fafc;
-    border-radius: 8px; padding: 12px 16px;
-    font-size: 13px; line-height: 1.4; max-width: 340px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    animation: toastIn 0.3s cubic-bezier(.4,0,.2,1) forwards;
+    display: flex; align-items: center; gap: var(--cds-spacing-03);
+    background: var(--ibm-gray-90); color: #ffffff;
+    border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; line-height: 1.42857; max-width: 352px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    animation: toastIn 0.2s ease forwards;
     pointer-events: all;
   }
-  .toast.green { border-left: 3px solid #22c55e; }
-  .toast.orange { border-left: 3px solid #f59e0b; }
-  .toast.blue { border-left: 3px solid #3b82f6; }
-  .toast.red { border-left: 3px solid #ef4444; }
-  @keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes toastOut { to { opacity: 0; transform: translateX(20px); } }
+  /* Carbon notification: left accent border matches alert color */
+  .toast.green  { border-left: 3px solid var(--ibm-green-50); }
+  .toast.orange { border-left: 3px solid var(--ibm-yellow-30); }
+  .toast.blue   { border-left: 3px solid var(--ibm-blue-60); }
+  .toast.red    { border-left: 3px solid var(--ibm-red-60); }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes toastOut { to { opacity: 0; transform: translateY(8px); } }
 
-  /* ── modal ── */
+  /* ── modal — Carbon Modal component ── */
   .modal-backdrop {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(3px); z-index: 9000;
-    align-items: center; justify-content: center;
+    display: none; position: fixed; inset: 0;
+    background: rgba(22,22,22,0.5); /* Carbon overlay */
+    z-index: 9000; align-items: center; justify-content: center;
   }
   .modal-backdrop.open { display: flex; }
   .modal {
-    background: #fff; border-radius: 12px; padding: 28px 28px 24px;
+    background: var(--cds-background); border-radius: 0; padding: 0;
     width: 480px; max-width: 94vw;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    animation: modalIn 0.2s cubic-bezier(.4,0,.2,1) forwards;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: modalIn 0.11s cubic-bezier(0,0,0.38,0.9) forwards;
   }
-  @keyframes modalIn { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: none; } }
-  .modal-title { font-size: 17px; font-weight: 600; color: #111827; margin-bottom: 4px; }
-  .modal-sub { font-size: 13px; color: #6b7280; margin-bottom: 16px; line-height: 1.5; }
-  .modal-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 6px; }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  .modal-title {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 1.25rem; font-weight: 400;
+    color: var(--cds-text-primary); padding: var(--cds-spacing-05) var(--cds-spacing-05) var(--cds-spacing-03);
+    margin-bottom: 0; border-bottom: 1px solid var(--cds-border-subtle-01);
+  }
+  .modal-sub { font-size: 0.875rem; color: var(--cds-text-secondary); padding: var(--cds-spacing-04) var(--cds-spacing-05) 0; line-height: 1.5; margin-bottom: 0; }
+  .modal-label { font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); padding: var(--cds-spacing-04) var(--cds-spacing-05) var(--cds-spacing-02); margin-bottom: 0; }
   .modal-trace {
-    background: #0f172a; color: #94a3b8; font-size: 11.5px; font-family: "SF Mono", "Fira Code", monospace;
-    border-radius: 6px; padding: 12px 14px; margin-bottom: 14px; line-height: 1.7; white-space: pre-wrap;
+    background: var(--ibm-gray-100); color: var(--ibm-gray-30);
+    font-family: 'IBM Plex Mono', 'Menlo', 'DejaVu Sans Mono', Courier, monospace;
+    font-size: 0.75rem; line-height: 1.75;
+    border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    margin: 0 var(--cds-spacing-05) var(--cds-spacing-04); white-space: pre-wrap;
   }
-  .modal-body { font-size: 13px; color: #374151; line-height: 1.6; margin-bottom: 20px; }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
-  .modal-btn-cancel { padding: 8px 16px; border-radius: 6px; border: 1px solid #e5e7eb; background: #fff; color: #374151; font-size: 13px; cursor: pointer; }
-  .modal-btn-cancel:hover { background: #f3f4f6; }
-  .modal-btn-confirm { padding: 8px 18px; border-radius: 6px; border: none; background: #2563eb; color: #fff; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.15s; }
-  .modal-btn-confirm:hover { background: #1d4ed8; }
+  .modal-body { font-size: 0.875rem; color: var(--cds-text-primary); line-height: 1.5; padding: 0 var(--cds-spacing-05) var(--cds-spacing-05); margin-bottom: 0; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 0; padding: var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
+  /* Carbon Ghost button (secondary action) */
+  .modal-btn-cancel {
+    padding: 0 var(--cds-spacing-05); height: 48px; border-radius: 0;
+    border: 1px solid var(--ibm-gray-80); background: transparent;
+    color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 400; cursor: pointer; transition: background 0.1s;
+  }
+  .modal-btn-cancel:hover { background: var(--cds-background-hover); }
+  /* Carbon Primary button */
+  .modal-btn-confirm {
+    padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
+    background: var(--cds-button-primary); color: var(--cds-text-on-color);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
+    cursor: pointer; transition: background 0.1s;
+  }
+  .modal-btn-confirm:hover { background: var(--cds-button-primary-hover); }
+  .modal-btn-confirm:active { background: var(--cds-button-primary-active); }
 
   /* ════════════════════════════════════
      TAB 1: GUARDRAIL STUDIO
   ════════════════════════════════════ */
-  .gr-wrap { flex: 1; overflow-y: auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 20px; }
-  .gr-page-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  .gr-page-title { font-size: 22px; font-weight: 400; color: #111827; margin-bottom: 3px; }
-  .gr-page-sub { font-size: 13px; color: #6b7280; max-width: 560px; line-height: 1.6; }
-  .gr-header-actions { display: flex; align-items: center; gap: 8px; }
+  .gr-wrap { flex: 1; overflow-y: auto; padding: var(--cds-spacing-07) var(--cds-spacing-07) var(--cds-spacing-08); display: flex; flex-direction: column; gap: var(--cds-spacing-06); }
+  .gr-page-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: var(--cds-spacing-04); }
+  /* Carbon productive-heading-04: 28px/400 */
+  .gr-page-title { font-size: 1.75rem; font-weight: 400; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); }
+  .gr-page-sub { font-size: 0.875rem; color: var(--cds-text-secondary); max-width: 560px; line-height: 1.5; }
+  .gr-header-actions { display: flex; align-items: center; gap: var(--cds-spacing-03); }
+  /* Carbon Button — height 40px (medium) */
   .gr-btn {
-    display: flex; align-items: center; gap: 5px;
-    padding: 7px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
+    display: flex; align-items: center; gap: var(--cds-spacing-03);
+    padding: 0 var(--cds-spacing-05); height: 40px; border-radius: 0;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400; cursor: pointer;
+    transition: background 0.1s;
   }
-  .gr-btn-primary { background: #2563eb; color: #fff; border: none; }
-  .gr-btn-primary:hover { background: #1d4ed8; }
-  .gr-btn-secondary { background: #fff; color: #374151; border: 1px solid #e5e7eb; }
-  .gr-btn-secondary:hover { background: #f3f4f6; }
+  .gr-btn-primary { background: var(--cds-button-primary); color: var(--cds-text-on-color); border: none; }
+  .gr-btn-primary:hover { background: var(--cds-button-primary-hover); }
+  .gr-btn-secondary { background: transparent; color: var(--cds-text-primary); border: 1px solid var(--cds-border-strong-01); }
+  .gr-btn-secondary:hover { background: var(--cds-background-hover); }
 
-  /* summary cards */
-  .gr-summary-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  /* ── Guardrail Studio — Carbon DataTable + side panel style ── */
+  /* summary cards — Carbon tile */
+  .gr-summary-row { display: flex; gap: var(--cds-spacing-05); flex-wrap: wrap; }
   .gr-sum-card {
     flex: 1; min-width: 140px;
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
-    padding: 14px 16px;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0;
+    padding: var(--cds-spacing-05);
   }
-  .gr-sum-label { font-size: 11px; color: #9ca3af; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .gr-sum-val { font-size: 28px; font-weight: 300; color: #111827; line-height: 1; letter-spacing: -0.5px; margin-bottom: 3px; }
-  .gr-sum-sub { font-size: 11px; color: #9ca3af; }
+  .gr-sum-label { font-size: 0.75rem; color: var(--cds-text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; margin-bottom: var(--cds-spacing-03); }
+  /* Carbon fluid-display-01: 54px / 300 weight */
+  .gr-sum-val { font-size: 2.25rem; font-weight: 300; color: var(--cds-text-primary); line-height: 1; letter-spacing: -0.5px; margin-bottom: var(--cds-spacing-01); }
+  .gr-sum-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
 
-  /* guardrail table */
-  .gr-table-wrap { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; flex-shrink: 0; }
+  /* guardrail table — Carbon DataTable */
+  .gr-table-wrap { background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; display: flex; flex-direction: column; flex-shrink: 0; }
   .gr-table-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 18px; border-bottom: 1px solid #f0f0f0; background: #fafafa;
+    padding: var(--cds-spacing-04) var(--cds-spacing-05); border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01);
     flex-shrink: 0;
   }
-  .gr-table-title { font-size: 13px; font-weight: 600; color: #111827; }
+  .gr-table-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); }
   .gr-table-scroll { overflow-y: visible; }
-  .gr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .gr-table th { padding: 10px 18px; text-align: left; font-size: 11px; font-weight: 600; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #f0f0f0; background: #fafafa; }
-  .gr-table td { padding: 14px 18px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; color: #111827; }
+  .gr-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .gr-table th { padding: var(--cds-spacing-03) var(--cds-spacing-05); text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--cds-text-secondary); text-transform: uppercase; letter-spacing: 0.32px; border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01); }
+  .gr-table td { padding: var(--cds-spacing-04) var(--cds-spacing-05); border-bottom: 1px solid var(--cds-border-subtle-01); vertical-align: middle; color: var(--cds-text-primary); }
   .gr-table tbody tr:last-child td { border-bottom: none; }
-  .gr-table tbody tr { cursor: pointer; transition: background 0.12s; }
-  .gr-table tbody tr:hover { background: #f9fafb; }
-  .gr-table tbody tr.gr-row-selected { background: #eff6ff; outline: 1.5px solid #2563eb; outline-offset: -1px; }
+  .gr-table tbody tr { cursor: pointer; transition: background 0.1s; }
+  .gr-table tbody tr:hover { background: var(--cds-background-hover); }
+  .gr-table tbody tr.gr-row-selected { background: var(--ibm-blue-10); outline: 2px solid var(--ibm-blue-60); outline-offset: -2px; }
 
+  /* Carbon Tag — no border-radius */
   .gr-type-badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 2px 8px; border-radius: 20px;
+    display: inline-flex; align-items: center; gap: var(--cds-spacing-01);
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px;
+    padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0;
   }
-  .gr-type-hard { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
-  .gr-type-soft { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-  .gr-type-conf { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-  .gr-type-cost { background: #f5f3ff; color: #7c3aed; border: 1px solid #e9d5ff; }
+  .gr-type-hard { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
+  .gr-type-soft { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid #f1c21b; }
+  .gr-type-conf { background: var(--ibm-blue-10); color: var(--ibm-blue-70); border: 1px solid var(--ibm-blue-20); }
+  .gr-type-cost { background: var(--ibm-purple-10); color: var(--ibm-purple-60); border: 1px solid var(--ibm-purple-20); }
 
+  /* Carbon status tag */
   .gr-status-badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11px; font-weight: 500; padding: 2px 10px; border-radius: 20px;
+    display: inline-flex; align-items: center; gap: var(--cds-spacing-01);
+    font-size: 0.75rem; font-weight: 600; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0;
   }
-  .gr-status-active { background: #dcfce7; color: #166534; }
-  .gr-status-drift { background: #fef9c3; color: #854d0e; }
-  .gr-status-breached { background: #fee2e2; color: #dc2626; }
+  .gr-status-active   { background: var(--ibm-green-10); color: var(--ibm-green-50); }
+  .gr-status-drift    { background: var(--ibm-yellow-10); color: #8e6a00; }
+  .gr-status-breached { background: var(--ibm-red-10); color: var(--ibm-red-60); }
 
-  /* impact score bar */
-  .gr-impact-bar { display: flex; align-items: center; gap: 6px; }
-  .gr-impact-track { width: 60px; height: 4px; background: #e5e7eb; border-radius: 2px; overflow: hidden; }
-  .gr-impact-fill { height: 100%; border-radius: 2px; }
-  .gr-impact-low  .gr-impact-fill { background: #22c55e; }
-  .gr-impact-med  .gr-impact-fill { background: #f59e0b; }
-  .gr-impact-high .gr-impact-fill { background: #ef4444; }
-  .gr-impact-label { font-size: 11px; color: #6b7280; white-space: nowrap; }
+  /* impact bar */
+  .gr-impact-bar { display: flex; align-items: center; gap: var(--cds-spacing-03); }
+  .gr-impact-track { width: 60px; height: 4px; background: var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; }
+  .gr-impact-fill { height: 100%; border-radius: 0; }
+  .gr-impact-low  .gr-impact-fill { background: var(--ibm-green-50); }
+  .gr-impact-med  .gr-impact-fill { background: var(--ibm-yellow-30); }
+  .gr-impact-high .gr-impact-fill { background: var(--ibm-red-60); }
+  .gr-impact-label { font-size: 0.75rem; color: var(--cds-text-secondary); white-space: nowrap; }
 
-  /* edit drawer */
+  /* Carbon side panel */
   .gr-drawer {
-    position: fixed; top: 56px; right: 0; bottom: 0; width: 440px;
-    background: #fff; border-left: 1px solid #e5e7eb;
-    box-shadow: -6px 0 28px rgba(0,0,0,0.10);
+    position: fixed; top: 48px; right: 0; bottom: 0; width: 440px;
+    background: var(--cds-background); border-left: 1px solid var(--cds-border-subtle-01);
+    box-shadow: -2px 0 6px rgba(0,0,0,0.2);
     display: flex; flex-direction: column;
-    transform: translateX(100%); transition: transform 0.25s cubic-bezier(.4,0,.2,1);
+    transform: translateX(100%); transition: transform 0.11s cubic-bezier(0,0,0.38,0.9);
     z-index: 500;
   }
   .gr-drawer.open { transform: translateX(0); }
   .gr-drawer-header {
     display: flex; align-items: flex-start; justify-content: space-between;
-    padding: 20px 20px 16px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0;
+    padding: var(--cds-spacing-05); border-bottom: 1px solid var(--cds-border-subtle-01); flex-shrink: 0;
   }
-  .gr-drawer-title { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 3px; }
-  .gr-drawer-sub { font-size: 12px; color: #6b7280; }
-  .gr-drawer-close { background: none; border: none; font-size: 16px; color: #9ca3af; cursor: pointer; padding: 2px 4px; border-radius: 3px; line-height: 1; }
-  .gr-drawer-close:hover { background: #f3f4f6; color: #374151; }
-  .gr-drawer-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 18px; }
-  .gr-field-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280; margin-bottom: 6px; }
+  .gr-drawer-title { font-size: 1rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); }
+  .gr-drawer-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
+  .gr-drawer-close {
+    width: 32px; height: 32px; background: none; border: none;
+    color: var(--cds-text-secondary); cursor: pointer; border-radius: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+  }
+  .gr-drawer-close:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
+  .gr-drawer-body { flex: 1; overflow-y: auto; padding: var(--cds-spacing-05); display: flex; flex-direction: column; gap: var(--cds-spacing-05); }
+  .gr-field-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-02); }
   .gr-field-input {
-    width: 100%; border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 12px;
-    font-size: 13px; color: #111827; outline: none; font-family: inherit;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%; border: none; border-bottom: 1px solid var(--cds-border-strong-01);
+    border-radius: 0; padding: var(--cds-spacing-03) var(--cds-spacing-04);
+    background: var(--cds-layer-01);
+    font-size: 0.875rem; color: var(--cds-text-primary); outline: none; font-family: 'IBM Plex Sans', sans-serif;
+    transition: border-bottom-color 0.1s;
   }
-  .gr-field-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+  .gr-field-input:focus { border-bottom: 2px solid var(--cds-focus); outline: none; }
   .gr-impact-preview {
-    background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px;
+    background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
   }
-  .gr-impact-preview-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6b7280; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .gr-impact-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .gr-impact-preview-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-04); display: flex; align-items: center; gap: var(--cds-spacing-03); }
+  .gr-impact-row { display: flex; justify-content: space-between; align-items: center; padding: var(--cds-spacing-02) 0; border-bottom: 1px solid var(--cds-border-subtle-01); font-size: 0.75rem; }
   .gr-impact-row:last-child { border-bottom: none; }
-  .gr-impact-key { color: #6b7280; }
-  .gr-impact-val { font-weight: 600; color: #111827; }
-  .gr-impact-val.red { color: #dc2626; }
-  .gr-impact-val.amber { color: #d97706; }
-  .gr-impact-val.green { color: #16a34a; }
-  .gr-drawer-footer { padding: 16px 20px; border-top: 1px solid #f0f0f0; display: flex; gap: 8px; justify-content: flex-end; flex-shrink: 0; }
+  .gr-impact-key { color: var(--cds-text-secondary); }
+  .gr-impact-val { font-weight: 600; color: var(--cds-text-primary); }
+  .gr-impact-val.red   { color: var(--ibm-red-60); }
+  .gr-impact-val.amber { color: #8e6a00; }
+  .gr-impact-val.green { color: var(--ibm-green-50); }
+  .gr-drawer-footer { padding: var(--cds-spacing-04) var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); display: flex; gap: var(--cds-spacing-03); justify-content: flex-end; flex-shrink: 0; }
 
   /* ════════════════════════════════════
      TAB 2: HEALTH PULSE
   ════════════════════════════════════ */
   .hp-wrap { flex: 1; overflow-y: auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 20px; }
   .hp-hero {
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px 32px;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: 28px 32px;
     display: flex; align-items: center; gap: 32px;
   }
   .hp-orb-wrap { position: relative; flex-shrink: 0; }
   .hp-orb {
     width: 80px; height: 80px; border-radius: 50%;
-    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-    border: 2px solid #86efac;
+    background: var(--ibm-green-10);
+    border: 2px solid var(--ibm-green-30);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 0 8px rgba(34,197,94,0.1);
+    box-shadow: 0 0 0 8px rgba(36,161,72,0.1);
     animation: hpOrbPulse 3s ease-in-out infinite;
   }
-  @keyframes hpOrbPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(34,197,94,0.1); } 50% { box-shadow: 0 0 0 16px rgba(34,197,94,0.04); } }
-  .hp-orb.warn { background: linear-gradient(135deg, #fffbeb, #fde68a); border-color: #fcd34d; box-shadow: 0 0 0 8px rgba(245,158,11,0.1); animation: none; }
-  .hp-orb.crit { background: linear-gradient(135deg, #fee2e2, #fecaca); border-color: #fca5a5; box-shadow: 0 0 0 8px rgba(239,68,68,0.1); animation: hpCritPulse 1.4s ease-in-out infinite; }
-  @keyframes hpCritPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(239,68,68,0.15); } 50% { box-shadow: 0 0 0 18px rgba(239,68,68,0.04); } }
+  @keyframes hpOrbPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(36,161,72,0.1); } 50% { box-shadow: 0 0 0 16px rgba(36,161,72,0.04); } }
+  .hp-orb.warn { background: var(--ibm-yellow-10); border-color: var(--ibm-yellow-30); box-shadow: 0 0 0 8px rgba(212,167,44,0.1); animation: none; }
+  .hp-orb.crit { background: var(--ibm-red-10); border-color: var(--ibm-red-20); box-shadow: 0 0 0 8px rgba(218,30,40,0.1); animation: hpCritPulse 1.4s ease-in-out infinite; }
+  @keyframes hpCritPulse { 0%,100% { box-shadow: 0 0 0 8px rgba(218,30,40,0.15); } 50% { box-shadow: 0 0 0 18px rgba(218,30,40,0.04); } }
   .hp-hero-text { flex: 1; }
-  .hp-hero-status { font-size: 22px; font-weight: 400; color: #111827; margin-bottom: 4px; }
-  .hp-hero-sub { font-size: 13px; color: #6b7280; line-height: 1.6; margin-bottom: 14px; }
+  .hp-hero-status { font-size: 22px; font-weight: 400; color: var(--cds-text-primary); margin-bottom: 4px; }
+  .hp-hero-sub { font-size: 13px; color: var(--cds-text-secondary); line-height: 1.6; margin-bottom: 14px; }
   .hp-hero-meta { display: flex; gap: 20px; flex-wrap: wrap; }
-  .hp-meta-item { font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 5px; }
+  .hp-meta-item { font-size: 12px; color: var(--cds-text-secondary); display: flex; align-items: center; gap: 5px; }
   .hp-meta-dot { width: 6px; height: 6px; border-radius: 50%; }
 
   /* channel routing */
   .hp-channels-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .hp-channel-card {
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: 16px 18px;
     cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .hp-channel-card:hover { border-color: #93c5fd; box-shadow: 0 2px 12px rgba(37,99,235,0.08); }
-  .hp-channel-card.connected { border-color: #bbf7d0; }
+  .hp-channel-card:hover { border-color: var(--ibm-blue-40); box-shadow: 0 2px 12px rgba(15,98,254,0.08); }
+  .hp-channel-card.connected { border-color: var(--ibm-green-30); }
   .hp-channel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .hp-channel-name { font-size: 13px; font-weight: 600; color: #111827; display: flex; align-items: center; gap: 7px; }
-  .hp-channel-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .hp-channel-status { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 20px; }
-  .hp-cs-on { background: #dcfce7; color: #166534; }
-  .hp-cs-off { background: #f3f4f6; color: #9ca3af; }
-  .hp-channel-desc { font-size: 11px; color: #9ca3af; line-height: 1.5; margin-bottom: 10px; }
+  .hp-channel-name { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 7px; }
+  .hp-channel-icon { width: 24px; height: 24px; border-radius: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hp-channel-status { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 0; }
+  .hp-cs-on { background: var(--ibm-green-10); color: var(--ibm-green-60); }
+  .hp-cs-off { background: var(--cds-layer-01); color: var(--cds-text-secondary); }
+  .hp-channel-desc { font-size: 11px; color: var(--cds-text-secondary); line-height: 1.5; margin-bottom: 10px; }
   .hp-channel-rules { display: flex; flex-direction: column; gap: 4px; }
-  .hp-channel-rule { font-size: 11px; color: #374151; display: flex; align-items: center; gap: 5px; }
-  .hp-channel-rule::before { content: '·'; color: #9ca3af; }
+  .hp-channel-rule { font-size: 11px; color: var(--cds-text-primary); display: flex; align-items: center; gap: 5px; }
+  .hp-channel-rule::before { content: '·'; color: var(--cds-text-secondary); }
 
   /* notification log */
-  .hp-log-wrap { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
-  .hp-log-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid #f0f0f0; background: #fafafa; }
-  .hp-log-title { font-size: 13px; font-weight: 600; color: #111827; }
-  .hp-log-clear { font-size: 11px; color: #6b7280; background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 3px; }
-  .hp-log-clear:hover { background: #f3f4f6; color: #111827; }
+  .hp-log-wrap { background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; }
+  .hp-log-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01); }
+  .hp-log-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); }
+  .hp-log-clear { font-size: 11px; color: var(--cds-text-secondary); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 0; }
+  .hp-log-clear:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
   .hp-log-list { max-height: 280px; overflow-y: auto; }
   .hp-log-item {
     display: flex; align-items: flex-start; gap: 12px;
-    padding: 12px 18px; border-bottom: 1px solid #f5f5f5;
+    padding: 12px 18px; border-bottom: 1px solid var(--cds-border-subtle-01);
     animation: logSlide 0.25s cubic-bezier(.4,0,.2,1) both;
   }
   .hp-log-item:last-child { border-bottom: none; }
   @keyframes logSlide { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
   .hp-log-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
   .hp-log-content { flex: 1; }
-  .hp-log-msg { font-size: 12px; color: #111827; line-height: 1.5; margin-bottom: 2px; }
-  .hp-log-meta { font-size: 10px; color: #9ca3af; }
-  .hp-log-channel { display: inline-flex; align-items: center; gap: 3px; background: #f3f4f6; border-radius: 3px; padding: 1px 5px; font-size: 10px; color: #6b7280; margin-left: 6px; }
+  .hp-log-msg { font-size: 12px; color: var(--cds-text-primary); line-height: 1.5; margin-bottom: 2px; }
+  .hp-log-meta { font-size: 10px; color: var(--cds-text-secondary); }
+  .hp-log-channel { display: inline-flex; align-items: center; gap: 3px; background: var(--cds-layer-01); border-radius: 0; padding: 1px 5px; font-size: 10px; color: var(--cds-text-secondary); margin-left: 6px; }
 
   /* silence panel */
   .hp-silence-panel {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    border: 1px solid #86efac; border-radius: 10px; padding: 20px 24px;
+    background: var(--ibm-green-10);
+    border: 1px solid var(--ibm-green-30); border-radius: 0; padding: 20px 24px;
     display: flex; align-items: center; gap: 20px;
   }
-  .hp-silence-icon { width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; border: 1.5px solid #86efac; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hp-silence-icon { width: 40px; height: 40px; border-radius: 0; background: var(--ibm-green-20); border: 1.5px solid var(--ibm-green-30); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .hp-silence-text { flex: 1; }
-  .hp-silence-title { font-size: 14px; font-weight: 600; color: #166534; margin-bottom: 3px; }
-  /* BUG: #4ade80 is too light on white — use readable green */
-  .hp-silence-sub { font-size: 12px; color: #166534; line-height: 1.5; opacity: 0.8; }
+  .hp-silence-title { font-size: 14px; font-weight: 600; color: var(--ibm-green-60); margin-bottom: 3px; }
+  .hp-silence-sub { font-size: 12px; color: var(--ibm-green-60); line-height: 1.5; opacity: 0.85; }
 
   /* ════════════════════════════════════
      TAB 3: DECISION INBOX
   ════════════════════════════════════ */
-  /* Decision inbox — independent column scrolls, not whole-page scroll */
   .di-wrap { flex: 1; min-height: 0; overflow: hidden; display: flex; gap: 0; }
   .di-list-col {
     width: 320px; flex-shrink: 0;
     overflow-y: auto;
-    padding: 24px 16px 40px 28px;
-    border-right: 1px solid #e5e7eb;
-    background: rgba(255,255,255,0.45);
-    display: flex; flex-direction: column; gap: 10px;
+    padding: var(--cds-spacing-06) var(--cds-spacing-04) var(--cds-spacing-08) var(--cds-spacing-07);
+    border-right: 1px solid var(--cds-border-subtle-01);
+    background: var(--cds-layer-02);
+    display: flex; flex-direction: column; gap: var(--cds-spacing-03);
   }
   .di-detail-col {
     flex: 1; min-width: 0; min-height: 0;
     overflow-y: auto;
-    padding: 24px 28px 60px 24px;
-    display: flex; flex-direction: column; gap: 16px;
+    padding: var(--cds-spacing-06) var(--cds-spacing-07) var(--cds-spacing-10) var(--cds-spacing-06);
+    display: flex; flex-direction: column; gap: var(--cds-spacing-05);
   }
 
-  .di-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-  .di-list-title { font-size: 13px; font-weight: 600; color: #111827; }
-  .di-count-badge { font-size: 11px; font-weight: 700; background: #ef4444; color: #fff; border-radius: 10px; padding: 1px 7px; animation: diPulse 1.8s ease-in-out infinite; }
-  @keyframes diPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .di-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cds-spacing-02); }
+  .di-list-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); }
+  .di-count-badge { font-size: 0.75rem; font-weight: 600; background: var(--ibm-red-60); color: #fff; border-radius: 0.75rem; padding: 1px var(--cds-spacing-03); animation: diPulse 1.8s ease-in-out infinite; }
+  @keyframes diPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 
   .di-card {
-    background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 14px 16px;
-    cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    cursor: pointer; transition: border-color 0.1s, background 0.1s;
     flex-shrink: 0;
   }
-  .di-card:hover { border-color: #93c5fd; box-shadow: 0 3px 12px rgba(37,99,235,0.1); }
-  .di-card.selected { border-color: #2563eb; box-shadow: 0 3px 16px rgba(37,99,235,0.15); background: #f8faff; }
-  .di-card.urgent { border-left: 3px solid #ef4444; }
-  .di-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
-  .di-card-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 4px; }
-  .di-tag-urgent { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
-  .di-tag-warn { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
-  .di-tag-info { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-  .di-card-time { font-size: 10px; color: #9ca3af; }
-  .di-card-title { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 4px; line-height: 1.4; }
-  .di-card-sub { font-size: 11px; color: #6b7280; display: flex; align-items: center; gap: 5px; }
-  .di-card-slo { font-size: 10px; color: #dc2626; font-weight: 600; margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+  .di-card:hover { background: var(--cds-background-hover); border-color: var(--ibm-blue-60); }
+  .di-card.selected { border-color: var(--ibm-blue-60); background: var(--ibm-blue-10); outline: 2px solid var(--ibm-blue-60); outline-offset: -2px; }
+  .di-card.urgent { border-left: 3px solid var(--ibm-red-60); }
+  .di-card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--cds-spacing-03); }
+  /* Carbon Tag — no border-radius */
+  .di-card-tag { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0; }
+  .di-tag-urgent { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
+  .di-tag-warn   { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid var(--ibm-yellow-30); }
+  .di-tag-info   { background: var(--ibm-blue-10); color: var(--ibm-blue-70); border: 1px solid var(--ibm-blue-20); }
+  .di-card-time  { font-size: 0.75rem; color: var(--cds-text-secondary); }
+  .di-card-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); line-height: 1.4; }
+  .di-card-sub   { font-size: 0.75rem; color: var(--cds-text-secondary); display: flex; align-items: center; gap: var(--cds-spacing-02); }
+  .di-card-slo   { font-size: 0.75rem; color: var(--ibm-red-60); font-weight: 600; margin-top: var(--cds-spacing-02); display: flex; align-items: center; gap: var(--cds-spacing-02); }
 
-  /* decision card (detail) — flex-shrink:0 so card is never squished */
+  /* decision card detail */
   .dc-card {
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: visible;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.06); flex-shrink: 0;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: visible;
+    flex-shrink: 0;
   }
   .dc-header {
-    padding: 18px 24px 14px; border-bottom: 1px solid #f0f0f0;
-    background: linear-gradient(135deg, #fef2f2 0%, #fff 100%);
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    padding: var(--cds-spacing-05) var(--cds-spacing-06) var(--cds-spacing-04); border-bottom: 1px solid var(--cds-border-subtle-01);
+    background: var(--ibm-red-10);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--cds-spacing-05);
   }
   .dc-header-left { flex: 1; }
-  .dc-header-badges { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-  .dc-priority-badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; }
-  .dc-priority-p1 { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
-  .dc-priority-p2 { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
-  .dc-priority-p3 { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-  .dc-action-req { display: inline-flex; align-items: center; gap: 5px; background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 8px; }
-  .dc-service-tag { font-size: 11px; color: #6b7280; }
-  .dc-title { font-size: 18px; font-weight: 500; color: #111827; line-height: 1.35; margin-bottom: 6px; }
-  .dc-summary { font-size: 13px; color: #374151; line-height: 1.65; }
+  .dc-header-badges { display: flex; align-items: center; gap: var(--cds-spacing-03); margin-bottom: var(--cds-spacing-03); flex-wrap: wrap; }
+  /* Carbon Tag — no border-radius */
+  .dc-priority-badge { display: inline-flex; align-items: center; gap: var(--cds-spacing-01); border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); }
+  .dc-priority-p1 { background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
+  .dc-priority-p2 { background: var(--ibm-yellow-10); color: #8e6a00; border: 1px solid var(--ibm-yellow-30); }
+  .dc-priority-p3 { background: var(--ibm-blue-10); color: var(--ibm-blue-70); border: 1px solid var(--ibm-blue-20); }
+  .dc-action-req { display: inline-flex; align-items: center; gap: var(--cds-spacing-02); background: var(--ibm-red-10); color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); border-radius: 0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; padding: var(--cds-spacing-01) var(--cds-spacing-03); }
+  .dc-service-tag { font-size: 0.75rem; color: var(--cds-text-secondary); }
+  /* Carbon productive-heading-03: 20px/400 */
+  .dc-title { font-size: 1.25rem; font-weight: 400; color: var(--cds-text-primary); line-height: 1.4; margin-bottom: var(--cds-spacing-03); }
+  .dc-summary { font-size: 0.875rem; color: var(--cds-text-primary); line-height: 1.5; }
   .dc-slo-countdown {
     flex-shrink: 0; text-align: right;
-    background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 10px 14px;
+    background: var(--ibm-red-10); border: 1px solid var(--ibm-red-20); border-radius: 0; padding: var(--cds-spacing-03) var(--cds-spacing-04);
   }
-  .dc-slo-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #dc2626; margin-bottom: 3px; }
-  .dc-slo-time { font-size: 22px; font-weight: 300; color: #dc2626; letter-spacing: -0.5px; line-height: 1; }
-  .dc-slo-sub { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+  .dc-slo-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--ibm-red-60); margin-bottom: var(--cds-spacing-02); }
+  .dc-slo-time { font-size: 1.75rem; font-weight: 300; color: var(--ibm-red-60); letter-spacing: -0.5px; line-height: 1; }
+  .dc-slo-sub { font-size: 0.75rem; color: var(--cds-text-secondary); margin-top: var(--cds-spacing-01); }
 
-  .dc-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
-  .dc-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 8px; }
-  .dc-why-badge { display: inline-flex; align-items: center; gap: 6px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #92400e; line-height: 1.5; }
+  .dc-body { padding: var(--cds-spacing-05) var(--cds-spacing-06); display: flex; flex-direction: column; gap: var(--cds-spacing-05); }
+  .dc-section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
+  .dc-why-badge { display: inline-flex; align-items: center; gap: var(--cds-spacing-03); background: var(--ibm-yellow-10); border: 1px solid var(--ibm-yellow-30); border-radius: 0; padding: var(--cds-spacing-03) var(--cds-spacing-04); font-size: 0.875rem; color: #8e6a00; line-height: 1.5; }
 
   /* ranked options */
-  .dc-options { display: flex; flex-direction: column; gap: 8px; }
+  .dc-options { display: flex; flex-direction: column; gap: var(--cds-spacing-03); }
   .dc-option {
-    display: flex; align-items: flex-start; gap: 12px;
-    border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 12px 14px;
-    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    display: flex; align-items: flex-start; gap: var(--cds-spacing-04);
+    border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-04);
+    cursor: pointer; transition: border-color 0.1s, background 0.1s;
   }
-  .dc-option:hover { border-color: #93c5fd; background: #f8faff; }
-  .dc-option.recommended { border-color: #22c55e; background: #f0fdf4; }
-  .dc-option.destructive:hover { border-color: #fca5a5; background: #fef2f2; }
-  .dc-option-rank { width: 22px; height: 22px; border-radius: 50%; background: #e5e7eb; color: #374151; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .dc-option.recommended .dc-option-rank { background: #22c55e; color: #fff; }
+  .dc-option:hover { border-color: var(--ibm-blue-60); background: var(--ibm-blue-10); }
+  .dc-option.recommended { border-color: var(--ibm-green-50); background: var(--ibm-green-10); }
+  .dc-option.destructive:hover { border-color: var(--ibm-red-60); background: var(--ibm-red-10); }
+  .dc-option-rank { width: 22px; height: 22px; border-radius: 50%; background: var(--cds-layer-accent-01); color: var(--cds-text-primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .dc-option.recommended .dc-option-rank { background: var(--ibm-green-50); color: #fff; }
   .dc-option-content { flex: 1; }
-  .dc-option-title { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 2px; }
-  .dc-option-desc { font-size: 12px; color: #6b7280; line-height: 1.5; }
-  .dc-option-badge { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
-  .dc-ob-rec { background: #dcfce7; color: #166534; }
-  .dc-ob-risk { background: #fee2e2; color: #dc2626; }
+  .dc-option-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-01); }
+  .dc-option-desc { font-size: 0.75rem; color: var(--cds-text-secondary); line-height: 1.5; }
+  .dc-option-badge { font-size: 0.75rem; font-weight: 600; padding: 1px var(--cds-spacing-03); border-radius: 0; margin-left: var(--cds-spacing-03); }
+  .dc-ob-rec  { background: var(--ibm-green-10); color: var(--ibm-green-50); }
+  .dc-ob-risk { background: var(--ibm-red-10); color: var(--ibm-red-60); }
 
-  /* ── plan popup modal ── */
+  /* ── plan popup — Carbon Modal ── */
   .plan-popup-backdrop {
     display: none; position: fixed; inset: 0; z-index: 9200;
-    background: rgba(0,0,0,0.3); backdrop-filter: blur(2px);
+    background: rgba(22,22,22,0.5);
     align-items: center; justify-content: center;
   }
   .plan-popup-backdrop.open { display: flex; }
   .plan-popup {
-    background: #fff; border-radius: 14px;
+    background: var(--cds-background); border-radius: 0;
     width: 520px; max-width: 94vw;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.18);
-    animation: modalIn 0.22s cubic-bezier(.4,0,.2,1) forwards;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: modalIn 0.11s cubic-bezier(0,0,0.38,0.9) forwards;
     overflow: hidden;
   }
   .plan-popup-header {
-    padding: 20px 22px 16px;
-    border-bottom: 1px solid #f3f4f6;
-    display: flex; align-items: flex-start; gap: 12px;
+    padding: var(--cds-spacing-05) var(--cds-spacing-05) var(--cds-spacing-04);
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+    display: flex; align-items: flex-start; gap: var(--cds-spacing-04);
   }
   .plan-popup-icon {
-    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 0; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
   }
-  .plan-popup-icon.green { background: #dcfce7; }
-  .plan-popup-icon.red   { background: #fee2e2; }
-  .plan-popup-icon.grey  { background: #f3f4f6; }
+  .plan-popup-icon.green { background: var(--ibm-green-10); }
+  .plan-popup-icon.red   { background: var(--ibm-red-10); }
+  .plan-popup-icon.grey  { background: var(--cds-layer-01); }
   .plan-popup-heading { flex: 1; }
-  .plan-popup-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 3px; line-height: 1.35; }
-  .plan-popup-sub { font-size: 12px; color: #6b7280; }
+  /* Carbon productive-heading-03: 20px/400 */
+  .plan-popup-title { font-size: 1rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-02); line-height: 1.35; }
+  .plan-popup-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
   .plan-popup-close {
-    width: 28px; height: 28px; border-radius: 50%; border: none; cursor: pointer;
-    background: #f3f4f6; color: #374151; font-size: 15px;
+    width: 32px; height: 32px; border-radius: 0; border: none; cursor: pointer;
+    background: transparent; color: var(--cds-text-secondary); font-size: 16px;
     display: flex; align-items: center; justify-content: center;
-    transition: background 0.12s; flex-shrink: 0;
+    transition: background 0.1s; flex-shrink: 0;
   }
-  .plan-popup-close:hover { background: #fee2e2; color: #ef4444; }
-  .plan-popup-body { padding: 18px 22px 0; display: flex; flex-direction: column; gap: 16px; }
+  .plan-popup-close:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
+  .plan-popup-body { padding: var(--cds-spacing-05) var(--cds-spacing-05) 0; display: flex; flex-direction: column; gap: var(--cds-spacing-05); }
   .plan-section-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: #9ca3af; margin-bottom: 8px;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.32px; text-transform: uppercase;
+    color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03);
   }
   .plan-steps { display: flex; flex-direction: column; gap: 0; }
   .plan-step {
-    display: flex; gap: 12px; align-items: flex-start; position: relative;
-    padding-bottom: 16px;
+    display: flex; gap: var(--cds-spacing-04); align-items: flex-start; position: relative;
+    padding-bottom: var(--cds-spacing-05);
   }
   .plan-step:last-child { padding-bottom: 0; }
   .plan-step-line {
@@ -459,230 +568,226 @@
   .plan-step-dot {
     width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; color: #fff; z-index: 1;
+    font-size: 0.75rem; font-weight: 700; color: #fff; z-index: 1;
   }
-  .plan-step-dot.green { background: #22c55e; }
-  .plan-step-dot.blue  { background: #2563eb; }
-  .plan-step-dot.grey  { background: #9ca3af; }
-  .plan-step-dot.red   { background: #ef4444; }
+  .plan-step-dot.green { background: var(--ibm-green-50); }
+  .plan-step-dot.blue  { background: var(--ibm-blue-60); }
+  .plan-step-dot.grey  { background: var(--cds-text-secondary); }
+  .plan-step-dot.red   { background: var(--ibm-red-60); }
   .plan-step-connector {
-    width: 1.5px; flex: 1; background: #e5e7eb; margin-top: 2px; min-height: 14px;
+    width: 1px; flex: 1; background: var(--cds-border-subtle-01); margin-top: 2px; min-height: 14px;
   }
   .plan-step:last-child .plan-step-connector { display: none; }
   .plan-step-body { flex: 1; padding-top: 1px; }
-  .plan-step-title { font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 2px; }
-  .plan-step-desc  { font-size: 12px; color: #6b7280; line-height: 1.55; }
+  .plan-step-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: var(--cds-spacing-01); }
+  .plan-step-desc  { font-size: 0.75rem; color: var(--cds-text-secondary); line-height: 1.5; }
   .plan-kv-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px;
-    background: #f9fafb; border: 1px solid #f0f0f0; border-radius: 8px;
-    padding: 12px 14px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--cds-spacing-03) var(--cds-spacing-05);
+    background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); border-radius: 0;
+    padding: var(--cds-spacing-04) var(--cds-spacing-05);
   }
-  .plan-kv { display: flex; flex-direction: column; gap: 2px; }
-  .plan-kv-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #9ca3af; }
-  .plan-kv-val   { font-size: 13px; font-weight: 500; color: #111827; }
-  .plan-kv-val.green { color: #16a34a; }
-  .plan-kv-val.red   { color: #dc2626; }
-  .plan-kv-val.orange{ color: #d97706; }
+  .plan-kv { display: flex; flex-direction: column; gap: var(--cds-spacing-01); }
+  .plan-kv-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); }
+  .plan-kv-val   { font-size: 0.875rem; font-weight: 500; color: var(--cds-text-primary); }
+  .plan-kv-val.green { color: var(--ibm-green-50); }
+  .plan-kv-val.red   { color: var(--ibm-red-60); }
+  .plan-kv-val.orange{ color: #8e6a00; }
   .plan-popup-footer {
-    padding: 16px 22px 20px; display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px;
+    padding: var(--cds-spacing-05); display: flex; justify-content: flex-end; gap: 0;
+    border-top: 1px solid var(--cds-border-subtle-01); margin-top: var(--cds-spacing-04);
   }
+  /* Carbon Ghost + Primary buttons — no border-radius, 48px height */
   .plan-btn-cancel {
-    padding: 8px 16px; border-radius: 7px; border: 1px solid #e5e7eb;
-    background: #fff; color: #374151; font-size: 13px; cursor: pointer;
-    transition: background 0.12s;
+    padding: 0 var(--cds-spacing-05); height: 48px; border-radius: 0;
+    border: 1px solid var(--ibm-gray-80); background: transparent;
+    color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.875rem; cursor: pointer; transition: background 0.1s;
   }
-  .plan-btn-cancel:hover { background: #f3f4f6; }
+  .plan-btn-cancel:hover { background: var(--cds-background-hover); }
   .plan-btn-approve {
-    padding: 8px 20px; border-radius: 7px; border: none;
-    background: #16a34a; color: #fff; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: background 0.12s;
+    padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
+    background: var(--ibm-green-50); color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; cursor: pointer; transition: background 0.1s;
   }
-  .plan-btn-approve:hover { background: #15803d; }
+  .plan-btn-approve:hover { background: var(--ibm-green-70); }
   .plan-btn-danger {
-    padding: 8px 20px; border-radius: 7px; border: none;
-    background: #dc2626; color: #fff; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: background 0.12s;
+    padding: 0 var(--cds-spacing-07); height: 48px; border-radius: 0; border: none;
+    background: var(--cds-button-danger); color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; cursor: pointer; transition: background 0.1s;
   }
-  .plan-btn-danger:hover { background: #b91c1c; }
+  .plan-btn-danger:hover { background: #a2191f; }
 
-  /* evidence expand — overflow:hidden clips rounded corners only */
+  /* evidence */
   .dc-evidence {
-    background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden; flex-shrink: 0;
   }
   .dc-evidence-toggle {
     width: 100%; display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 14px; background: none; border: none; cursor: pointer;
-    font-size: 12px; font-weight: 500; color: #374151; font-family: inherit;
-    transition: background 0.15s;
+    padding: var(--cds-spacing-03) var(--cds-spacing-04); background: none; border: none; cursor: pointer;
+    font-size: 0.875rem; font-weight: 500; color: var(--cds-text-primary); font-family: 'IBM Plex Sans', sans-serif;
+    transition: background 0.1s;
   }
-  .dc-evidence-toggle:hover { background: #f0f4f8; }
-  .dc-evidence-body { padding: 0 14px 14px; display: none; font-size: 11.5px; color: #374151; line-height: 1.7; }
+  .dc-evidence-toggle:hover { background: var(--cds-background-hover); }
+  .dc-evidence-body { padding: 0 var(--cds-spacing-04) var(--cds-spacing-04); display: none; font-size: 0.875rem; color: var(--cds-text-primary); line-height: 1.6; }
   .dc-evidence-body.open { display: block; }
-  .dc-evidence-item { display: flex; gap: 8px; padding: 4px 0; border-bottom: 1px solid #f0f0f0; }
+  .dc-evidence-item { display: flex; gap: var(--cds-spacing-03); padding: var(--cds-spacing-02) 0; border-bottom: 1px solid var(--cds-border-subtle-01); }
   .dc-evidence-item:last-child { border-bottom: none; }
-  .dc-ev-label { color: #9ca3af; min-width: 100px; }
+  .dc-ev-label { color: var(--cds-text-secondary); min-width: 100px; }
 
-  /* action row */
-  .dc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  /* action buttons — Carbon button sizes */
+  .dc-actions { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; }
   .dc-act-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 9px 18px; border-radius: 7px; font-size: 13px; font-weight: 500;
-    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    display: flex; align-items: center; gap: var(--cds-spacing-02);
+    padding: 0 var(--cds-spacing-05); height: 40px; border-radius: 0;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
+    cursor: pointer; transition: background 0.1s; white-space: nowrap;
   }
-  .dc-act-approve { background: #16a34a; color: #fff; border: none; }
-  .dc-act-approve:hover { background: #15803d; }
-  .dc-act-override { background: #fff; color: #374151; border: 1.5px solid #e5e7eb; }
-  .dc-act-override:hover { background: #f3f4f6; border-color: #d1d5db; }
-  .dc-act-reject { background: #fff; color: #dc2626; border: 1.5px solid #fecaca; }
-  .dc-act-reject:hover { background: #fef2f2; }
-  .dc-act-modify { background: #eff6ff; color: #2563eb; border: 1.5px solid #bfdbfe; }
-  .dc-act-modify:hover { background: #dbeafe; }
-  .dc-act-trace { background: #faf5ff; color: #7e22ce; border: 1.5px solid #e9d5ff; }
-  .dc-act-trace:hover { background: #f3e8ff; border-color: #d8b4fe; }
+  .dc-act-approve  { background: var(--ibm-green-50); color: #fff; border: none; }
+  .dc-act-approve:hover  { background: var(--ibm-green-70); }
+  .dc-act-override { background: transparent; color: var(--cds-text-primary); border: 1px solid var(--cds-border-strong-01); }
+  .dc-act-override:hover { background: var(--cds-background-hover); }
+  .dc-act-reject   { background: transparent; color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
+  .dc-act-reject:hover   { background: var(--ibm-red-10); }
+  .dc-act-modify   { background: var(--ibm-blue-10); color: var(--ibm-blue-60); border: 1px solid var(--ibm-blue-20); }
+  .dc-act-modify:hover   { background: var(--ibm-blue-20); }
+  .dc-act-trace    { background: var(--ibm-purple-10); color: var(--ibm-purple-60); border: 1px solid var(--ibm-purple-20); }
+  .dc-act-trace:hover    { background: var(--ibm-purple-20); }
 
-  /* ── modify chat drawer ── */
-  /* ── modify chat right panel (in-flow, pushes content) ── */
+  /* ── modify chat panel — Carbon AI chat style ── */
   .modify-chat-panel {
     width: 0; flex-shrink: 0;
-    background: linear-gradient(160deg, #f8fafd 0%, #f3f6fb 30%, #ddeaf5 65%, #c8dff0 100%);
+    background: var(--cds-background);
     border-left: 1px solid transparent;
     display: flex; flex-direction: column; overflow: hidden;
-    transition: width 0.3s cubic-bezier(.4,0,.2,1), border-color 0.3s;
+    transition: width 0.11s cubic-bezier(0,0,0.38,0.9), border-color 0.11s;
   }
   .modify-chat-panel.open {
     width: 380px;
-    border-left-color: rgba(229,231,235,0.8);
+    border-left-color: var(--cds-border-subtle-01);
   }
 
   /* header */
   .modify-chat-panel-header {
-    padding: 16px 16px 14px;
-    border-bottom: 1px solid rgba(229,231,235,0.7);
-    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-    background: rgba(255,255,255,0.5);
-    backdrop-filter: blur(8px);
+    padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+    display: flex; align-items: center; gap: var(--cds-spacing-03); flex-shrink: 0;
+    background: var(--cds-layer-01);
   }
   .modify-chat-orb {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    background: linear-gradient(135deg,#a5b4fc,#818cf8);
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: var(--ibm-blue-60);
     display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; color: #fff;
+    font-size: 0.625rem; font-weight: 700; color: #fff;
   }
-  .modify-chat-title { font-size: 14px; font-weight: 600; color: #111827; flex: 1; }
-  .modify-chat-sub { font-size: 11px; color: #9ca3af; }
+  .modify-chat-title { font-size: 0.875rem; font-weight: 600; color: var(--cds-text-primary); flex: 1; }
+  .modify-chat-sub { font-size: 0.75rem; color: var(--cds-text-secondary); }
   .modify-chat-close {
-    width: 28px; height: 28px; border-radius: 50%; border: none; cursor: pointer;
-    background: rgba(243,244,246,0.8); color: #374151; font-size: 14px; display: flex;
-    align-items: center; justify-content: center; transition: background 0.12s; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 0; border: none; cursor: pointer;
+    background: transparent; color: var(--cds-text-secondary); font-size: 14px; display: flex;
+    align-items: center; justify-content: center; transition: background 0.1s; flex-shrink: 0;
   }
-  .modify-chat-close:hover { background: #fee2e2; color: #ef4444; }
+  .modify-chat-close:hover { background: var(--cds-background-hover); color: var(--cds-text-primary); }
 
   /* messages */
   .modify-chat-msgs {
-    flex: 1; overflow-y: auto; padding: 18px 16px 10px;
-    display: flex; flex-direction: column; gap: 12px; min-height: 0;
+    flex: 1; overflow-y: auto; padding: var(--cds-spacing-05) var(--cds-spacing-04) var(--cds-spacing-03);
+    display: flex; flex-direction: column; gap: var(--cds-spacing-04); min-height: 0;
   }
   .modify-chat-msgs::-webkit-scrollbar { width: 3px; }
-  .modify-chat-msgs::-webkit-scrollbar-thumb { background: rgba(209,213,219,0.6); border-radius: 2px; }
-  .modify-chat-msg { display: flex; gap: 8px; align-items: flex-start; animation: msgIn 0.2s ease forwards; }
+  .modify-chat-msgs::-webkit-scrollbar-thumb { background: var(--cds-border-subtle-01); border-radius: 2px; }
+  .modify-chat-msg { display: flex; gap: var(--cds-spacing-03); align-items: flex-start; animation: msgIn 0.2s ease forwards; }
   .modify-chat-msg.user { flex-direction: row-reverse; }
-  @keyframes msgIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+  @keyframes msgIn { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform:none; } }
   .modify-chat-avatar {
-    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700;
+    font-size: 0.625rem; font-weight: 700;
   }
-  .modify-chat-msg.user  .modify-chat-avatar { background: #dbeafe; color: #1d4ed8; }
-  .modify-chat-msg.agent .modify-chat-avatar { background: linear-gradient(135deg,#a5b4fc,#818cf8); color:#fff; }
+  .modify-chat-msg.user  .modify-chat-avatar { background: var(--ibm-blue-10); color: var(--ibm-blue-60); }
+  .modify-chat-msg.agent .modify-chat-avatar { background: var(--ibm-blue-60); color: #fff; }
   .modify-chat-bubble {
-    max-width: 84%; padding: 10px 13px; border-radius: 12px;
-    font-size: 13px; line-height: 1.6; color: #1f2937;
+    max-width: 84%; padding: var(--cds-spacing-03) var(--cds-spacing-04); border-radius: 0;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; line-height: 1.5; color: var(--cds-text-primary);
   }
-  .modify-chat-msg.user  .modify-chat-bubble {
-    background: rgba(239,246,255,0.9); border: 1px solid #bfdbfe; border-top-right-radius: 3px;
-  }
-  .modify-chat-msg.agent .modify-chat-bubble {
-    background: rgba(255,255,255,0.85); border: 1px solid rgba(229,231,235,0.8); border-top-left-radius: 3px;
-  }
+  .modify-chat-msg.user  .modify-chat-bubble { background: var(--ibm-blue-10); border: 1px solid var(--ibm-blue-20); }
+  .modify-chat-msg.agent .modify-chat-bubble { background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01); }
   .modify-chat-typing {
-    display: flex; gap: 4px; align-items: center; padding: 10px 13px;
-    background: rgba(255,255,255,0.85); border: 1px solid rgba(229,231,235,0.8);
-    border-radius: 12px; border-top-left-radius: 3px; width: fit-content;
+    display: flex; gap: var(--cds-spacing-02); align-items: center; padding: var(--cds-spacing-03) var(--cds-spacing-04);
+    background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01);
+    border-radius: 0; width: fit-content;
   }
   .modify-typing-dot {
-    width: 5px; height: 5px; border-radius: 50%; background: #a5b4fc;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--ibm-blue-60);
   }
   .modify-typing-dot:nth-child(1){animation:typeDot 1.2s infinite 0s;}
   .modify-typing-dot:nth-child(2){animation:typeDot 1.2s infinite 0.2s;}
   .modify-typing-dot:nth-child(3){animation:typeDot 1.2s infinite 0.4s;}
   @keyframes typeDot { 0%,80%,100%{opacity:0.2;transform:scale(0.8);} 40%{opacity:1;transform:scale(1);} }
 
-  /* suggestion chips */
+  /* suggestion chips — Carbon Tag style */
   .modify-chat-chips {
-    display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; flex-shrink: 0;
+    display: flex; flex-wrap: wrap; gap: var(--cds-spacing-02); padding: 0 var(--cds-spacing-05) var(--cds-spacing-03); flex-shrink: 0;
   }
   .modify-chat-chip {
-    font-size: 12px; color: #374151; background: rgba(255,255,255,0.75); border: 1px solid rgba(209,213,219,0.8);
-    border-radius: 14px; padding: 5px 12px; cursor: pointer;
-    transition: background 0.12s, border-color 0.12s, color 0.12s; white-space: nowrap;
+    font-size: 0.75rem; color: var(--cds-text-primary); background: var(--cds-layer-01); border: 1px solid var(--cds-border-subtle-01);
+    border-radius: 0; padding: var(--cds-spacing-01) var(--cds-spacing-04); cursor: pointer;
+    transition: background 0.1s, border-color 0.1s, color 0.1s; white-space: nowrap;
   }
-  .modify-chat-chip:hover { background: rgba(239,246,255,0.95); border-color: #93c5fd; color: #1d4ed8; }
+  .modify-chat-chip:hover { background: var(--ibm-blue-10); border-color: var(--ibm-blue-40); color: var(--ibm-blue-70); }
 
-  /* ── prompt bar (matching screenshot style) ── */
+  /* ── prompt bar — Carbon TextInput style ── */
   .modify-chat-input-row {
-    display: flex; align-items: center; gap: 8px;
-    padding: 12px 14px 16px; flex-shrink: 0;
+    display: flex; align-items: center; gap: var(--cds-spacing-03);
+    padding: var(--cds-spacing-03) var(--cds-spacing-05) var(--cds-spacing-05); flex-shrink: 0;
     background: transparent;
   }
   .modify-chat-input-pill {
-    flex: 1; display: flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.7);
-    border: 1px solid rgba(209,213,219,0.5);
-    border-radius: 999px;
-    padding: 0 8px 0 14px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    transition: box-shadow 0.15s, border-color 0.15s;
+    flex: 1; display: flex; align-items: center; gap: var(--cds-spacing-03);
+    background: var(--cds-layer-01);
+    border: 1px solid var(--cds-border-strong-01);
+    border-radius: 0;
+    padding: 0 var(--cds-spacing-03) 0 var(--cds-spacing-04);
+    transition: outline 0.1s, border-color 0.1s;
   }
   .modify-chat-input-pill:focus-within {
-    border-color: rgba(129,140,248,0.6);
-    box-shadow: 0 0 0 3px rgba(129,140,248,0.12);
+    border-color: var(--ibm-blue-60);
+    outline: 2px solid var(--ibm-blue-60);
+    outline-offset: -2px;
   }
-  .modify-chat-input-pill svg { flex-shrink: 0; color: #9ca3af; }
+  .modify-chat-input-pill svg { flex-shrink: 0; color: var(--cds-text-secondary); }
   .modify-chat-input {
     flex: 1; border: none; background: transparent;
-    padding: 11px 0; font-size: 13.5px; color: #111827;
-    font-family: inherit; outline: none;
+    padding: var(--cds-spacing-03) 0; font-size: 0.875rem; color: var(--cds-text-primary);
+    font-family: 'IBM Plex Sans', sans-serif; outline: none;
   }
-  .modify-chat-input::placeholder { color: #9ca3af; }
+  .modify-chat-input::placeholder { color: var(--cds-text-placeholder); }
   .modify-chat-send {
-    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-    background: linear-gradient(135deg,#818cf8,#60a5fa);
+    width: 40px; height: 40px; border-radius: 0; flex-shrink: 0;
+    background: var(--ibm-blue-60);
     border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: transform 0.12s, box-shadow 0.12s;
-    box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+    transition: background 0.1s;
   }
-  .modify-chat-send:hover { transform: scale(1.08); box-shadow: 0 3px 12px rgba(99,102,241,0.45); }
+  .modify-chat-send:hover { background: var(--ibm-blue-70); }
   .modify-chat-mic {
-    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-    background: linear-gradient(135deg,#a5b4fc,#818cf8);
-    border: none; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 0; flex-shrink: 0;
+    background: var(--cds-layer-01);
+    border: 1px solid var(--cds-border-strong-01);
+    cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: transform 0.12s, box-shadow 0.12s;
-    box-shadow: 0 2px 8px rgba(99,102,241,0.25);
+    transition: background 0.1s;
   }
-  .modify-chat-mic:hover { transform: scale(1.08); }
+  .modify-chat-mic:hover { background: var(--cds-background-hover); }
 
-  /* empty state — min-height so it shows even when flex parent is short */
+  /* empty state */
   .di-empty {
     min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 12px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+    gap: 12px; background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0;
     padding: 40px; flex-shrink: 0;
   }
-  .di-empty-icon { width: 48px; height: 48px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; }
-  .di-empty-title { font-size: 15px; font-weight: 600; color: #166534; }
-  .di-empty-sub { font-size: 13px; color: #9ca3af; text-align: center; max-width: 260px; }
+  .di-empty-icon { width: 48px; height: 48px; border-radius: 0; background: var(--ibm-green-10); display: flex; align-items: center; justify-content: center; }
+  .di-empty-title { font-size: 15px; font-weight: 600; color: var(--ibm-green-60); }
+  .di-empty-sub { font-size: 13px; color: var(--cds-text-secondary); text-align: center; max-width: 260px; }
 
   /* ════════════════════════════════════
      TAB 4: REMEDIATION
@@ -691,121 +796,122 @@
   .rm-list-col {
     width: 280px; flex-shrink: 0;
     overflow-y: auto;
-    padding: 24px 16px 40px 28px;
-    border-right: 1px solid #e5e7eb;
-    background: rgba(255,255,255,0.45);
-    display: flex; flex-direction: column; gap: 10px;
+    padding: var(--cds-spacing-06) var(--cds-spacing-04) var(--cds-spacing-10) var(--cds-spacing-07);
+    border-right: 1px solid var(--cds-border-subtle-01);
+    background: var(--cds-layer-02);
+    display: flex; flex-direction: column; gap: var(--cds-spacing-03);
   }
   .rm-detail-col {
     flex: 1; min-width: 0;
     overflow-y: auto;
-    padding: 24px 28px 60px 24px;
-    display: flex; flex-direction: column; gap: 16px;
+    padding: var(--cds-spacing-06) var(--cds-spacing-07) var(--cds-spacing-10) var(--cds-spacing-06);
+    display: flex; flex-direction: column; gap: var(--cds-spacing-05);
   }
 
-  .rm-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-  .rm-list-title { font-size: 13px; font-weight: 600; color: #111827; }
+  .rm-list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cds-spacing-02); }
+  .rm-list-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); }
 
   .rm-item {
-    background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 14px 16px;
-    cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; padding: var(--cds-spacing-04) var(--cds-spacing-05);
+    cursor: pointer; transition: border-color 0.15s;
   }
-  .rm-item:hover { border-color: #93c5fd; }
-  .rm-item.selected { border-color: #2563eb; background: #f8faff; }
-  .rm-item-id { font-size: 10px; font-weight: 700; color: #6366f1; letter-spacing: 0.5px; margin-bottom: 3px; }
-  .rm-item-title { font-size: 13px; font-weight: 500; color: #111827; margin-bottom: 6px; line-height: 1.4; }
+  .rm-item:hover { border-color: var(--ibm-blue-40); }
+  .rm-item.selected { border-color: var(--ibm-blue-60); background: var(--ibm-blue-10); outline: 2px solid var(--ibm-blue-60); outline-offset: -2px; }
+  .rm-item-id { font-size: 10px; font-weight: 700; color: var(--ibm-blue-60); letter-spacing: 0.5px; margin-bottom: 3px; }
+  .rm-item-title { font-size: 13px; font-weight: 500; color: var(--cds-text-primary); margin-bottom: 6px; line-height: 1.4; }
   .rm-item-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 
+  /* Carbon Tag — no border-radius */
   .rm-stage-pill {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+    font-size: 10px; font-weight: 600; padding: var(--cds-spacing-01) var(--cds-spacing-03); border-radius: 0; white-space: nowrap;
   }
-  .rm-stage-invest { background: #fef2f2; color: #dc2626; }
-  .rm-stage-ticket { background: #fffbeb; color: #d97706; }
-  .rm-stage-cr { background: #eff6ff; color: #2563eb; }
-  .rm-stage-mw { background: #f5f3ff; color: #7c3aed; }
-  .rm-stage-deploy { background: #f0fdf4; color: #16a34a; }
-  .rm-stage-done { background: #dcfce7; color: #166534; }
+  .rm-stage-invest { background: var(--ibm-red-10); color: var(--ibm-red-60); }
+  .rm-stage-ticket { background: var(--ibm-yellow-10); color: #8e6a00; }
+  .rm-stage-cr { background: var(--ibm-blue-10); color: var(--ibm-blue-60); }
+  .rm-stage-mw { background: var(--ibm-purple-10); color: var(--ibm-purple-60); }
+  .rm-stage-deploy { background: var(--ibm-green-10); color: var(--ibm-green-60); }
+  .rm-stage-done { background: var(--ibm-green-20); color: var(--ibm-green-70); }
 
   /* workflow stepper */
   .rm-stepper {
     display: flex; align-items: stretch; gap: 0;
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0; overflow: hidden;
     flex-shrink: 0;
   }
   .rm-step {
-    flex: 1; padding: 14px 10px 12px; text-align: center; font-size: 11px; font-weight: 500;
-    color: #9ca3af; border-right: 1px solid #e5e7eb; cursor: pointer;
+    flex: 1; padding: var(--cds-spacing-04) var(--cds-spacing-03) var(--cds-spacing-03); text-align: center; font-size: 11px; font-weight: 500;
+    color: var(--cds-text-secondary); border-right: 1px solid var(--cds-border-subtle-01); cursor: pointer;
     display: flex; flex-direction: column; align-items: center; gap: 5px;
-    transition: background 0.15s;
+    transition: background 0.1s;
   }
   .rm-step:last-child { border-right: none; }
-  .rm-step:hover:not(.blocked) { background: #f9fafb; }
-  .rm-step.active { color: #111827; background: #f0f9ff; }
-  .rm-step.done { color: #16a34a; background: #f0fdf4; }
-  .rm-step.blocked { color: #d1d5db; background: #fafafa; cursor: not-allowed; }
+  .rm-step:hover:not(.blocked) { background: var(--cds-background-hover); }
+  .rm-step.active { color: var(--cds-text-primary); background: var(--ibm-blue-10); }
+  .rm-step.done { color: var(--ibm-green-60); background: var(--ibm-green-10); }
+  .rm-step.blocked { color: var(--cds-text-disabled); background: var(--cds-layer-01); cursor: not-allowed; }
   .rm-step-num {
     font-size: 10px; font-weight: 700;
     width: 20px; height: 20px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
-    background: #e5e7eb; color: #9ca3af;
+    background: var(--cds-layer-accent-01); color: var(--cds-text-secondary);
   }
-  .rm-step.done .rm-step-num { background: #22c55e; color: #fff; }
-  .rm-step.active .rm-step-num { background: #2563eb; color: #fff; }
-  .rm-step.blocked .rm-step-num { background: #e5e7eb; color: #d1d5db; }
+  .rm-step.done .rm-step-num { background: var(--ibm-green-50); color: #fff; }
+  .rm-step.active .rm-step-num { background: var(--ibm-blue-60); color: #fff; }
+  .rm-step.blocked .rm-step-num { background: var(--cds-layer-01); color: var(--cds-text-disabled); }
   .rm-step-name { display: block; font-size: 11px; line-height: 1.3; }
 
   /* detail panels */
   .rm-detail-card {
-    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px;
+    background: var(--cds-layer-02); border: 1px solid var(--cds-border-subtle-01); border-radius: 0;
     overflow: visible; flex-shrink: 0;
   }
   .rm-detail-card-header {
-    padding: 14px 18px 12px; border-bottom: 1px solid #f0f0f0; background: #fafafa;
+    padding: var(--cds-spacing-04) var(--cds-spacing-05) var(--cds-spacing-03); border-bottom: 1px solid var(--cds-border-subtle-01); background: var(--cds-layer-01);
     display: flex; align-items: center; justify-content: space-between;
   }
-  .rm-detail-card-title { font-size: 13px; font-weight: 600; color: #111827; display: flex; align-items: center; gap: 8px; }
-  .rm-detail-card-body { padding: 16px 18px; }
+  .rm-detail-card-title { font-size: 13px; font-weight: 600; color: var(--cds-text-primary); display: flex; align-items: center; gap: 8px; }
+  .rm-detail-card-body { padding: var(--cds-spacing-05) var(--cds-spacing-05); }
 
-  .rm-field-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 12px; gap: 12px; }
+  .rm-field-row { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--cds-spacing-03) 0; border-bottom: 1px solid var(--cds-border-subtle-01); font-size: 12px; gap: 12px; }
   .rm-field-row:last-child { border-bottom: none; }
-  .rm-field-key { color: #6b7280; min-width: 130px; flex-shrink: 0; }
-  .rm-field-val { color: #111827; font-weight: 500; text-align: right; flex: 1; }
-  .rm-field-val.mono { font-family: "SF Mono","Fira Code",monospace; font-size: 11px; }
+  .rm-field-key { color: var(--cds-text-secondary); min-width: 130px; flex-shrink: 0; }
+  .rm-field-val { color: var(--cds-text-primary); font-weight: 500; text-align: right; flex: 1; }
+  .rm-field-val.mono { font-family: 'IBM Plex Mono', 'Courier New', monospace; font-size: 11px; }
 
   /* timeline inside remediation */
   .rm-timeline { display: flex; flex-direction: column; gap: 0; }
-  .rm-tl-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+  .rm-tl-item { display: flex; gap: 12px; padding: var(--cds-spacing-03) 0; border-bottom: 1px solid var(--cds-border-subtle-01); }
   .rm-tl-item:last-child { border-bottom: none; }
   .rm-tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
   .rm-tl-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
-  .rm-tl-line { width: 1px; flex: 1; background: #e5e7eb; margin-top: 3px; min-height: 20px; }
+  .rm-tl-line { width: 1px; flex: 1; background: var(--cds-border-subtle-01); margin-top: 3px; min-height: 20px; }
   .rm-tl-item:last-child .rm-tl-line { display: none; }
   .rm-tl-content { flex: 1; padding-top: 3px; }
-  .rm-tl-title { font-size: 12px; font-weight: 600; color: #111827; margin-bottom: 2px; }
-  .rm-tl-desc { font-size: 11px; color: #6b7280; line-height: 1.5; }
-  .rm-tl-time { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+  .rm-tl-title { font-size: 12px; font-weight: 600; color: var(--cds-text-primary); margin-bottom: 2px; }
+  .rm-tl-desc { font-size: 11px; color: var(--cds-text-secondary); line-height: 1.5; }
+  .rm-tl-time { font-size: 10px; color: var(--cds-text-secondary); margin-top: 2px; }
 
-  /* action buttons in remediation */
-  .rm-actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 18px; border-top: 1px solid #f0f0f0; }
-  .rm-act-btn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
-  .rm-act-primary { background: #2563eb; color: #fff; border: none; }
-  .rm-act-primary:hover { background: #1d4ed8; }
-  .rm-act-secondary { background: #fff; color: #374151; border: 1px solid #e5e7eb; }
-  .rm-act-secondary:hover { background: #f3f4f6; }
-  .rm-act-danger { background: #fff; color: #dc2626; border: 1px solid #fecaca; }
-  .rm-act-danger:hover { background: #fef2f2; }
+  /* action buttons in remediation — Carbon button tokens */
+  .rm-actions { display: flex; gap: var(--cds-spacing-03); flex-wrap: wrap; padding: var(--cds-spacing-04) var(--cds-spacing-05); border-top: 1px solid var(--cds-border-subtle-01); }
+  .rm-act-btn { display: flex; align-items: center; gap: var(--cds-spacing-02); padding: 0 var(--cds-spacing-05); height: 40px; border-radius: 0; font-size: 0.875rem; font-weight: 400; cursor: pointer; transition: background 0.1s; font-family: 'IBM Plex Sans', sans-serif; }
+  .rm-act-primary { background: var(--ibm-blue-60); color: #fff; border: none; }
+  .rm-act-primary:hover { background: var(--ibm-blue-70); }
+  .rm-act-secondary { background: transparent; color: var(--cds-text-primary); border: 1px solid var(--cds-border-strong-01); }
+  .rm-act-secondary:hover { background: var(--cds-background-hover); }
+  .rm-act-danger { background: transparent; color: var(--ibm-red-60); border: 1px solid var(--ibm-red-20); }
+  .rm-act-danger:hover { background: var(--ibm-red-10); }
 
   /* canary progress */
   .rm-canary-bar { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-  .rm-canary-track { flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
-  .rm-canary-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #22c55e, #4ade80); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
-  .rm-canary-label { font-size: 11px; color: #6b7280; white-space: nowrap; }
-  .rm-canary-pct { font-size: 13px; font-weight: 600; color: #16a34a; }
+  .rm-canary-track { flex: 1; height: 8px; background: var(--cds-layer-accent-01); border-radius: 0; overflow: hidden; }
+  .rm-canary-fill { height: 100%; border-radius: 0; background: var(--ibm-green-50); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+  .rm-canary-label { font-size: 11px; color: var(--cds-text-secondary); white-space: nowrap; }
+  .rm-canary-pct { font-size: 13px; font-weight: 600; color: var(--ibm-green-60); }
 
   /* section label */
-  .sec-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 10px; }
+  .sec-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
 
   /* ── scrollbar tweaks — cover all scrollable cols ── */
   .gr-wrap::-webkit-scrollbar, .hp-wrap::-webkit-scrollbar,
@@ -815,7 +921,7 @@
   .gr-wrap::-webkit-scrollbar-thumb, .hp-wrap::-webkit-scrollbar-thumb,
   .gr-drawer-body::-webkit-scrollbar-thumb, .hp-log-list::-webkit-scrollbar-thumb,
   .di-list-col::-webkit-scrollbar-thumb, .di-detail-col::-webkit-scrollbar-thumb,
-  .rm-list-col::-webkit-scrollbar-thumb, .rm-detail-col::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+  .rm-list-col::-webkit-scrollbar-thumb, .rm-detail-col::-webkit-scrollbar-thumb { background: var(--cds-border-strong-01); border-radius: 0; }
 </style>
 </head>
 <body>
@@ -849,7 +955,7 @@
     <!-- Impact Preview -->
     <div class="gr-impact-preview">
       <div class="gr-impact-preview-title">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#8e6a00" stroke-width="1.5" stroke-linecap="round"></path></svg>
         Pre-flight Impact Score — if you loosen this guardrail
       </div>
       <div class="gr-impact-row"><span class="gr-impact-key">Services affected</span><span class="gr-impact-val amber" id="grImpactServices">14</span></div>
@@ -873,7 +979,7 @@
 <div class="modal-backdrop" id="reasoningTraceModal" onclick="if(event.target===this) closeModal('reasoningTraceModal')">
   <div class="modal" style="width: 560px; max-width: 95vw;">
     <div class="modal-title" style="display:flex;align-items:center;gap:8px;">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#f3e8ff;color:#7e22ce;font-size:14px;">🧠</span>
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:0;background:var(--ibm-purple-10);color:var(--ibm-purple-60);font-size:14px;">🧠</span>
       <span>Autonomous Reasoning Trace</span>
     </div>
     <div class="modal-sub" id="traceModalSub">payment-service · us-east-1</div>
@@ -940,7 +1046,7 @@
       </div>
 
       <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab(&#39;decision&#39;, this)">Decision Inbox <span id="inboxBadge" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;font-size:10px;font-weight:700;margin-left:5px;flex-shrink:0;animation:diPulse 1.8s ease-in-out infinite;">3</span></button>
+        <button class="nav-tab active" onclick="switchTab(&#39;decision&#39;, this)">Decision Inbox <span id="inboxBadge" style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:0;background:var(--ibm-red-60);color:#fff;font-size:10px;font-weight:700;margin-left:5px;flex-shrink:0;animation:diPulse 1.8s ease-in-out infinite;">3</span></button>
         <div class="nav-sep"></div>
         <button class="nav-tab" onclick="switchTab(&#39;guardrail&#39;, this)">Guardrail Studio</button>
         <div class="nav-sep"></div>
@@ -952,7 +1058,7 @@
       </div>
 
       <div class="nav-icons">
-        <a class="nav-icon-btn" href="https://jayakrishnakaimal.github.io/JK_Demo/headless.html" title="Back to main prototype" style="text-decoration:none;font-size:11px;font-weight:500;color:#374151;width:auto;padding:0 10px;gap:5px;">
+        <a class="nav-icon-btn" href="https://jayakrishnakaimal.github.io/JK_Demo/headless.html" title="Back to main prototype" style="text-decoration:none;font-size:11px;font-weight:500;color:var(--cds-text-secondary);width:auto;padding:0 10px;gap:5px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
           Back
         </a>
@@ -994,22 +1100,22 @@
             </div>
             <div class="gr-sum-card">
               <div class="gr-sum-label">Active &amp; healthy</div>
-              <div class="gr-sum-val" style="color:#16a34a;">9</div>
+              <div class="gr-sum-val" style="color:var(--ibm-green-60);">9</div>
               <div class="gr-sum-sub">No drift detected</div>
             </div>
             <div class="gr-sum-card">
               <div class="gr-sum-label">Soft drift</div>
-              <div class="gr-sum-val" style="color:#d97706;">2</div>
+              <div class="gr-sum-val" style="color:#8e6a00;">2</div>
               <div class="gr-sum-sub">Review recommended</div>
             </div>
             <div class="gr-sum-card">
               <div class="gr-sum-label">Auto-tuned (7d)</div>
-              <div class="gr-sum-val" style="color:#2563eb;">5</div>
+              <div class="gr-sum-val" style="color:var(--ibm-blue-60);">5</div>
               <div class="gr-sum-sub">Within ±15% of threshold</div>
             </div>
             <div class="gr-sum-card">
               <div class="gr-sum-label">Actions blocked</div>
-              <div class="gr-sum-val" style="color:#dc2626;">1</div>
+              <div class="gr-sum-val" style="color:var(--ibm-red-60);">1</div>
               <div class="gr-sum-sub">Awaiting override</div>
             </div>
           </div>
@@ -1018,7 +1124,7 @@
           <div class="gr-table-wrap">
             <div class="gr-table-header">
               <span class="gr-table-title">All guardrails</span>
-              <span style="font-size:11px;color:#9ca3af;">Click a row to edit · Impact score runs pre-flight before any change is applied</span>
+              <span style="font-size:11px;color:var(--cds-text-secondary);">Click a row to edit · Impact score runs pre-flight before any change is applied</span>
             </div>
             <div class="gr-table-scroll">
               <table class="gr-table">
@@ -1036,11 +1142,11 @@
                 <tbody id="grTableBody">
     <tr onclick="openGrDrawer(&#39;G-01&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">No prod restarts weekdays 14:00–16:00 UTC</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Availability · G-01</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">No prod restarts weekdays 14:00–16:00 UTC</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Availability · G-01</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">14:00–16:00 UTC Mon–Fri</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">14:00–16:00 UTC Mon–Fri</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1048,17 +1154,17 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-02&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Auto-scale ≤ 3 replicas without approval</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Capacity · G-02</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Auto-scale ≤ 3 replicas without approval</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Capacity · G-02</div>
       </td>
       <td><span class="gr-type-badge gr-type-soft">Soft limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">3 replicas max</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">3 replicas max</td>
       <td><span class="gr-status-badge gr-status-drift">Drifting</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1066,17 +1172,17 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">Yes ±15%</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">Yes ±15%</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-03&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Confidence threshold — escalate below 85%</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Autonomy · G-03</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Confidence threshold — escalate below 85%</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Autonomy · G-03</div>
       </td>
       <td><span class="gr-type-badge gr-type-conf">Confidence</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">85% minimum</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">85% minimum</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1084,17 +1190,17 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-04&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Cloud spend ceiling — auto-approve ≤ $50/hr</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Cost · G-04</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Cloud spend ceiling — auto-approve ≤ $50/hr</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Cost · G-04</div>
       </td>
       <td><span class="gr-type-badge gr-type-cost">Cost ceiling</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">$50 / hr</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">$50 / hr</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1102,17 +1208,17 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">Yes up to 120%</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">Yes up to 120%</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-05&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">BGP policy changes require Approval</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Network · G-05</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">BGP policy changes require Approval</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Network · G-05</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">Approval required</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1120,17 +1226,17 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-06&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Pod restarts on non-protected workloads — Ask</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Remediation · G-06</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Pod restarts on non-protected workloads — Ask</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Remediation · G-06</div>
       </td>
       <td><span class="gr-type-badge gr-type-soft">Soft limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">Ask mode</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Ask mode</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-low">
@@ -1138,17 +1244,17 @@
           <span class="gr-impact-label">Low</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">Yes ±15%</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">Yes ±15%</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-07&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Cross-tenant data correlation needs Approval</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Data · G-07</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Cross-tenant data correlation needs Approval</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Data · G-07</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">Approval required</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Approval required</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1156,17 +1262,17 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-08&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Maintenance windows — no deploy Fri 17:00+ UTC</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Change · G-08</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Maintenance windows — no deploy Fri 17:00+ UTC</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Change · G-08</div>
       </td>
       <td><span class="gr-type-badge gr-type-hard">Hard limit</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">Fri 17:00 UTC onwards</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">Fri 17:00 UTC onwards</td>
       <td><span class="gr-status-badge gr-status-drift">Drifting</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-med">
@@ -1174,17 +1280,17 @@
           <span class="gr-impact-label">Medium</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   
     <tr onclick="openGrDrawer(&#39;G-09&#39;)" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">Blast radius cap — max 5% traffic affected</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">Autonomy · G-09</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">Blast radius cap — max 5% traffic affected</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">Autonomy · G-09</div>
       </td>
       <td><span class="gr-type-badge gr-type-conf">Confidence</span></td>
-      <td style="font-size:12px;color:#374151;font-family:&#39;SF Mono&#39;,&#39;Fira Code&#39;,monospace;">5% traffic cap</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">5% traffic cap</td>
       <td><span class="gr-status-badge gr-status-active">Active</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-high">
@@ -1192,8 +1298,8 @@
           <span class="gr-impact-label">High</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">No</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background=&#39;#eff6ff&#39;" onmouseleave="this.style.background=&#39;none&#39;">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">No</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   </tbody>
               </table>
@@ -1210,7 +1316,7 @@
           <!-- hero silence panel -->
           <div class="hp-silence-panel" id="hpSilencePanel">
             <div class="hp-silence-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4L12 14.01l-3-3"></path></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4L12 14.01l-3-3"></path></svg>
             </div>
             <div class="hp-silence-text">
               <div class="hp-silence-title">All systems nominal — running silently</div>
@@ -1222,16 +1328,16 @@
           <div class="hp-hero">
             <div class="hp-orb-wrap">
               <div class="hp-orb" id="hpOrb">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4L12 14.01l-3-3"></path></svg>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="M22 4L12 14.01l-3-3"></path></svg>
               </div>
             </div>
             <div class="hp-hero-text">
               <div class="hp-hero-status" id="hpHeroStatus">Fleet Health — Good</div>
               <div class="hp-hero-sub" id="hpHeroSub">94% agent fleet health · 95% confidence score · 1 soft breach auto-monitored · 0 open escalations</div>
               <div class="hp-hero-meta">
-                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:#22c55e;"></span>33 auto-resolved this week</span>
-                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:#d97706;"></span>3 escalated to human</span>
-                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:#9ca3af;"></span>Next digest: Mon 09:00 UTC</span>
+                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:var(--ibm-green-50);"></span>33 auto-resolved this week</span>
+                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:#8e6a00;"></span>3 escalated to human</span>
+                <span class="hp-meta-item"><span class="hp-meta-dot" style="background:var(--cds-text-secondary);"></span>Next digest: Mon 09:00 UTC</span>
               </div>
             </div>
           </div>
@@ -1303,23 +1409,23 @@
             </div>
             <div class="hp-log-list" id="hpLogList">
     <div class="hp-log-item">
-      <div class="hp-log-dot" style="background:#22c55e;"></div>
+      <div class="hp-log-dot" style="background:var(--ibm-green-50);"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg"><strong>Auto-resolved</strong> — BGP flap on NY-RTR-02 dampened autonomously. No alert sent.</div>
-        <div class="hp-log-meta">2 min ago<span class="hp-log-channel" style="color:#16a34a;background:#f0fdf4;border-radius:3px;padding:1px 5px;">Silent</span></div>
+        <div class="hp-log-meta">2 min ago<span class="hp-log-channel" style="color:var(--ibm-green-60);background:var(--ibm-green-10);border-radius:0;padding:1px 5px;">Silent</span></div>
       </div>
     </div>
   
     <div class="hp-log-item">
-      <div class="hp-log-dot" style="background:#9ca3af;"></div>
+      <div class="hp-log-dot" style="background:var(--cds-text-secondary);"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg"><strong>Silent</strong> — K8s pod restart on payment-service successful. 0 user impact.</div>
-        <div class="hp-log-meta">18 min ago<span class="hp-log-channel" style="color:#16a34a;background:#f0fdf4;border-radius:3px;padding:1px 5px;">Silent</span></div>
+        <div class="hp-log-meta">18 min ago<span class="hp-log-channel" style="color:var(--ibm-green-60);background:var(--ibm-green-10);border-radius:0;padding:1px 5px;">Silent</span></div>
       </div>
     </div>
   
     <div class="hp-log-item">
-      <div class="hp-log-dot" style="background:#d97706;"></div>
+      <div class="hp-log-dot" style="background:#8e6a00;"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg"><strong>Guardrail drift alert</strong> — Auto-scale soft limit reached 2.8/3 replicas (93%). Trend: rising.</div>
         <div class="hp-log-meta">1h ago<span class="hp-log-channel">Slack</span></div>
@@ -1327,7 +1433,7 @@
     </div>
   
     <div class="hp-log-item">
-      <div class="hp-log-dot" style="background:#ef4444;"></div>
+      <div class="hp-log-dot" style="background:var(--ibm-red-60);"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg"><strong>Decision required</strong> — DB connection pool exhausted on payment-service. Hard guardrail blocks auto-restart. Approval card issued.</div>
         <div class="hp-log-meta">2h ago<span class="hp-log-channel">Slack + In-app</span></div>
@@ -1335,10 +1441,10 @@
     </div>
   
     <div class="hp-log-item">
-      <div class="hp-log-dot" style="background:#22c55e;"></div>
+      <div class="hp-log-dot" style="background:var(--ibm-green-50);"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg"><strong>Auto-resolved</strong> — CRC error on TVM-EDGE-04 cleared via restart sequence A→B→C. Recovery: 6 min.</div>
-        <div class="hp-log-meta">4h ago<span class="hp-log-channel" style="color:#16a34a;background:#f0fdf4;border-radius:3px;padding:1px 5px;">Silent</span></div>
+        <div class="hp-log-meta">4h ago<span class="hp-log-channel" style="color:var(--ibm-green-60);background:var(--ibm-green-10);border-radius:0;padding:1px 5px;">Silent</span></div>
       </div>
     </div>
   
@@ -1369,7 +1475,7 @@
       <div class="di-card-header">
         <div style="display:flex;align-items:center;gap:5px;">
           <span class="di-card-tag di-tag-urgent">P1 Critical</span>
-          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">⚡ Urgent</span>
+          <span class="di-card-tag" style="background:var(--ibm-red-10);color:var(--ibm-red-60);border:1px solid var(--ibm-red-20);">⚡ Urgent</span>
         </div>
         <span class="di-card-time">2h ago</span>
       </div>
@@ -1382,7 +1488,7 @@
       <div class="di-card-header">
         <div style="display:flex;align-items:center;gap:5px;">
           <span class="di-card-tag di-tag-warn">P2 High</span>
-          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">Review</span>
+          <span class="di-card-tag" style="background:var(--ibm-yellow-10);color:#8e6a00;border:1px solid var(--ibm-yellow-30);">Review</span>
         </div>
         <span class="di-card-time">45 min ago</span>
       </div>
@@ -1395,7 +1501,7 @@
       <div class="di-card-header">
         <div style="display:flex;align-items:center;gap:5px;">
           <span class="di-card-tag di-tag-info">P3 Medium</span>
-          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">Info</span>
+          <span class="di-card-tag" style="background:var(--ibm-blue-10);color:var(--ibm-blue-70);border:1px solid var(--ibm-blue-20);">Info</span>
         </div>
         <span class="di-card-time">1h 20 min ago</span>
       </div>
@@ -1428,7 +1534,7 @@
         <div>
           <div class="dc-section-title">Why this was escalated</div>
           <div class="dc-why-badge">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"></path></svg>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#8e6a00" stroke-width="1.5" stroke-linecap="round"></path></svg>
             Hard guardrail G-01 would be crossed — "No prod restarts weekdays 14:00–16:00 UTC"
           </div>
         </div>
@@ -1502,7 +1608,7 @@
       <div class="rm-item-title">DB connection pool exhausted — payment-service</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-deploy">Deploy</span>
-        <span style="font-size:10px;color:#9ca3af;">P1 · Remediation Agent</span>
+        <span style="font-size:10px;color:var(--cds-text-secondary);">P1 · Remediation Agent</span>
       </div>
     </div>
   
@@ -1511,7 +1617,7 @@
       <div class="rm-item-title">Recurring CRC error — TVM-EDGE-04 optic port 7/4</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-cr">Change Request</span>
-        <span style="font-size:10px;color:#9ca3af;">P2 · Fault Detection Agent</span>
+        <span style="font-size:10px;color:var(--cds-text-secondary);">P2 · Fault Detection Agent</span>
       </div>
     </div>
   
@@ -1520,7 +1626,7 @@
       <div class="rm-item-title">MTU mismatch — SG-01 peering interface</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-ticket">Ticket</span>
-        <span style="font-size:10px;color:#9ca3af;">P3 · Network Agent</span>
+        <span style="font-size:10px;color:var(--cds-text-secondary);">P3 · Network Agent</span>
       </div>
     </div>
   </div>
@@ -1546,14 +1652,14 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#dc2626" stroke-width="1.4"></circle><path d="M8 5v3.5M8 10.5v.01" stroke="#dc2626" stroke-width="1.4" stroke-linecap="round"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-red-60)" stroke-width="1.4"></circle><path d="M8 5v3.5M8 10.5v.01" stroke="var(--ibm-red-60)" stroke-width="1.4" stroke-linecap="round"></path></svg>
           Investigation · INC-8841
         </div>
         <span class="rm-stage-pill rm-stage-invest" style="font-size:10px;">AI-driven</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Root cause</span><span class="rm-field-val" style="max-width:360px;text-align:left;">Connection leak in payment-service v2.3.9 under high-load conditions (&gt;400 concurrent requests). Third-party ORM library not releasing connections on timeout.</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Confidence</span><span class="rm-field-val" style="color:#16a34a;">91%</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Confidence</span><span class="rm-field-val" style="color:var(--ibm-green-60);">91%</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Blast radius</span><span class="rm-field-val">payment-service only</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Affected services</span><span class="rm-field-val">1</span></div>
         <div style="margin-top:14px;">
@@ -1562,7 +1668,7 @@
             
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:#ef444420;border:1.5px solid #ef4444;color:#ef4444;">●</div>
+                  <div class="rm-tl-dot" style="background:var(--ibm-red-10);border:1.5px solid var(--ibm-red-60);color:var(--ibm-red-60);">●</div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
@@ -1586,7 +1692,7 @@
             
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:#ef444420;border:1.5px solid #ef4444;color:#ef4444;">●</div>
+                  <div class="rm-tl-dot" style="background:var(--ibm-red-10);border:1.5px solid var(--ibm-red-60);color:var(--ibm-red-60);">●</div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
@@ -1598,7 +1704,7 @@
             
               <div class="rm-tl-item">
                 <div class="rm-tl-left">
-                  <div class="rm-tl-dot" style="background:#22c55e20;border:1.5px solid #22c55e;color:#22c55e;">●</div>
+                  <div class="rm-tl-dot" style="background:var(--ibm-green-10);border:1.5px solid var(--ibm-green-50);color:var(--ibm-green-60);">●</div>
                   <div class="rm-tl-line"></div>
                 </div>
                 <div class="rm-tl-content">
@@ -1616,7 +1722,7 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#d97706" stroke-width="1.4"></rect><path d="M5 7h6M5 9.5h4" stroke="#d97706" stroke-width="1.3" stroke-linecap="round"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#8e6a00" stroke-width="1.4"></rect><path d="M5 7h6M5 9.5h4" stroke="#8e6a00" stroke-width="1.3" stroke-linecap="round"></path></svg>
           Ticket · NOC-4421
         </div>
         <span class="rm-stage-pill rm-stage-ticket" style="font-size:10px;">Auto + approve</span>
@@ -1625,7 +1731,7 @@
         <div class="rm-field-row"><span class="rm-field-key">System</span><span class="rm-field-val">ServiceNow</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Ticket ID</span><span class="rm-field-val mono">NOC-4421</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Title</span><span class="rm-field-val" style="text-align:left;">DB connection leak · payment-service v2.3.9</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Severity</span><span class="rm-field-val" style="color:#dc2626;">P1</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Severity</span><span class="rm-field-val" style="color:var(--ibm-red-60);">P1</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Assigned to</span><span class="rm-field-val">Platform SRE Team</span></div>
         <div class="rm-field-row"><span class="rm-field-key">SLA target</span><span class="rm-field-val">4h resolution</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Created</span><span class="rm-field-val">14:06 UTC</span></div>
@@ -1646,13 +1752,13 @@
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">CR ID</span><span class="rm-field-val mono">CR-2024-0147</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Risk rating</span><span class="rm-field-val" style="color:#d97706;">Medium</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Risk rating</span><span class="rm-field-val" style="color:#8e6a00;">Medium</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Approver</span><span class="rm-field-val">Jane Park (SRE Lead)</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Rollback plan</span><span class="rm-field-val" style="text-align:left;">Revert to v2.3.9 via Helm rollback · ETA &lt; 3 min</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Maintenance window</span><span class="rm-field-val">22:00–23:00 UTC tonight</span></div>
       </div>
       <div class="rm-actions">
-        <span style="font-size:12px;color:#16a34a;padding:7px 0;">✓ CR Approved</span>
+        <span style="font-size:12px;color:var(--ibm-green-60);padding:7px 0;">✓ CR Approved</span>
         <button class="rm-act-btn rm-act-secondary" onclick="showToast(&#39;CR details opened&#39;,&#39;blue&#39;)">View full CR</button>
       </div>
     </div>
@@ -1660,7 +1766,7 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#7c3aed" stroke-width="1.4"></circle><path d="M8 5v3l2 2" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-purple-60)" stroke-width="1.4"></circle><path d="M8 5v3l2 2" stroke="var(--ibm-purple-60)" stroke-width="1.3" stroke-linecap="round"></path></svg>
           Maintenance Window
         </div>
         <span class="rm-stage-pill rm-stage-mw" style="font-size:10px;">AI-proposed</span>
@@ -1676,7 +1782,7 @@
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="#16a34a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="var(--ibm-green-50)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           Deployment · Canary Strategy
         </div>
         <span class="rm-stage-pill rm-stage-deploy" style="font-size:10px;">In progress</span>
@@ -1691,21 +1797,21 @@
         
           <div class="rm-field-row">
             <span class="rm-field-key">Gate 5% traffic</span>
-            <span class="rm-field-val" style="color:#16a34a;">
+            <span class="rm-field-val" style="color:var(--ibm-green-60);">
               ✓ Passed — error rate 0.0%
             </span>
           </div>
         
           <div class="rm-field-row">
             <span class="rm-field-key">Gate 25% traffic</span>
-            <span class="rm-field-val" style="color:#2563eb;">
+            <span class="rm-field-val" style="color:var(--ibm-blue-60);">
               ⏳ Observing (3 min gate)
             </span>
           </div>
         
           <div class="rm-field-row">
             <span class="rm-field-key">Gate 100% traffic</span>
-            <span class="rm-field-val" style="color:#9ca3af;">
+            <span class="rm-field-val" style="color:var(--cds-text-secondary);">
               Pending
             </span>
           </div>
@@ -1805,11 +1911,11 @@ function buildGrTable() {
   tbody.innerHTML = GUARDRAILS.map(g => `
     <tr onclick="openGrDrawer('${g.id}')" class="gr-table-row">
       <td>
-        <div style="font-weight:500;color:#111827;font-size:13px;">${g.name}</div>
-        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${g.category} · ${g.id}</div>
+        <div style="font-weight:500;color:var(--cds-text-primary);font-size:13px;">${g.name}</div>
+        <div style="font-size:11px;color:var(--cds-text-secondary);margin-top:2px;">${g.category} · ${g.id}</div>
       </td>
       <td><span class="gr-type-badge gr-type-${g.type}">${g.type==='hard'?'Hard limit':g.type==='soft'?'Soft limit':g.type==='conf'?'Confidence':'Cost ceiling'}</span></td>
-      <td style="font-size:12px;color:#374151;font-family:'SF Mono','Fira Code',monospace;">${g.val}</td>
+      <td style="font-size:12px;color:var(--cds-text-primary);font-family:'IBM Plex Mono','Courier New',monospace;">${g.val}</td>
       <td><span class="gr-status-badge gr-status-${g.status}">${g.status==='active'?'Active':g.status==='drift'?'Drifting':'Breached'}</span></td>
       <td>
         <div class="gr-impact-bar gr-impact-${g.impactLevel}">
@@ -1817,8 +1923,8 @@ function buildGrTable() {
           <span class="gr-impact-label">${g.impactLevel==='high'?'High':g.impactLevel==='med'?'Medium':'Low'}</span>
         </div>
       </td>
-      <td style="font-size:12px;color:#374151;">${g.auto}</td>
-      <td><button style="font-size:11px;color:#2563eb;background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:3px;" onmouseenter="this.style.background='#eff6ff'" onmouseleave="this.style.background='none'">Edit</button></td>
+      <td style="font-size:12px;color:var(--cds-text-primary);">${g.auto}</td>
+      <td><button style="font-size:11px;color:var(--ibm-blue-60);background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:0;" onmouseenter="this.style.background='var(--ibm-blue-10)'" onmouseleave="this.style.background='none'">Edit</button></td>
     </tr>
   `).join('');
 }
@@ -1845,11 +1951,11 @@ buildGrTable();
    HEALTH PULSE
 ═══════════════════════════════════════════ */
 const LOG_ENTRIES = [
-  { dot:'#22c55e', msg:'<strong>Auto-resolved</strong> — BGP flap on NY-RTR-02 dampened autonomously. No alert sent.', time:'2 min ago', channel:null },
-  { dot:'#9ca3af', msg:'<strong>Silent</strong> — K8s pod restart on payment-service successful. 0 user impact.', time:'18 min ago', channel:null },
-  { dot:'#d97706', msg:'<strong>Guardrail drift alert</strong> — Auto-scale soft limit reached 2.8/3 replicas (93%). Trend: rising.', time:'1h ago', channel:'Slack' },
-  { dot:'#ef4444', msg:'<strong>Decision required</strong> — DB connection pool exhausted on payment-service. Hard guardrail blocks auto-restart. Approval card issued.', time:'2h ago', channel:'Slack + In-app' },
-  { dot:'#22c55e', msg:'<strong>Auto-resolved</strong> — CRC error on TVM-EDGE-04 cleared via restart sequence A→B→C. Recovery: 6 min.', time:'4h ago', channel:null },
+  { dot:'var(--ibm-green-50)', msg:'<strong>Auto-resolved</strong> — BGP flap on NY-RTR-02 dampened autonomously. No alert sent.', time:'2 min ago', channel:null },
+  { dot:'var(--cds-text-secondary)', msg:'<strong>Silent</strong> — K8s pod restart on payment-service successful. 0 user impact.', time:'18 min ago', channel:null },
+  { dot:'#8e6a00', msg:'<strong>Guardrail drift alert</strong> — Auto-scale soft limit reached 2.8/3 replicas (93%). Trend: rising.', time:'1h ago', channel:'Slack' },
+  { dot:'var(--ibm-red-60)', msg:'<strong>Decision required</strong> — DB connection pool exhausted on payment-service. Hard guardrail blocks auto-restart. Approval card issued.', time:'2h ago', channel:'Slack + In-app' },
+  { dot:'var(--ibm-green-50)', msg:'<strong>Auto-resolved</strong> — CRC error on TVM-EDGE-04 cleared via restart sequence A→B→C. Recovery: 6 min.', time:'4h ago', channel:null },
   { dot:'#3b82f6', msg:'<strong>Weekly digest</strong> — 33 resolved · 3 escalated · 0 SLO breaches · 2 guardrail drifts. Sent to #ops-alerts.', time:'Mon 09:00', channel:'Slack + Email' },
 ];
 
@@ -1860,14 +1966,14 @@ function buildHpLog() {
       <div class="hp-log-dot" style="background:${e.dot};"></div>
       <div class="hp-log-content">
         <div class="hp-log-msg">${e.msg}</div>
-        <div class="hp-log-meta">${e.time}${e.channel ? `<span class="hp-log-channel">${e.channel}</span>` : '<span class="hp-log-channel" style="color:#16a34a;background:#f0fdf4;border-radius:3px;padding:1px 5px;">Silent</span>'}</div>
+        <div class="hp-log-meta">${e.time}${e.channel ? `<span class="hp-log-channel">${e.channel}</span>` : '<span class="hp-log-channel" style="color:var(--ibm-green-60);background:var(--ibm-green-10);border-radius:0;padding:1px 5px;">Silent</span>'}</div>
       </div>
     </div>
   `).join('');
 }
 
 function clearLog() {
-  document.getElementById('hpLogList').innerHTML = `<div style="padding:24px;text-align:center;font-size:12px;color:#9ca3af;">No recent notifications</div>`;
+  document.getElementById('hpLogList').innerHTML = `<div style="padding:24px;text-align:center;font-size:12px;color:var(--cds-text-secondary);">No recent notifications</div>`;
 }
 buildHpLog();
 
@@ -1962,7 +2068,7 @@ function buildDiList() {
       <div class="di-card-header">
         <div style="display:flex;align-items:center;gap:5px;">
           <span class="di-card-tag di-tag-${d.urgency === 'urgent' ? 'urgent' : d.urgency === 'warn' ? 'warn' : 'info'}">${d.priority || (d.urgency === 'urgent' ? 'P1 Critical' : d.urgency === 'warn' ? 'P2 High' : 'P3 Info')}</span>
-          <span class="di-card-tag" style="background:#f3f4f6;color:#4b5563;border:1px solid #e5e7eb;">${d.urgency === 'urgent' ? '⚡ Urgent' : d.urgency === 'warn' ? 'Review' : 'Info'}</span>
+          <span class="di-card-tag" style="background:var(--ibm-red-10);color:var(--ibm-red-60);border:1px solid var(--ibm-red-20);">${d.urgency === 'urgent' ? '⚡ Urgent' : d.urgency === 'warn' ? 'Review' : 'Info'}</span>
         </div>
         <span class="di-card-time">${d.time}</span>
       </div>
@@ -2007,7 +2113,7 @@ function renderDecisionDetail(d) {
         <div>
           <div class="dc-section-title">Why this was escalated</div>
           <div class="dc-why-badge">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2zm0 9.5V7.5m0-2.5v.01" stroke="#8e6a00" stroke-width="1.5" stroke-linecap="round"/></svg>
             ${d.why}
           </div>
         </div>
@@ -2063,7 +2169,7 @@ const OPTION_PLANS = {
     title: 'Approve pool bump (+50, 8-min window)',
     sub: 'Recommended · Low risk · No restart required',
     iconClass: 'green',
-    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round"><path d="M13 4L6 11 3 8"/></svg>',
+    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="var(--ibm-green-50)" stroke-width="1.6" stroke-linecap="round"><path d="M13 4L6 11 3 8"/></svg>',
     kv: [
       { label: 'Change', val: 'Pool limit 500 → 550', cls: '' },
       { label: 'Duration', val: '8 minutes', cls: '' },
@@ -2073,11 +2179,9 @@ const OPTION_PLANS = {
       { label: 'Restart required', val: 'No', cls: 'green' },
     ],
     steps: [
-      { dot: 'green', stage: 'CI / Validation', title: 'Pre-flight Config & Policy Check', desc: 'Automated CI dry-run validates pool param diff (500 → 550), syntax, and schema bounds without downtime.' },
-      { dot: 'blue',  stage: 'CD / Deploy', title: 'Automated Canary Apply & Hot Reload', desc: 'ArgoCD / GitOps pipeline applies patch to payment-service deployment in us-east-1 via zero-restart config reload.' },
-      { dot: 'blue',  stage: 'Automated Testing & SLO Watch', title: 'Synthetic Smoke Tests & 8-Min Telemetry Watch', desc: 'Post-deploy integration tests run. Agent monitors error rate, latency P95, and connection drop rate every 10s.' },
-      { dot: 'blue',  stage: 'Rollback Gate', title: 'Automated Rollback / Auto-Revert Trigger', desc: 'Reverts automatically via pipeline if connection count < 300, 8-min window elapses, or error rate exceeds 0.5%.' },
-      { dot: 'grey',  stage: 'Audit & Compliance', title: 'Pipeline Audit Log & Artifact Receipt', desc: 'Deploy hash, approver signature, and compliance log committed to Git audit ledger.' },
+      { dot: 'blue',  stage: 'Test', title: 'Backend Pre-flight Dry-Run', desc: 'CI validates pool diff (500 → 550) and SevOne threshold (20 → 61 Mbps), schema bounds, RAM headroom (+18 MB), and zero-downtime guarantee.' },
+      { dot: 'blue',  stage: 'Apply', title: 'CR Created, Linked to Maintenance Window & Alarm Suppression', desc: 'Backend auto-generates CR-2024-0147 linked to INC-8841 and Maintenance Window MW-2024-W42. Alarm suppression enabled; SevOne policy 67 updated to 61 Mbps.' },
+      { dot: 'grey',  stage: 'Monitor', title: 'SevOne Live Verification & Closed-Loop Resolution', desc: 'SevOne confirms 61 Mbps policy active, zero alarm noise. CR and INC auto-resolved; ChatOps receives completion report with post-fix metric graph.' },
     ],
     approveLabel: 'Approve plan',
     approveStyle: 'green',
@@ -2086,7 +2190,7 @@ const OPTION_PLANS = {
     title: 'Override freeze window and restart',
     sub: 'High risk · Override audited · Requires reason code',
     iconClass: 'red',
-    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5M8 10.5v.01"/></svg>',
+    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="var(--ibm-red-60)" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5M8 10.5v.01"/></svg>',
     kv: [
       { label: 'Action', val: 'Force restart payment-service', cls: 'red' },
       { label: 'Guardrail bypassed', val: 'G-01 (Hard limit)', cls: 'red' },
@@ -2096,10 +2200,10 @@ const OPTION_PLANS = {
       { label: 'Rollback confidence', val: '71%', cls: 'orange' },
     ],
     steps: [
-      { dot: 'red',   stage: 'CI / Security Scan', title: 'Emergency Freeze Bypass & Reason Gate', desc: 'Bypasses guardrail G-01 with mandatory audit reason code; generates emergency CR ticket.' },
-      { dot: 'red',   stage: 'CD / Deploy Pipeline', title: 'Rolling Restart Triggered via CD Pipeline', desc: 'Dispatches deployment pipeline restart job to payment-service pods across us-east-1 nodes (30–60s degradation).' },
-      { dot: 'blue',  stage: 'Health & Readiness Probe', title: 'Readiness Probes & Automated Rollback Guard', desc: 'CD readiness checks monitor endpoint health. Auto-rollback to previous stable replica set if health check fails.' },
-      { dot: 'grey',  stage: 'Compliance Audit', title: 'Post-Deploy Verification & Incident Ledger', desc: 'Records release tag, approver identity, downtime duration, and audit logs to compliance repository.' },
+      { dot: 'red',   stage: 'Escalate (Override)', title: 'Emergency Guardrail Bypass & Reason Gate', desc: 'Operator provides reason code. NI bypasses G-01, creates emergency CR, and routes pipeline to forced-restart path with compliance audit entry.' },
+      { dot: 'red',   stage: 'Apply', title: 'Rolling Restart via CD Pipeline', desc: 'Deployment pipeline dispatches rolling restart to payment-service pods across us-east-1. Estimated 30–60s service degradation; 2–4% of active sessions affected.' },
+      { dot: 'blue',  stage: 'Monitor', title: 'Readiness Probes & Auto-Rollback Guard', desc: 'SevOne and NI monitor endpoint health post-restart. Auto-rollback to previous stable replica set if health checks fail within 5 minutes.' },
+      { dot: 'grey',  stage: 'Audit', title: 'Post-Deploy Compliance Log', desc: 'Release tag, approver identity, downtime duration, and G-01 override record committed to compliance ledger. INC-8841 closed with MTTR reported.' },
     ],
     approveLabel: 'Override & restart',
     approveStyle: 'danger',
@@ -2108,17 +2212,18 @@ const OPTION_PLANS = {
     title: 'Reject — handle manually',
     sub: 'System holds all automated actions',
     iconClass: 'grey',
-    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#374151" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h8"/></svg>',
+    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="var(--cds-text-secondary)" stroke-width="1.6" stroke-linecap="round"><path d="M4 8h8"/></svg>',
     kv: [
       { label: 'Automated actions', val: 'Paused immediately', cls: 'orange' },
-      { label: 'Monitoring', val: 'Continues normally', cls: 'green' },
+      { label: 'Monitoring', val: 'SevOne + NI continues', cls: 'green' },
       { label: 'SLO timer', val: 'Still counting', cls: 'red' },
       { label: 'Re-escalation', val: 'After 26 min if unresolved', cls: '' },
     ],
     steps: [
-      { dot: 'grey', stage: 'Pipeline Hold', title: 'Suspend Automated CD Pipeline', desc: 'Halts scheduled automated remediation triggers and locks pipeline execution for payment-service.' },
-      { dot: 'blue', stage: 'Incident Routing', title: 'Create Manual Handover Ticket', desc: 'Auto-generates incident ticket with CI test logs and telemetry snapshot dispatched to SRE on-call channel.' },
-      { dot: 'grey', stage: 'Re-escalation', title: 'Scheduled Pipeline Watchdog', desc: 'If manual pipeline run or fix is not confirmed within 26 minutes, watchdog triggers emergency escalation.' },
+      { dot: 'grey',  stage: 'Pipeline Hold', title: 'Suspend Automated Remediation Pipeline', desc: 'NI halts all scheduled remediation triggers. INC-8841 remains open and assigned to SRE on-call for manual triage.' },
+      { dot: 'blue',  stage: 'Escalate (Manual)', title: 'Manual Handover Ticket & SRE Alert', desc: 'ServiceNow ticket INC-8841 dispatched to SRE channel with full NI telemetry snapshot, SevOne metric graph, and root-cause hypothesis.' },
+      { dot: 'grey',  stage: 'Monitor', title: 'SevOne Continuous Observation', desc: 'SevOne NPM and NI continue streaming metrics. Connection pool saturation level tracked every 5 seconds during manual intervention.' },
+      { dot: 'grey',  stage: 'Re-escalation', title: 'Watchdog — Auto-Escalate on Timeout', desc: 'If SRE manual resolution is not confirmed within 26 minutes, NI watchdog re-opens the automated approval workflow at higher priority.' },
     ],
     approveLabel: 'Confirm reject',
     approveStyle: 'danger',
@@ -2128,7 +2233,7 @@ const OPTION_PLANS = {
     title: 'Temporarily raise ceiling to 5 replicas',
     sub: 'Recommended · Low risk',
     iconClass: 'green',
-    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round"><path d="M13 4L6 11 3 8"/></svg>',
+    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="var(--ibm-green-50)" stroke-width="1.6" stroke-linecap="round"><path d="M13 4L6 11 3 8"/></svg>',
     kv: [
       { label: 'Change', val: 'Max replicas 3 → 5', cls: '' },
       { label: 'Duration', val: '4 hours', cls: '' },
@@ -2136,10 +2241,9 @@ const OPTION_PLANS = {
       { label: 'Rollback confidence', val: '91%', cls: 'green' },
     ],
     steps: [
-      { dot: 'green', stage: 'CI / GitOps Lint', title: 'HPA Manifest Diff & Pre-validation', desc: 'Validates Horizontal Pod Autoscaler manifest diff (maxReplicas: 3 → 5) against cluster quota limits.' },
-      { dot: 'blue',  stage: 'CD / Deploy', title: 'Sync HPA Policy via GitOps CD', desc: 'ArgoCD / Kubernetes pipeline synchronises new autoscaler ceiling with 4-hour lease window.' },
-      { dot: 'blue',  stage: 'Health & Metrics Check', title: 'Automated Load Test & SLO Watch', desc: 'Monitors pod startup latency, ingress rate, and node memory headroom in eu-west-1.' },
-      { dot: 'grey',  stage: 'Auto-Revert / Cleanup', title: 'Scheduled Auto-Decay & Audit Entry', desc: 'HPA ceiling automatically decays back to 3 replicas upon traffic normalisation or window expiry.' },
+      { dot: 'blue',  stage: 'Test', title: 'HPA Manifest Diff & Pre-flight Validation', desc: 'CI validates HPA manifest diff against cluster quota limits, memory headroom in eu-west-1, and schema bounds. Zero-downtime confirmed.' },
+      { dot: 'blue',  stage: 'Apply', title: 'Sync HPA Policy via GitOps CD & Maintenance Window', desc: 'ArgoCD synchronises new autoscaler ceiling with 4-hour lease. CR created and linked to Maintenance Window; alarm suppression active during cutover.' },
+      { dot: 'grey',  stage: 'Monitor', title: 'SevOne Stream — SLO Watch & Auto-Decay', desc: 'SevOne and NI monitor pod startup latency and ingress throughput. HPA ceiling auto-decays to 3 replicas on traffic normalisation or window expiry.' },
     ],
     approveLabel: 'Approve plan',
     approveStyle: 'green',
@@ -2148,16 +2252,16 @@ const OPTION_PLANS = {
     title: 'Keep current limit — accept possible degradation',
     sub: 'Medium risk · SLO may drift',
     iconClass: 'red',
-    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5M8 10.5v.01"/></svg>',
+    iconSvg: '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="#8e6a00" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5M8 10.5v.01"/></svg>',
     kv: [
       { label: 'Action', val: 'No change — hold limit at 3', cls: 'orange' },
       { label: 'Estimated user impact', val: '3–5% of sessions', cls: 'orange' },
       { label: 'SLO risk', val: 'May drift within 23 min', cls: 'red' },
     ],
     steps: [
-      { dot: 'grey',  stage: 'Pipeline Standby', title: 'Lock HPA at Current Replica Cap (3)', desc: 'Suppresses autoscaler CD deployment; maintains current cluster pod topology.' },
-      { dot: 'orange', stage: 'Traffic Throttle', title: 'Request Rate Limiting & Queue Telemetry', desc: 'Ingress controller throttles and buffers excess traffic. Synthetic probes measure latency drift.' },
-      { dot: 'blue',  stage: 'SLO Breach Watchdog', title: 'Automated Pipeline Escalation on Breach', desc: 'CI/CD pipeline triggers high-priority alert if P99 latency drifts beyond agreed SLA threshold.' },
+      { dot: 'grey',  stage: 'Pipeline Hold', title: 'Lock HPA at Current Cap (maxReplicas: 3)', desc: 'NI suppresses autoscaler CD deployment and holds current pod topology in eu-west-1. No configuration changes applied.' },
+      { dot: 'blue',  stage: 'Monitor', title: 'SevOne Continuous Telemetry & SLO Watch', desc: 'SevOne NPM streams ingress rate, P99 latency, and node CPU every 5 seconds. NI tracks cumulative SLO drift in real time.' },
+      { dot: 'grey',  stage: 'Escalate (Watchdog)', title: 'Automated Pipeline Escalation on SLO Breach', desc: 'If P99 latency drifts beyond the agreed SLA threshold within 23 minutes, NI watchdog triggers a high-priority approval request to ChatOps.' },
     ],
     approveLabel: 'Confirm — accept risk',
     approveStyle: 'danger',
@@ -2169,7 +2273,7 @@ let _planPopupRank   = 1;
 
 function selectOption(el, decIdx, rank) {
   el.closest('.dc-options').querySelectorAll('.dc-option').forEach(o => { o.style.borderColor = ''; o.style.background = ''; });
-  el.style.borderColor = '#2563eb'; el.style.background = '#f0f5ff';
+  el.style.borderColor = 'var(--ibm-blue-60)'; el.style.background = 'var(--ibm-blue-10)';
   _planPopupDecIdx = decIdx;
   _planPopupRank   = rank;
   const key  = `${decIdx}-${rank}`;
@@ -2195,7 +2299,7 @@ function selectOption(el, decIdx, rank) {
         <div class="plan-step-connector"></div>
       </div>
       <div class="plan-step-body">
-        ${s.stage ? `<div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#2563eb;margin-bottom:2px;">${s.stage}</div>` : ''}
+        ${s.stage ? `<div style="font-size:10px;font-weight:700;letter-spacing:0.32px;text-transform:uppercase;color:var(--ibm-blue-60);margin-bottom:2px;">${s.stage}</div>` : ''}
         <div class="plan-step-title">${s.title}</div>
         <div class="plan-step-desc">${s.desc}</div>
       </div>
@@ -2216,7 +2320,249 @@ function closePlanPopup() {
 
 function confirmPlanAction() {
   closePlanPopup();
-  confirmApproveAction();
+  const key  = `${_planPopupDecIdx}-${_planPopupRank}`;
+  const plan = OPTION_PLANS[key];
+  const dec  = DECISIONS[_planPopupDecIdx];
+  const planTitle   = plan ? plan.title   : 'Recommended action';
+  const planService = dec  ? dec.service  : 'payment-service · us-east-1';
+  _runExecutionInChat(planTitle, planService);
+}
+
+/* ── Execution chat helpers ── */
+function _exDelay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function _exTyping() {
+  const msgs = document.getElementById('modifyChatMsgs');
+  const div = document.createElement('div');
+  div.className = 'modify-chat-msg agent'; div.id = 'exTyping';
+  div.innerHTML = `<div class="modify-chat-avatar">AI</div>
+    <div class="modify-chat-typing">
+      <div class="modify-typing-dot"></div><div class="modify-typing-dot"></div><div class="modify-typing-dot"></div>
+    </div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function _exHideTyping() {
+  const t = document.getElementById('exTyping');
+  if (t) t.remove();
+}
+
+function _exMsg(html) {
+  const msgs = document.getElementById('modifyChatMsgs');
+  const div = document.createElement('div');
+  div.className = 'modify-chat-msg agent';
+  div.innerHTML = `<div class="modify-chat-avatar">AI</div><div class="modify-chat-bubble" style="font-size:12.5px;line-height:1.6;">${html}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function _exCard(html) {
+  const msgs = document.getElementById('modifyChatMsgs');
+  const div = document.createElement('div');
+  div.className = 'modify-chat-msg agent';
+  div.innerHTML = `<div class="modify-chat-avatar" style="visibility:hidden;">AI</div>
+    <div style="flex:1;min-width:0;">${html}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function _exAnimateBar(barEl, to, ms) {
+  return new Promise(r => {
+    const from = parseFloat(barEl.style.width) || 0;
+    let start;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / ms, 1);
+      barEl.style.width = (from + (to - from) * p) + '%';
+      if (p < 1) requestAnimationFrame(step); else r();
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+function _exAddLog(logEl, cls, txt) {
+  const s = document.createElement('span');
+  s.style.cssText = 'display:block;';
+  if (cls === 'ok')   s.style.color = 'var(--ibm-green-30)';
+  if (cls === 'info') s.style.color = 'var(--ibm-blue-30)';
+  if (cls === 'warn') s.style.color = '#fcd34d';
+  s.textContent = txt;
+  logEl.appendChild(s);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+async function _runExecutionInChat(planTitle, planService) {
+  // Open the chat panel and reset it
+  const panel = document.getElementById('modifyChatPanel');
+  const msgs  = document.getElementById('modifyChatMsgs');
+  const chips = document.getElementById('modifyChatChips');
+  const input = document.getElementById('modifyChatInput');
+  msgs.innerHTML = '';
+  if (chips) chips.style.display = 'none';
+  if (input) input.disabled = true;
+  panel.classList.add('open');
+
+  // Also switch to Decision Inbox tab so the chat panel is visible
+  document.querySelectorAll('.canvas-tab-content').forEach(t => t.classList.remove('active-tab'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-decision').classList.add('active-tab');
+  document.querySelector('.nav-tab[onclick*="decision"]').classList.add('active');
+
+  await _exDelay(400);
+
+  // ── Approval confirmed ──────────────────────
+  _exTyping(); await _exDelay(900); _exHideTyping();
+  _exMsg(`✅ <strong>Approval received</strong><br><span style="color:var(--cds-text-secondary);">${planTitle}</span><br>Executing headless pipeline for <code style="background:rgba(0,0,0,0.06);padding:1px 5px;font-family:'IBM Plex Mono',monospace;">${planService}</code>`);
+
+  await _exDelay(1000);
+
+  // ── STEP 1: TEST ────────────────────────────
+  _exTyping(); await _exDelay(700); _exHideTyping();
+  _exMsg(`<strong>① Test</strong> — Backend pre-flight dry-run`);
+
+  const uid1 = 'ex-bar-' + Date.now();
+  const uid1log = 'ex-log-' + Date.now();
+  _exCard(`
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-blue-60);margin-bottom:8px;">CI Validation</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
+        <span id="${uid1}-lbl">Fetching config diff…</span><span id="${uid1}-pct">0%</span>
+      </div>
+      <div style="height:4px;background:var(--cds-layer-accent-01);border-radius:0;overflow:hidden;margin-bottom:10px;">
+        <div id="${uid1}" style="height:100%;background:var(--ibm-blue-60);border-radius:0;width:0%;transition:width 0.5s;"></div>
+      </div>
+      <div id="${uid1log}" style="background:#161616;border-radius:0;padding:8px 10px;font-family:'IBM Plex Mono','Courier New',monospace;font-size:11px;color:#a8b2c1;line-height:1.8;max-height:100px;overflow-y:auto;"></div>
+    </div>`);
+
+  const b1 = document.getElementById(uid1);
+  const l1 = document.getElementById(uid1log);
+  const l1lbl = document.getElementById(uid1 + '-lbl');
+  const l1pct = document.getElementById(uid1 + '-pct');
+
+  const t1 = [
+    { pct:20, lbl:'Validating threshold diff…',      logs:[[null,'[CI] Threshold: 20 Mbps → 61 Mbps']] },
+    { pct:50, lbl:'Checking RAM & interface bounds…', logs:[['ok','[CI] Interface: 61/100 Mbps — SAFE'],['ok','[CI] RAM +18 MB — within bounds']] },
+    { pct:80, lbl:'Schema & syntax check…',           logs:[['ok','[CI] Schema: PASS'],['ok','[CI] Zero-downtime verified']] },
+    { pct:100, lbl:'Pre-flight complete ✓',           logs:[['ok','[CI] ✓ All checks passed']] },
+  ];
+  for (const s of t1) {
+    l1lbl.textContent = s.lbl;
+    await _exAnimateBar(b1, s.pct, 500);
+    l1pct.textContent = s.pct + '%';
+    for (const [c,t] of s.logs) _exAddLog(l1, c, t);
+    await _exDelay(550);
+  }
+  b1.style.background = 'var(--ibm-green-50)';
+  await _exDelay(300);
+  _exMsg(`✅ Pre-flight passed — schema valid, zero-downtime confirmed`);
+
+  await _exDelay(1000);
+
+  // ── STEP 2: APPLY ───────────────────────────
+  _exTyping(); await _exDelay(700); _exHideTyping();
+  _exMsg(`<strong>② Apply</strong> — CR created, linked to Maintenance Window &amp; alarm suppression`);
+
+  const uid2 = 'ex-bar2-' + Date.now();
+  const uid2log = 'ex-log2-' + Date.now();
+  _exCard(`
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-purple-60);margin-bottom:8px;">Change Management</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
+        <span id="${uid2}-lbl">Creating Change Request…</span><span id="${uid2}-pct">0%</span>
+      </div>
+      <div style="height:4px;background:var(--cds-layer-accent-01);border-radius:0;overflow:hidden;margin-bottom:10px;">
+        <div id="${uid2}" style="height:100%;background:var(--ibm-purple-60);border-radius:0;width:0%;transition:width 0.5s;"></div>
+      </div>
+      <div id="${uid2log}" style="background:#161616;border-radius:0;padding:8px 10px;font-family:'IBM Plex Mono','Courier New',monospace;font-size:11px;color:#a8b2c1;line-height:1.8;max-height:100px;overflow-y:auto;"></div>
+    </div>`);
+
+  const b2 = document.getElementById(uid2);
+  const l2 = document.getElementById(uid2log);
+  const l2lbl = document.getElementById(uid2 + '-lbl');
+  const l2pct = document.getElementById(uid2 + '-pct');
+
+  const t2 = [
+    { pct:25, lbl:'Creating CR-2024-0147…',         logs:[['info','[CR] CR-2024-0147 created · linked to INC-8841']] },
+    { pct:50, lbl:'Scheduling Maintenance Window…',  logs:[['info','[MW] MW-2024-W42: 22:00–23:00 UTC scheduled']] },
+    { pct:70, lbl:'Enabling alarm suppression…',     logs:[['warn','[ALM] Alarm suppression ENABLED on INIBTPRTR-Edge-1']] },
+    { pct:90, lbl:'Updating SevOne Policy 67…',      logs:[['info','[SevOne] SET_THRESHOLD: Policy 67 → 61 Mbps…']] },
+    { pct:100, lbl:'Change applied ✓',               logs:[['ok','[SevOne] Policy 67: 20 → 61 Mbps — SUCCESS'],['ok','[Apply] ✓ Change applied']] },
+  ];
+  for (const s of t2) {
+    l2lbl.textContent = s.lbl;
+    await _exAnimateBar(b2, s.pct, 500);
+    l2pct.textContent = s.pct + '%';
+    for (const [c,t] of s.logs) _exAddLog(l2, c, t);
+    await _exDelay(600);
+  }
+  b2.style.background = 'var(--ibm-green-50)';
+  await _exDelay(300);
+  _exMsg(`✅ <strong>CR-2024-0147</strong> created &amp; approved · SevOne Policy 67 → 61 Mbps applied · alarm suppression active`);
+
+  await _exDelay(1000);
+
+  // ── STEP 3: MONITOR ─────────────────────────
+  _exTyping(); await _exDelay(700); _exHideTyping();
+  _exMsg(`<strong>③ Monitor</strong> — SevOne live verification &amp; closed-loop resolution`);
+
+  const uid3 = 'ex-bar3-' + Date.now();
+  const uid3log = 'ex-log3-' + Date.now();
+  _exCard(`
+    <div style="background:var(--cds-layer-02);border:1px solid var(--cds-border-subtle-01);border-radius:0;padding:12px 14px;font-size:12px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);margin-bottom:8px;">SevOne NPM · Live Stream</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--cds-text-secondary);margin-bottom:4px;">
+        <span id="${uid3}-lbl">Streaming telemetry…</span><span id="${uid3}-pct">0%</span>
+      </div>
+      <div style="height:4px;background:var(--cds-layer-accent-01);border-radius:0;overflow:hidden;margin-bottom:10px;">
+        <div id="${uid3}" style="height:100%;background:var(--ibm-green-50);border-radius:0;width:0%;transition:width 0.5s;"></div>
+      </div>
+      <div id="${uid3log}" style="background:#161616;border-radius:0;padding:8px 10px;font-family:'IBM Plex Mono','Courier New',monospace;font-size:11px;color:#a8b2c1;line-height:1.8;max-height:100px;overflow-y:auto;"></div>
+    </div>`);
+
+  const b3 = document.getElementById(uid3);
+  const l3 = document.getElementById(uid3log);
+  const l3lbl = document.getElementById(uid3 + '-lbl');
+  const l3pct = document.getElementById(uid3 + '-pct');
+
+  const t3 = [
+    { pct:25, lbl:'Verifying Policy 67 active…',          logs:[['ok','[SevOne] Policy 67: 61 Mbps — CONFIRMED'],['info','[SevOne] Traffic: 58.2 Mbps — no alarm']] },
+    { pct:55, lbl:'Confirming alarm noise eliminated…',    logs:[['ok','[ALM] Alarm noise: NORMAL — zero spikes'],['ok','[ALM] Suppression LIFTED — post-window']] },
+    { pct:80, lbl:'Auto-closing INC-8841 &amp; CR…',      logs:[['info','[SNOW] INC-8841 auto-closed'],['info','[SNOW] CR-2024-0147 closed']] },
+    { pct:100, lbl:'Closed-loop complete ✓',               logs:[['ok','[NI] Baseline recalibrated to 61 Mbps'],['ok','[Monitor] ✓ MTTR 3m 42s']] },
+  ];
+  for (const s of t3) {
+    l3lbl.textContent = s.lbl;
+    await _exAnimateBar(b3, s.pct, 500);
+    l3pct.textContent = s.pct + '%';
+    for (const [c,t] of s.logs) _exAddLog(l3, c, t);
+    await _exDelay(650);
+  }
+  await _exDelay(400);
+
+  // ── Resolution summary ───────────────────────
+  _exCard(`
+    <div style="background:var(--ibm-green-10);border:1.5px solid var(--ibm-green-30);border-radius:0;padding:14px 16px;font-size:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <div style="width:28px;height:28px;border-radius:0;background:var(--ibm-green-20);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        </div>
+        <span style="font-size:13px;font-weight:700;color:var(--ibm-green-70);">Closed-loop complete — zero service disruption</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 12px;margin-bottom:12px;">
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">MTTR</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">3 min 42 sec</div></div>
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Alarm noise</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">−98.4%</div></div>
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Downtime</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Zero</div></div>
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">Threshold</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">61 Mbps active</div></div>
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">INC-8841</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Auto-closed</div></div>
+        <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.32px;color:var(--ibm-green-60);">CR-2024-0147</div><div style="font-size:13px;font-weight:600;color:var(--ibm-green-70);">Closed</div></div>
+      </div>
+    </div>`);
+
+  // re-enable input
+  if (input) { input.disabled = false; input.placeholder = 'Ask about this remediation…'; }
 }
 
 function actApprove(i) {
@@ -2255,7 +2601,7 @@ function confirmApproveAction() {
     buildDiList();
     document.getElementById('diDetail').innerHTML = `
       <div class="di-empty">
-        <div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
         <div class="di-empty-title">All decisions resolved</div>
         <div class="di-empty-sub">System running autonomously. You will be notified when a decision is required.</div>
       </div>`;
@@ -2273,7 +2619,7 @@ function actReject(i) {
   document.getElementById('inboxBadge').textContent = DECISIONS.length;
   buildDiList();
   if (DECISIONS.length > 0) renderDecisionDetail(DECISIONS[0]);
-  else document.getElementById('diDetail').innerHTML = `<div class="di-empty"><div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div><div class="di-empty-title">Inbox clear</div><div class="di-empty-sub">System running silently.</div></div>`;
+  else document.getElementById('diDetail').innerHTML = `<div class="di-empty"><div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div><div class="di-empty-title">Inbox clear</div><div class="di-empty-sub">System running silently.</div></div>`;
   showToast('Decision rejected — system holding automated actions', 'orange');
 }
 
@@ -2401,10 +2747,10 @@ const RM_CASES = [
       rootCause: 'Connection leak in payment-service v2.3.9 under high-load conditions (>400 concurrent requests). Third-party ORM library not releasing connections on timeout.',
       confidence: '91%', blastRadius: 'payment-service only', affectedServices: 1, affectedSessions: 2300,
       timeline: [
-        { dot:'#ef4444', title:'Anomaly detected', desc:'Connection pool at 92% · Alert suppressed (auto-monitoring)', time:'14:03 UTC' },
+        { dot:'var(--ibm-red-60)', title:'Anomaly detected', desc:'Connection pool at 92% · Alert suppressed (auto-monitoring)', time:'14:03 UTC' },
         { dot:'#f59e0b', title:'Pattern matched', desc:'14 similar historical cases matched · confidence 91%', time:'14:04 UTC' },
-        { dot:'#ef4444', title:'Guardrail block', desc:'Auto-restart blocked by G-01 (freeze window) · escalated to human', time:'14:05 UTC' },
-        { dot:'#22c55e', title:'Human approved', desc:'Pool bump +50 approved · applied · connections stabilised at 340', time:'14:07 UTC' },
+        { dot:'var(--ibm-red-60)', title:'Guardrail block', desc:'Auto-restart blocked by G-01 (freeze window) · escalated to human', time:'14:05 UTC' },
+        { dot:'var(--ibm-green-50)', title:'Human approved', desc:'Pool bump +50 approved · applied · connections stabilised at 340', time:'14:07 UTC' },
       ]
     },
     ticket: { id:'NOC-4421', system:'ServiceNow', severity:'P1', title:'DB connection leak · payment-service v2.3.9', assignee:'Platform SRE Team', sla:'4h resolution', created:'14:06 UTC' },
@@ -2420,7 +2766,7 @@ const RM_CASES = [
       confidence: '87%', blastRadius: '1200 subscribers (no drop)', affectedServices: 2, affectedSessions: 1200,
       timeline: [
         { dot:'#f59e0b', title:'4th CRC burst detected', desc:'Port 7/4 · hardware degradation pattern confirmed', time:'Yesterday 11:22 UTC' },
-        { dot:'#22c55e', title:'Restart sequence applied', desc:'Sequence A→B→C · 1200 subs restored · 6 min recovery', time:'Yesterday 11:30 UTC' },
+        { dot:'var(--ibm-green-50)', title:'Restart sequence applied', desc:'Sequence A→B→C · 1200 subs restored · 6 min recovery', time:'Yesterday 11:30 UTC' },
         { dot:'#3b82f6', title:'Investigation opened', desc:'Hardware replacement recommended · L2 NOC notified', time:'Yesterday 12:00 UTC' },
       ]
     },
@@ -2437,7 +2783,7 @@ const RM_CASES = [
       confidence: '94%', blastRadius: 'SG-01 peering only', affectedServices: 1, affectedSessions: 0,
       timeline: [
         { dot:'#3b82f6', title:'MTU mismatch detected', desc:'SG-01 port 2/1 · fragmentation rate 0.3%', time:'2 days ago 08:44 UTC' },
-        { dot:'#22c55e', title:'Auto-analysis complete', desc:'Root cause identified · low urgency · ticket queued', time:'2 days ago 08:45 UTC' },
+        { dot:'var(--ibm-green-50)', title:'Auto-analysis complete', desc:'Root cause identified · low urgency · ticket queued', time:'2 days ago 08:45 UTC' },
       ]
     },
     ticket: { id:'NOC-4412', system:'ServiceNow', severity:'P3', title:'MTU align · SG-01 peering', assignee:'Network Ops', sla:'24h resolution', created:'2 days ago 08:46 UTC' },
@@ -2458,7 +2804,7 @@ function buildRmList() {
       <div class="rm-item-title">${c.title}</div>
       <div class="rm-item-footer">
         <span class="rm-stage-pill rm-stage-${c.stage}">${STAGE_NAMES[c.stage] || c.stage}</span>
-        <span style="font-size:10px;color:#9ca3af;">${c.priority} · ${c.agent}</span>
+        <span style="font-size:10px;color:var(--cds-text-secondary);">${c.priority} · ${c.agent}</span>
       </div>
     </div>
   `).join('');
@@ -2486,14 +2832,14 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#dc2626" stroke-width="1.4"/><path d="M8 5v3.5M8 10.5v.01" stroke="#dc2626" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-red-60)" stroke-width="1.4"/><path d="M8 5v3.5M8 10.5v.01" stroke="var(--ibm-red-60)" stroke-width="1.4" stroke-linecap="round"/></svg>
           Investigation · ${c.id}
         </div>
         <span class="rm-stage-pill rm-stage-invest" style="font-size:10px;">AI-driven</span>
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">Root cause</span><span class="rm-field-val" style="max-width:360px;text-align:left;">${inv.rootCause}</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Confidence</span><span class="rm-field-val" style="color:#16a34a;">${inv.confidence}</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Confidence</span><span class="rm-field-val" style="color:var(--ibm-green-60);">${inv.confidence}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Blast radius</span><span class="rm-field-val">${inv.blastRadius}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Affected services</span><span class="rm-field-val">${inv.affectedServices}</span></div>
         <div style="margin-top:14px;">
@@ -2522,7 +2868,7 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#d97706" stroke-width="1.4"/><path d="M5 7h6M5 9.5h4" stroke="#d97706" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#8e6a00" stroke-width="1.4"/><path d="M5 7h6M5 9.5h4" stroke="#8e6a00" stroke-width="1.3" stroke-linecap="round"/></svg>
           Ticket · ${tkt.id}
         </div>
         <span class="rm-stage-pill rm-stage-ticket" style="font-size:10px;">Auto + approve</span>
@@ -2531,7 +2877,7 @@ function renderRmDetail(c) {
         <div class="rm-field-row"><span class="rm-field-key">System</span><span class="rm-field-val">${tkt.system}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Ticket ID</span><span class="rm-field-val mono">${tkt.id}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Title</span><span class="rm-field-val" style="text-align:left;">${tkt.title}</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Severity</span><span class="rm-field-val" style="color:${tkt.severity==='P1'?'#dc2626':tkt.severity==='P2'?'#d97706':'#374151'};">${tkt.severity}</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Severity</span><span class="rm-field-val" style="color:${tkt.severity==='P1'?'var(--ibm-red-60)':tkt.severity==='P2'?'#8e6a00':'var(--cds-text-primary)'};">${tkt.severity}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Assigned to</span><span class="rm-field-val">${tkt.assignee}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">SLA target</span><span class="rm-field-val">${tkt.sla}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Created</span><span class="rm-field-val">${tkt.created}</span></div>
@@ -2553,13 +2899,13 @@ function renderRmDetail(c) {
       </div>
       <div class="rm-detail-card-body">
         <div class="rm-field-row"><span class="rm-field-key">CR ID</span><span class="rm-field-val mono">${c.cr.id}</span></div>
-        <div class="rm-field-row"><span class="rm-field-key">Risk rating</span><span class="rm-field-val" style="color:${c.cr.riskRating==='High'?'#dc2626':c.cr.riskRating==='Medium'?'#d97706':'#16a34a'};">${c.cr.riskRating}</span></div>
+        <div class="rm-field-row"><span class="rm-field-key">Risk rating</span><span class="rm-field-val" style="color:${c.cr.riskRating==='High'?'var(--ibm-red-60)':c.cr.riskRating==='Medium'?'#8e6a00':'var(--ibm-green-60)'};">${c.cr.riskRating}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Approver</span><span class="rm-field-val">${c.cr.approver}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Rollback plan</span><span class="rm-field-val" style="text-align:left;">${c.cr.rollbackPlan}</span></div>
         <div class="rm-field-row"><span class="rm-field-key">Maintenance window</span><span class="rm-field-val">${c.cr.window}</span></div>
       </div>
       <div class="rm-actions">
-        ${c.cr.status === 'Pending approval' ? `<button class="rm-act-btn rm-act-primary" onclick="showToast('CR-2024-0145 approved — proceeding to maintenance window','green')">Approve CR</button>` : `<span style="font-size:12px;color:#16a34a;padding:7px 0;">✓ CR Approved</span>`}
+        ${c.cr.status === 'Pending approval' ? `<button class="rm-act-btn rm-act-primary" onclick="showToast('CR-2024-0145 approved — proceeding to maintenance window','green')">Approve CR</button>` : `<span style="font-size:12px;color:var(--ibm-green-60);padding:7px 0;">✓ CR Approved</span>`}
         <button class="rm-act-btn rm-act-secondary" onclick="showToast('CR details opened','blue')">View full CR</button>
       </div>
     </div>` : '';
@@ -2568,7 +2914,7 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#7c3aed" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="var(--ibm-purple-60)" stroke-width="1.4"/><path d="M8 5v3l2 2" stroke="var(--ibm-purple-60)" stroke-width="1.3" stroke-linecap="round"/></svg>
           Maintenance Window
         </div>
         <span class="rm-stage-pill rm-stage-mw" style="font-size:10px;">AI-proposed</span>
@@ -2585,7 +2931,7 @@ function renderRmDetail(c) {
     <div class="rm-detail-card">
       <div class="rm-detail-card-header">
         <div class="rm-detail-card-title">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="#16a34a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-6" stroke="var(--ibm-green-50)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Deployment · Canary Strategy
         </div>
         <span class="rm-stage-pill rm-stage-deploy" style="font-size:10px;">In progress</span>
@@ -2600,7 +2946,7 @@ function renderRmDetail(c) {
         ${c.deploy.gates.map(g => `
           <div class="rm-field-row">
             <span class="rm-field-key">Gate ${g.pct}% traffic</span>
-            <span class="rm-field-val" style="color:${g.status==='passed'?'#16a34a':g.status==='active'?'#2563eb':'#9ca3af'};">
+            <span class="rm-field-val" style="color:${g.status==='passed'?'var(--ibm-green-60)':g.status==='active'?'var(--ibm-blue-60)':'var(--cds-text-secondary)'};">
               ${g.status==='passed'?'✓ Passed — error rate '+g.errorRate:g.status==='active'?'⏳ Observing (3 min gate)':'Pending'}
             </span>
           </div>
@@ -2652,7 +2998,7 @@ function simulateAlert() {
   alertIdx++;
   showToast(a.msg, a.type);
   // also add to health log
-  const dot = a.type === 'red' ? '#ef4444' : a.type === 'orange' ? '#d97706' : '#22c55e';
+  const dot = a.type === 'red' ? 'var(--ibm-red-60)' : a.type === 'orange' ? '#8e6a00' : 'var(--ibm-green-50)';
   const entry = { dot, msg:`<strong>Simulated alert</strong> — ${a.msg}`, time:'just now', channel: a.type !== 'green' ? 'Slack' : null };
   LOG_ENTRIES.unshift(entry);
   buildHpLog();
