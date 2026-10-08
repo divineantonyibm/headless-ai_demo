@@ -1009,6 +1009,65 @@
   /* section label */
   .sec-label { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); margin-bottom: var(--cds-spacing-03); }
 
+  /* ── workflow success popup ── */
+  .wf-success-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 9500;
+    background: rgba(22,22,22,0.55);
+    align-items: center; justify-content: center;
+  }
+  .wf-success-backdrop.open { display: flex; }
+  .wf-success-modal {
+    background: var(--cds-background); border-radius: 0;
+    width: 440px; max-width: 94vw;
+    border-top: 4px solid var(--ibm-green-50);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    animation: modalIn 0.13s cubic-bezier(0,0,0.38,0.9) forwards;
+    overflow: hidden;
+  }
+  .wf-success-header {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 20px 20px 16px;
+  }
+  .wf-success-icon {
+    width: 36px; height: 36px; border-radius: 0; flex-shrink: 0;
+    background: var(--ibm-green-10);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wf-success-heading { flex: 1; }
+  .wf-success-title { font-size: 1rem; font-weight: 600; color: var(--cds-text-primary); margin-bottom: 4px; line-height: 1.35; }
+  .wf-success-sub { font-size: 0.8125rem; color: var(--cds-text-secondary); line-height: 1.5; }
+  .wf-success-kv {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--cds-border-subtle-01);
+    border-top: 1px solid var(--cds-border-subtle-01);
+    border-bottom: 1px solid var(--cds-border-subtle-01);
+  }
+  .wf-success-kv-cell {
+    background: var(--cds-layer-01); padding: 12px 16px;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .wf-success-kv-label { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.32px; color: var(--cds-text-secondary); }
+  .wf-success-kv-val { font-size: 0.9375rem; font-weight: 600; color: var(--ibm-green-60); }
+  .wf-success-footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 14px 20px;
+  }
+  .wf-success-btn-next {
+    padding: 0 20px; height: 40px; border-radius: 0; border: none;
+    background: var(--ibm-green-50); color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
+    cursor: pointer; transition: background 0.1s;
+  }
+  .wf-success-btn-next:hover { background: #0e6027; }
+  .wf-success-btn-dismiss {
+    padding: 0 16px; height: 40px; border-radius: 0;
+    border: 1px solid var(--cds-border-strong-01); background: transparent;
+    color: var(--cds-text-primary);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.875rem;
+    cursor: pointer; transition: background 0.1s;
+  }
+  .wf-success-btn-dismiss:hover { background: var(--cds-background-hover); }
+
   /* ── scrollbar tweaks — cover all scrollable cols ── */
   .gr-wrap::-webkit-scrollbar, .hp-wrap::-webkit-scrollbar,
   .gr-drawer-body::-webkit-scrollbar, .hp-log-list::-webkit-scrollbar,
@@ -1022,6 +1081,30 @@
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
+
+<!-- Workflow Success Popup -->
+<div class="wf-success-backdrop" id="wfSuccessBackdrop">
+  <div class="wf-success-modal">
+    <div class="wf-success-header">
+      <div class="wf-success-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+      </div>
+      <div class="wf-success-heading">
+        <div class="wf-success-title" id="wfSuccessTitle">Workflow completed successfully</div>
+        <div class="wf-success-sub" id="wfSuccessSub">Closed-loop remediation complete — zero service disruption</div>
+      </div>
+    </div>
+    <div class="wf-success-kv" id="wfSuccessKv">
+      <div class="wf-success-kv-cell"><div class="wf-success-kv-label">MTTR</div><div class="wf-success-kv-val">3m 42s</div></div>
+      <div class="wf-success-kv-cell"><div class="wf-success-kv-label">Downtime</div><div class="wf-success-kv-val">Zero</div></div>
+      <div class="wf-success-kv-cell"><div class="wf-success-kv-label">Alarm noise</div><div class="wf-success-kv-val">−98.4%</div></div>
+    </div>
+    <div class="wf-success-footer">
+      <button class="wf-success-btn-dismiss" id="wfSuccessDismissBtn" onclick="closeWfSuccess()">Dismiss</button>
+      <button class="wf-success-btn-next" id="wfSuccessNextBtn" onclick="closeWfSuccessAndNext()">View next investigation →</button>
+    </div>
+  </div>
+</div>
 
 <!-- Guardrail Edit Drawer -->
 <div class="gr-drawer" id="grDrawer">
@@ -1691,12 +1774,16 @@
           </div>
         </div>
       </div>
-      <div class="dc-actions">
-        <button class="dc-act-btn dc-act-reject" onclick="actReject(0)">Reject</button>
-        <div class="dc-actions-right">
+      <div class="dc-actions" id="dcActionsBar">
+        <button class="dc-act-btn dc-act-reject" id="dcActReject" onclick="actReject(0)">Reject</button>
+        <div class="dc-actions-right" id="dcActionsRight">
           <button class="dc-act-btn dc-act-modify" onclick="actModify(0)">Modify &amp; approve</button>
           <button class="dc-act-btn dc-act-approve" onclick="actApprove(0)">Approve recommended</button>
         </div>
+        <button class="dc-act-btn" id="dcActPause" onclick="pauseWorkflow()"
+          style="display:none;margin-left:auto;background:var(--ibm-yellow-10);color:#8e6a00;border:1px solid var(--ibm-yellow-30);">
+          ⏸ Pause
+        </button>
       </div>
     </div>
           </div><!-- /di-detail-col -->
@@ -2264,12 +2351,16 @@ function renderDecisionDetail(d) {
         </div>` : ''}
       </div>
     </div>
-    <div class="dc-actions">
-      <button class="dc-act-btn dc-act-reject" onclick="actReject(${DECISIONS.indexOf(d)})">Reject</button>
-        <div class="dc-actions-right">
+    <div class="dc-actions" id="dcActionsBar">
+      <button class="dc-act-btn dc-act-reject" id="dcActReject" onclick="actReject(${DECISIONS.indexOf(d)})">Reject</button>
+      <div class="dc-actions-right" id="dcActionsRight">
         <button class="dc-act-btn dc-act-modify" onclick="actModify(${DECISIONS.indexOf(d)})">Modify &amp; approve</button>
         <button class="dc-act-btn dc-act-approve" onclick="actApprove(${DECISIONS.indexOf(d)})">Approve recommended</button>
       </div>
+      <button class="dc-act-btn" id="dcActPause" onclick="pauseWorkflow()"
+        style="display:none;margin-left:auto;background:var(--ibm-yellow-10);color:#8e6a00;border:1px solid var(--ibm-yellow-30);">
+        ⏸ Pause
+      </button>
     </div>
   </div>
   `;
@@ -2451,7 +2542,11 @@ function confirmPlanAction() {
   const dec  = DECISIONS[_planPopupDecIdx];
   const planTitle   = plan ? plan.title   : 'Recommended action';
   const planService = dec  ? dec.service  : 'payment-service · us-east-1';
-  _runExecutionInChat(planTitle, planService);
+
+  // Keep item visible during workflow; show success popup + next investigation after
+  _runExecutionInChat(planTitle, planService, function () {
+    _afterWorkflowComplete(dec);
+  });
 }
 
 /* ── Execution chat helpers ── */
@@ -2520,7 +2615,7 @@ function _exAddLog(logEl, cls, txt) {
   logEl.scrollTop = logEl.scrollHeight;
 }
 
-async function _runExecutionInChat(planTitle, planService) {
+async function _runExecutionInChat(planTitle, planService, onComplete) {
   // Open the chat panel and reset it
   const panel = document.getElementById('modifyChatPanel');
   const msgs  = document.getElementById('modifyChatMsgs');
@@ -2531,11 +2626,19 @@ async function _runExecutionInChat(planTitle, planService) {
   if (input) input.disabled = true;
   panel.classList.add('open');
 
-  // Also switch to Decision Inbox tab so the chat panel is visible
+  // Switch to Decision Inbox tab so the chat panel is visible
   document.querySelectorAll('.canvas-tab-content').forEach(t => t.classList.remove('active-tab'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-decision').classList.add('active-tab');
   document.querySelector('.nav-tab[onclick*="decision"]').classList.add('active');
+
+  // Hide action buttons and show Pause immediately (don't wait for re-render side effects)
+  const actReject = document.getElementById('dcActReject');
+  const actRight  = document.getElementById('dcActionsRight');
+  const pauseBtn  = document.getElementById('dcActPause');
+  if (actReject) actReject.style.display = 'none';
+  if (actRight)  actRight.style.display  = 'none';
+  if (pauseBtn)  pauseBtn.style.display  = '';
 
   await _exDelay(400);
 
@@ -2747,8 +2850,69 @@ async function _runExecutionInChat(planTitle, planService) {
       </div>
     </div>`);
 
-  // re-enable input
+  // Re-enable input, hide Pause button
   if (input) { input.disabled = false; input.placeholder = 'Ask about this remediation…'; }
+  if (pauseBtn) pauseBtn.style.display = 'none';
+
+  // Workflow complete — run post-completion cleanup if provided
+  if (typeof onComplete === 'function') onComplete();
+}
+
+function pauseWorkflow() {
+  showToast('Workflow paused — system holding at current step', 'orange');
+}
+
+/* ── workflow success popup ── */
+let _wfSuccessNextFn = null;
+
+function openWfSuccess(resolvedTitle, resolvedService, nextFn) {
+  _wfSuccessNextFn = nextFn;
+  document.getElementById('wfSuccessTitle').textContent = 'Workflow completed — ' + resolvedTitle;
+  document.getElementById('wfSuccessSub').textContent   = resolvedService + ' · Closed-loop remediation complete';
+  // Show "View next investigation" only when there are more items after removal
+  const hasNext = typeof nextFn === 'function';
+  document.getElementById('wfSuccessNextBtn').style.display = hasNext ? '' : 'none';
+  document.getElementById('wfSuccessDismissBtn').textContent = hasNext ? 'Dismiss' : 'Done';
+  document.getElementById('wfSuccessBackdrop').classList.add('open');
+}
+
+function closeWfSuccess() {
+  document.getElementById('wfSuccessBackdrop').classList.remove('open');
+  _wfSuccessNextFn = null;
+}
+
+function closeWfSuccessAndNext() {
+  document.getElementById('wfSuccessBackdrop').classList.remove('open');
+  const fn = _wfSuccessNextFn;
+  _wfSuccessNextFn = null;
+  if (typeof fn === 'function') fn();
+}
+
+/* ── shared post-workflow cleanup ── */
+function _afterWorkflowComplete(resolvedDecision) {
+  const removeIdx = DECISIONS.indexOf(resolvedDecision);
+  if (removeIdx !== -1) DECISIONS.splice(removeIdx, 1);
+  selectedDecision = 0;
+  document.getElementById('diBadge').textContent  = DECISIONS.length;
+  document.getElementById('inboxBadge').textContent = DECISIONS.length;
+
+  // nextFn: what to do when the user clicks "View next investigation"
+  const nextFn = DECISIONS.length > 0 ? function () {
+    buildDiList();
+    renderDecisionDetail(DECISIONS[0]);
+  } : function () {
+    buildDiList();
+    document.getElementById('diDetail').innerHTML = `
+      <div class="di-empty">
+        <div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <div class="di-empty-title">All decisions resolved</div>
+        <div class="di-empty-sub">System running autonomously. You will be notified when a decision is required.</div>
+      </div>`;
+  };
+
+  const label   = resolvedDecision ? resolvedDecision.title   : 'Recommended action';
+  const service = resolvedDecision ? resolvedDecision.service : 'payment-service';
+  openWfSuccess(label, service, nextFn);
 }
 
 function actApprove(i) {
@@ -2780,29 +2944,13 @@ function confirmDeploy() {
 function confirmApproveAction() {
   closeModal('approveModal');
   const d = DECISIONS[selectedDecision] || DECISIONS[0];
-  const planTitle = d ? d.options.find(o => o.recommended)?.title || d.title : 'Recommended action';
+  const planTitle   = d ? d.options.find(o => o.recommended)?.title || d.title : 'Recommended action';
   const planService = d ? d.service : 'payment-service';
 
-  // Remove the decision from the inbox
-  DECISIONS.splice(selectedDecision, 1);
-  selectedDecision = 0;
-  document.getElementById('diBadge').textContent = DECISIONS.length;
-  document.getElementById('inboxBadge').textContent = DECISIONS.length;
-  if (DECISIONS.length === 0) {
-    buildDiList();
-    document.getElementById('diDetail').innerHTML = `
-      <div class="di-empty">
-        <div class="di-empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ibm-green-50)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-        <div class="di-empty-title">All decisions resolved</div>
-        <div class="di-empty-sub">System running autonomously. You will be notified when a decision is required.</div>
-      </div>`;
-  } else {
-    buildDiList();
-    renderDecisionDetail(DECISIONS[0]);
-  }
-
-  // Run the same execution workflow in the chat panel
-  _runExecutionInChat(planTitle, planService);
+  // Keep the item visible during workflow; show success popup + next investigation after
+  _runExecutionInChat(planTitle, planService, function () {
+    _afterWorkflowComplete(d);
+  });
 }
 
 function actReject(i) {
